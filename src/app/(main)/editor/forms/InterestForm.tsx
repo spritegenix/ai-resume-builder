@@ -2,7 +2,6 @@ import { RichTextEditor } from "@/components/RichTextEditor";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,7 +29,7 @@ export default function InterestForm({
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
       if (!isValid) return;
-      setResumeData({ ...resumeData, others: values.others });
+      setResumeData({ ...resumeData, others: values.others || undefined });
     });
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
@@ -38,9 +37,11 @@ export default function InterestForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Interest / Hobbies</h2>
+        <h2 className="text-2xl font-semibold">
+          Interest / Hobbies / Awards / Trainings etc.
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Write Your Interest / Hobbies or AnyThing You Like
+          Add Anything you want like interests, hobbies, awards, trainings etc.
         </p>
       </div>
       <Form {...form}>
@@ -85,9 +86,6 @@ export default function InterestForm({
                     />
                   </div>
                 </FormControl>
-                <FormDescription>
-                  Describe what this resume is for.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

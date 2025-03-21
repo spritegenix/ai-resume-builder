@@ -5,7 +5,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { Badge } from "./ui/badge";
+import SocialMediaIconFinder from "./SocialMediaIconFinder";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -22,6 +22,10 @@ export default function ResumePreview({
 
   const { width } = useDimensions(containerRef);
 
+  const BaseFontSize = resumeData?.baseFontSize
+    ? `text-[${resumeData.baseFontSize}px]`
+    : "text-[10px]";
+
   return (
     <div
       className={cn(
@@ -31,7 +35,7 @@ export default function ResumePreview({
       ref={containerRef}
     >
       <div
-        className={cn("space-y-6 p-6", !width && "invisible")}
+        className={cn("space-y-6 p-6", BaseFontSize, !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -39,6 +43,8 @@ export default function ResumePreview({
         id="resumePreviewContent"
       >
         <PersonalInfoHeader resumeData={resumeData} />
+        {/* Summary */}
+        <Content text={resumeData.summary} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
@@ -58,6 +64,8 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     firstName,
     lastName,
     jobTitle,
+    portfolioLink,
+    socialLinks,
     city,
     country,
     phone,
@@ -76,52 +84,67 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="flex items-center gap-6">
-      {photoSrc && (
-        <Image
-          src={photoSrc}
-          width={100}
-          height={100}
-          alt="Author photo"
-          className="aspect-square object-cover"
-          style={{
-            borderRadius:
-              borderStyle === BorderStyles.SQUARE
-                ? "0px"
-                : borderStyle === BorderStyles.CIRCLE
-                  ? "9999px"
-                  : "10%",
-          }}
-        />
-      )}
-      <div className="space-y-2.5">
-        <div className="space-y-1">
-          <p
-            className="text-3xl font-bold"
+    <div className="grid grid-cols-2">
+      <div className="flex h-max gap-6">
+        {photoSrc && (
+          <Image
+            src={photoSrc}
+            width={100}
+            height={100}
+            alt="Author photo"
+            className="aspect-square h-[100px] w-[100px] object-cover object-top"
             style={{
-              color: colorHex,
+              borderRadius:
+                borderStyle === BorderStyles.SQUARE
+                  ? "0px"
+                  : borderStyle === BorderStyles.CIRCLE
+                    ? "9999px"
+                    : "10%",
             }}
-          >
-            {firstName} {lastName}
-          </p>
-          <p
-            className="font-medium"
-            style={{
-              color: colorHex,
-            }}
-          >
-            {jobTitle}
+          />
+        )}
+        <div className="flex h-[100px] flex-col justify-between">
+          <div>
+            <p
+              className="text-[2.4em] font-bold"
+              style={{
+                color: colorHex,
+              }}
+            >
+              {firstName} {lastName}
+            </p>
+            <p
+              className="text-[1.6em] font-medium"
+              style={{
+                color: colorHex,
+              }}
+            >
+              {jobTitle}
+            </p>
+          </div>
+          <p>
+            {city}
+            {city && country ? ", " : ""}
+            {country}
+            {(city || country) && (phone || email) ? " • " : ""}
+            {[phone, email].filter(Boolean).join(" • ")}
           </p>
         </div>
-        <p className="text-xs text-gray-500">
-          {city}
-          {city && country ? ", " : ""}
-          {country}
-          {(city || country) && (phone || email) ? " • " : ""}
-          {[phone, email].filter(Boolean).join(" • ")}
-        </p>
+      </div>
+      {/* Social Links  */}
+      <div>
+        <ContactLinks text={resumeData.phone} href={`tel:${resumeData.phone}`} />
       </div>
     </div>
+  );
+}
+
+function ContactLinks({ text, href }: { text: string | number | undefined; href: string | undefined }) {
+  return (
+    <a className="flex items-center gap-2">
+      <SocialMediaIconFinder url={href ? href : ""} className="" />
+      <p>{text}</p>
+    </a>
   );
 }
 
@@ -140,14 +163,14 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
       />
       <div className="break-inside-avoid space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-[1.2em] font-semibold"
           style={{
             color: colorHex,
           }}
         >
           Professional profile
         </p>
-        <div className="whitespace-pre-line text-sm">{summary}</div>
+        <div className="whitespace-pre-line">{summary}</div>
       </div>
     </>
   );
@@ -172,7 +195,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
       />
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-[1.2em] font-semibold"
           style={{
             color: colorHex,
           }}
@@ -182,7 +205,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
         {workExperiencesNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
             <div
-              className="flex items-center justify-between text-sm font-semibold"
+              className="flex items-center justify-between text-[1.2em] font-semibold"
               style={{
                 color: colorHex,
               }}
@@ -195,9 +218,12 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
                 </span>
               )}
             </div>
-            <p className="text-xs font-semibold">{exp.company}</p>
-            {/* <div className="whitespace-pre-line text-xs">{exp.description}</div> */}
-            <div dangerouslySetInnerHTML={{ __html: exp.description || "" }} className="whitespace-pre-line text-xs richTextEditorStyle" />
+            <p className="font-semibold">{exp.company}</p>
+            {/* <div className="whitespace-pre-line ">{exp.description}</div> */}
+            <div
+              dangerouslySetInnerHTML={{ __html: exp.description || "" }}
+              className="richTextEditorStyle whitespace-pre-line"
+            />
           </div>
         ))}
       </div>
@@ -224,7 +250,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
       />
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-[1.2em] font-semibold"
           style={{
             color: colorHex,
           }}
@@ -247,7 +273,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
                 </span>
               )}
             </div>
-            <p className="text-xs font-semibold">{edu.school}</p>
+            <p className="font-semibold">{edu.school}</p>
           </div>
         ))}
       </div>
@@ -270,7 +296,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
       />
       <div className="break-inside-avoid space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-[1.2em] font-semibold"
           style={{
             color: colorHex,
           }}
@@ -297,6 +323,19 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
           ))} */}
         </div>
       </div>
+    </>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Content({ text }: any) {
+  return (
+    <>
+      {text && (
+        <div className="break-inside-avoid space-y-3">
+          <div className="whitespace-pre-line">{text}</div>
+        </div>
+      )}
     </>
   );
 }

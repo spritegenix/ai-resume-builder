@@ -109,10 +109,12 @@ export async function saveResume(values: ResumeValues) {
             endDate: project.endDate ? new Date(project.endDate) : undefined,
           })),
         },
-        others: {
-          delete: true,
-          create: others ? { ...others } : undefined,
-        },
+        others: others ? {       
+          upsert: {
+            update:  { ...others },
+            create:  { ...others },
+          }, 
+        } : undefined,
       },
     });
   } else {
@@ -153,7 +155,7 @@ export async function saveResume(values: ResumeValues) {
           })),
         },
         others: {
-          create: others
+          create: others || undefined
         },
       },
     });

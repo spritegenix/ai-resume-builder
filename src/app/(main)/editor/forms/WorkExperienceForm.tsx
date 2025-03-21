@@ -125,6 +125,7 @@ export default function WorkExperienceForm({
                 append({
                   position: "",
                   company: "",
+                  jobLocation: "",
                   startDate: "",
                   endDate: "",
                   description: "",
@@ -194,9 +195,9 @@ function WorkExperienceItem({
         name={`workExperiences.${index}.position`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Job title</FormLabel>
+            <FormLabel>Job Role</FormLabel>
             <FormControl>
-              <Input {...field} autoFocus />
+              <Input {...field} placeholder="eg. Software Engineer" autoFocus />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -207,9 +208,22 @@ function WorkExperienceItem({
         name={`workExperiences.${index}.company`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Company</FormLabel>
+            <FormLabel>Company Name</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input {...field} placeholder="ABC Company Pvt. Ltd...." />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`workExperiences.${index}.jobLocation`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Job Location</FormLabel>
+            <FormControl>
+              <Input {...field} placeholder="City, Country" />
             </FormControl>
             <FormMessage />
           </FormItem>

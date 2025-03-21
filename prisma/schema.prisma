@@ -16,6 +16,7 @@ model Resume {
   photoUrl        String?
   colorHex        String           @default("#000000")
   borderStyle     String           @default("squircle")
+  baseFontSize    Int              @default(10)
   summary         String?
   firstName       String?
   lastName        String?
@@ -42,6 +43,7 @@ model WorkExperience {
   id          String    @id @default(cuid())
   position    String?
   company     String?
+  jobLocation String?
   startDate   DateTime?
   endDate     DateTime?
   description String?
@@ -94,9 +96,9 @@ model Certification {
   id          String   @id @default(cuid())
   title       String?
   description String?
+  link        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  link        String?
 
   resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId String
@@ -121,7 +123,7 @@ model Other {
   id     String @id @default(cuid())
   resume Resume @relation(fields: [id], references: [id], onDelete: Cascade)
 
-  title       String?
+  title       String?   
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

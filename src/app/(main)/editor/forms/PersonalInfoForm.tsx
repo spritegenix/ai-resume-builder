@@ -131,9 +131,9 @@ export default function PersonalInfoForm({
             name="jobTitle"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Job title</FormLabel>
+                <FormLabel>Resume Profile</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} placeholder="eg. Full Stack Developer" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -147,7 +147,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} placeholder="eg. New York" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -160,7 +160,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Country</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} placeholder="eg. United States" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -174,7 +174,7 @@ export default function PersonalInfoForm({
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input {...field} type="tel" />
+                  <Input {...field} type="tel" placeholder="eg. +(12)3-456-7890" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -187,7 +187,7 @@ export default function PersonalInfoForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" />
+                  <Input {...field} type="email" placeholder="eg. 6M0l0@example.com" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -203,7 +203,7 @@ export default function PersonalInfoForm({
                 <FormControl>
                   <Textarea
                     {...field}
-                    placeholder="e.g. Linkedin, GitHub, Twitter etc. profile links.."
+                    placeholder="e.g. Linkedin, GitHub, Twitter, profile links.."
                     onChange={(e) => {
                       const socials = e.target.value.split(",");
                       field.onChange(socials);
@@ -211,7 +211,7 @@ export default function PersonalInfoForm({
                   />
                 </FormControl>
                 <FormDescription>
-                  Separate each soical Link with a comma.
+                  Separate each social Link with a comma.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -225,7 +225,7 @@ export default function PersonalInfoForm({
               <FormItem>
                 <FormLabel>Portfolio Link</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" />
+                  <Input {...field} placeholder="eg. https://example.com" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -2,17 +2,18 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
 import { EditorFormProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { projectWorkSchema, ProjectWorkValues } from "@/lib/validation";
+import {
+  certificationSchema,
+  CertificationValues,
+} from "@/lib/validation";
 
 import {
   closestCenter,
@@ -37,18 +38,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
-import { RichTextEditor } from "@/components/RichTextEditor";
 import { Textarea } from "@/components/ui/textarea";
-import GenerateProjectButton from "./GenerateProjectButton";
 
-export default function ProjectsForm({
+export default function CertificationsForm({
   resumeData,
   setResumeData,
 }: EditorFormProps) {
-  const form = useForm<ProjectWorkValues>({
-    resolver: zodResolver(projectWorkSchema),
+  const form = useForm<CertificationValues>({
+    resolver: zodResolver(certificationSchema),
     defaultValues: {
-      projectWorks: resumeData.projectWorks || [],
+      certifications: resumeData.certifications || [],
     },
   });
 
@@ -57,20 +56,9 @@ export default function ProjectsForm({
       const isValid = await form.trigger();
       if (!isValid) return;
 
-      const projectWorks = values.projectWorks
-      ?.filter((pro) => pro !== undefined)
-      ?.map((pro) => ({
-        ...pro,
-        links: pro.links
-          ?.filter((pro) => pro !== undefined)
-          .map((pro) => pro.trim())
-          .filter((pro) => pro !== ""),
-      })) || []
-
       setResumeData({
         ...resumeData,
-        projectWorks:
-          projectWorks || [],
+        certifications: values.certifications?.filter((cer) => cer !== undefined) || [],
       });
     });
     return unsubscribe;
@@ -78,7 +66,7 @@ export default function ProjectsForm({
 
   const { fields, append, remove, move } = useFieldArray({
     control: form.control,
-    name: "projectWorks",
+    name: "certifications",
   });
 
   const sensors = useSensors(
@@ -102,9 +90,9 @@ export default function ProjectsForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Your Project Work</h2>
+        <h2 className="text-2xl font-semibold">Your Certificates</h2>
         <p className="text-sm text-muted-foreground">
-          Add your projects to your resume
+          Add your certificates to your resume
         </p>
       </div>
       <Form {...form}>
@@ -120,7 +108,7 @@ export default function ProjectsForm({
               strategy={verticalListSortingStrategy}
             >
               {fields.map((field, index) => (
-                <ProjectItem
+                <CertificationItem
                   id={field.id}
                   key={field.id}
                   index={index}
@@ -135,16 +123,13 @@ export default function ProjectsForm({
               type="button"
               onClick={() =>
                 append({
-                  company: "",
                   title: "",
-                  startDate: "",
-                  endDate: "",
                   description: "",
-                  links: [],
+                  link: "",
                 })
               }
             >
-              Add Projects
+              Add Certificate
             </Button>
           </div>
         </form>
@@ -153,19 +138,14 @@ export default function ProjectsForm({
   );
 }
 
-interface ProjectItemProps {
+interface CertificationItemProps {
   id: string;
-  form: UseFormReturn<ProjectWorkValues>;
+  form: UseFormReturn<CertificationValues>;
   index: number;
   remove: (index: number) => void;
 }
 
-function ProjectItem({
-  id,
-  form,
-  index,
-  remove,
-}: ProjectItemProps) {
+function CertificationItem({ id, form, index, remove }: CertificationItemProps) {
   const {
     attributes,
     listeners,
@@ -188,26 +168,19 @@ function ProjectItem({
       }}
     >
       <div className="flex justify-between gap-2">
-        <span className="font-semibold">Project Work {index + 1}</span>
+        <span className="font-semibold">Certificate {index + 1}</span>
         <GripHorizontal
           className="size-5 cursor-grab text-muted-foreground focus:outline-none"
           {...attributes}
           {...listeners}
         />
       </div>
-      <div className="flex justify-center">
-        <GenerateProjectButton
-          onProjectGenerated={(exp) =>
-            form.setValue(`projectWorks.${index}`, exp)
-          }
-        />
-      </div>
       <FormField
         control={form.control}
-        name={`projectWorks.${index}.title`}
+        name={`certifications.${index}.title`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Project title</FormLabel>
+            <FormLabel>Certificate Name</FormLabel>
             <FormControl>
               <Input {...field} autoFocus />
             </FormControl>
@@ -215,97 +188,31 @@ function ProjectItem({
           </FormItem>
         )}
       />
-            <FormField
-              control={form.control}
-              name={`projectWorks.${index}.links`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Project Related Links</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      placeholder="e.g. Deployed Link, Github Link,..."
-                      onChange={(e) => {
-                        const l = e.target.value.split(",");
-                        field.onChange(l);
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>Separate each link with a comma.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
       <FormField
         control={form.control}
-        name={`projectWorks.${index}.company`}
+        name={`certifications.${index}.link`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Company</FormLabel>
+            <FormLabel>Certificate Document Link</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input
+                {...field}
+                placeholder="e.g. https://example.com/documentId..."
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <div className="grid grid-cols-2 gap-3">
-        <FormField
-          control={form.control}
-          name={`projectWorks.${index}.startDate`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Start date</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="date"
-                  value={field.value?.slice(0, 10)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={`projectWorks.${index}.endDate`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>End date</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="date"
-                  value={field.value?.slice(0, 10)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-      <FormDescription>
-        Leave <span className="font-semibold">end date</span> empty if you are
-        currently working here.
-      </FormDescription>
       <FormField
         control={form.control}
-        name={`projectWorks.${index}.description`}
+        name={`certifications.${index}.description`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>What did you do?</FormLabel>
             <FormControl>
               <div className="overflow-hidden rounded-md border">
-                <RichTextEditor
-                  value={field.value || ""}
-                  onChange={(value) => {
-                    form.setValue(`projectWorks.${index}.description`, value, {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    });
-                  }}
-                />
+                <Textarea {...field} placeholder="Write something about what you Learn" />
               </div>
             </FormControl>
             <FormMessage />

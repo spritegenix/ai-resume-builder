@@ -41,6 +41,7 @@ export const workExperienceSchema = z.object({
       z.object({
         position: optionalString,
         company: optionalString,
+        jobLocation: optionalString,
         startDate: optionalString,
         endDate: optionalString,
         description: optionalString,
@@ -151,6 +152,7 @@ export const resumeSchema = z.object({
   ...summarySchema.shape,
   colorHex: optionalString,
   borderStyle: optionalString,
+  baseFontSize: z.number().min(10, "Must be at least 10").max(20, "Must be at most 20"),
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {

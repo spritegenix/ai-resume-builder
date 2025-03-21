@@ -36,6 +36,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     workExperiences: data.workExperiences.map((exp) => ({
       position: exp.position || undefined,
       company: exp.company || undefined,
+      jobLocation: exp.jobLocation || undefined,
       startDate: exp.startDate?.toISOString().split("T")[0],
       endDate: exp.endDate?.toISOString().split("T")[0],
       description: exp.description || undefined,
@@ -75,6 +76,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
       : undefined,
     borderStyle: data.borderStyle,
     colorHex: data.colorHex,
+    baseFontSize: data.baseFontSize,
     summary: data.summary || undefined,
   };
 };
