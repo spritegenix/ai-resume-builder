@@ -6,6 +6,8 @@ import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import SocialMediaIconFinder from "./SocialMediaIconFinder";
+import Link from "next/link";
+import { BiSolidMap } from "react-icons/bi";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -35,7 +37,7 @@ export default function ResumePreview({
       ref={containerRef}
     >
       <div
-        className={cn("space-y-6 p-6", BaseFontSize, !width && "invisible")}
+        className={cn("space-y-2 p-6", BaseFontSize, !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -103,10 +105,12 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
             }}
           />
         )}
-        <div className="flex h-[100px] flex-col justify-between">
-          <div>
+        <div
+          className={`flex ${photoSrc ? "h-[100px]" : ""} flex-col justify-between`}
+        >
+          <div className="my-auto">
             <p
-              className="text-[2.4em] font-bold"
+              className="text-[3em] font-bold"
               style={{
                 color: colorHex,
               }}
@@ -122,29 +126,54 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
               {jobTitle}
             </p>
           </div>
-          <p>
-            {city}
-            {city && country ? ", " : ""}
-            {country}
-            {(city || country) && (phone || email) ? " • " : ""}
-            {[phone, email].filter(Boolean).join(" • ")}
-          </p>
         </div>
       </div>
       {/* Social Links  */}
-      <div>
-        <ContactLinks text={resumeData.phone} href={`tel:${resumeData.phone}`} />
+      <div className="my-auto ml-auto">
+        <p className="flex items-center gap-1">
+          <BiSolidMap />
+          {city}
+          {city && country ? ", " : ""}
+          {country}
+        </p>
+        <ContactLinks
+          text={phone}
+          href={`tel:${phone}`}
+        />
+        <ContactLinks
+          text={email}
+          href={`mailto:${email}`}
+        />
+        {!!socialLinks &&
+          socialLinks.map((link) => (
+            <ContactLinks
+              key={link}
+              text={link.split("://")?.[1]}
+              href={link}
+            />
+          ))}
+        <ContactLinks text={"Portfolio"} href={portfolioLink} />
       </div>
     </div>
   );
 }
 
-function ContactLinks({ text, href }: { text: string | number | undefined; href: string | undefined }) {
+function ContactLinks({
+  text,
+  href,
+}: {
+  text: string | number | undefined;
+  href: string | undefined;
+}) {
   return (
-    <a className="flex items-center gap-2">
-      <SocialMediaIconFinder url={href ? href : ""} className="" />
-      <p>{text}</p>
-    </a>
+    <>
+      {text && (
+        <Link href={href ? href : "#"} className="flex items-center gap-1">
+          <SocialMediaIconFinder url={href ? href : ""} />
+          <p>{text}</p>
+        </Link>
+      )}
+    </>
   );
 }
 
@@ -331,6 +360,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
 function Content({ text }: any) {
   return (
     <>
+    
       {text && (
         <div className="break-inside-avoid space-y-3">
           <div className="whitespace-pre-line">{text}</div>

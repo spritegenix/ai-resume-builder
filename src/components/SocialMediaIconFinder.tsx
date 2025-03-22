@@ -1,13 +1,25 @@
 import React from "react";
-import { FaFacebook, FaGithub, FaInstagram, FaLink, FaLinkedin, FaPhone, FaYoutube } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { BiLogoGmail } from "react-icons/bi";
+import {
+  FaFacebook,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaPhoneAlt,
+  FaYoutube,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { ImLink } from "react-icons/im";
 
 interface SocialMediaIconFinderProps {
   url: string;
-  className: string;
+  className?: string;
 }
 
-const SocialMediaIconFinder: React.FC<SocialMediaIconFinderProps> = ({ url, className }) => {
+const SocialMediaIconFinder: React.FC<SocialMediaIconFinderProps> = ({
+  url,
+  className,
+}) => {
   // Function to detect the platform from the URL
   const detectPlatform = (url: string): string => {
     if (url.includes("tel:")) return "phone";
@@ -17,20 +29,23 @@ const SocialMediaIconFinder: React.FC<SocialMediaIconFinderProps> = ({ url, clas
     if (url.includes("linkedin.com")) return "linkedin";
     if (url.includes("youtube.com")) return "youtube";
     if (url.includes("github.com")) return "github";
-    return "generic"; // Default platform if none match
+    if (url.includes("gmail.com")) return "gmail";
+    return "generic"; 
   };
 
   // Function to return the respective icon
   const getIcon = (platform: string) => {
     switch (platform) {
       case "phone":
-        return <FaPhone className={`${className}`} />;
+        return <FaPhoneAlt className={`${className}`} />;
       case "facebook":
         return <FaFacebook className={`${className}`} />;
-        case "github":
+      case "github":
         return <FaGithub className={`${className}`} />;
+      case "gmail":
+        return <BiLogoGmail className={`${className}`} />;
       case "twitter":
-        return <FaSquareXTwitter className={`${className}`} />;
+        return <FaXTwitter className={`${className}`} />;
       case "instagram":
         return <FaInstagram className={`${className}`} />;
       case "linkedin":
@@ -38,7 +53,7 @@ const SocialMediaIconFinder: React.FC<SocialMediaIconFinderProps> = ({ url, clas
       case "youtube":
         return <FaYoutube className={`${className}`} />;
       default:
-        return <FaLink className={`${className}`} />;
+        return <ImLink className={`${className}`} />;
     }
   };
 
