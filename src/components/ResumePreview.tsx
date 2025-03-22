@@ -136,14 +136,8 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           {city && country ? ", " : ""}
           {country}
         </p>
-        <ContactLinks
-          text={phone}
-          href={`tel:${phone}`}
-        />
-        <ContactLinks
-          text={email}
-          href={`mailto:${email}`}
-        />
+        <ContactLinks text={phone} href={`tel:${phone}`} />
+        <ContactLinks text={email} href={`mailto:${email}`} />
         {!!socialLinks &&
           socialLinks.map((link) => (
             <ContactLinks
@@ -311,7 +305,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills, colorHex, borderStyle } = resumeData;
+  const { skills, colorHex } = resumeData;
 
   if (!skills?.length) return null;
 
@@ -360,7 +354,6 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
 function Content({ text }: any) {
   return (
     <>
-    
       {text && (
         <div className="break-inside-avoid space-y-3">
           <div className="whitespace-pre-line">{text}</div>
