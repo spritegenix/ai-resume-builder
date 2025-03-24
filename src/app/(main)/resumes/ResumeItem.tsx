@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 // import { useReactToPrint } from "react-to-print";
 import { deleteResume } from "./actions";
+import { env } from "@/env";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -40,12 +41,18 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   // });
   const reactToPrintFn = async () => {
     try {
-      const response = await fetch(`/api/generate-pdf?resumeId=${resume.id}`, {
+      const url = `${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}`;
+      const response = await fetch("/api/generate-pdf", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
       });
-
-      if (!response.ok) throw new Error("Failed to generate PDF");
+      if (!response.ok) throw new Error("Failed to download PDF");
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "resume.pdf";
+      link.click();
     } catch (error) {
       console.error("Print error:", error);
     }
@@ -71,9 +78,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
           </p>
         </Link>
-        <div
-          className="relative inline-block w-full"
-        >
+        <div className="relative inline-block w-full">
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}

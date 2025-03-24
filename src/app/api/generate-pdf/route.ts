@@ -1,34 +1,35 @@
-import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { resumeId } = Object.fromEntries(req.nextUrl.searchParams);
-    if (!resumeId) return NextResponse.json({ error: "Missing resumeId" }, { status: 400 });
+    const { url } = await req.json();
+
+    if (!url) {
+      return NextResponse.json({ error: "Missing URL parameter" }, { status: 400 });
+    }
 
     // Launch Puppeteer
     const browser = await puppeteer.launch();
 
     const page = await browser.newPage();
-    const resumeURL = `${process.env.NEXT_PUBLIC_BASE_URL}/resume/${resumeId}`;
-
-    // Load the resume page
-    await page.goto(resumeURL, { waitUntil: "networkidle0" });
+    await page.goto(url, { waitUntil: "networkidle0" });
 
     // Generate PDF
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
+      displayHeaderFooter: false,
+      margin: { top: "0px", bottom: "0px", left: "0px", right: "0px" },
     });
 
     await browser.close();
 
-    // Return the PDF as response
     return new NextResponse(pdfBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename=resume-${resumeId}.pdf`,
+        "Content-Disposition": 'attachment; filename="resume.pdf"',
       },
     });
   } catch (error) {
@@ -36,3 +37,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to generate PDF" }, { status: 500 });
   }
 }
+
