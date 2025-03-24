@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import BorderStyleButton from "./BorderStyleButton";
 import ColorPicker from "./ColorPicker";
+import FullScreenPreviewButton from "./FullScreenPreviewButton";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -31,6 +32,9 @@ export default function ResumePreviewSection({
           onChange={(borderStyle) =>
             setResumeData({ ...resumeData, borderStyle })
           }
+        />
+        <FullScreenPreviewButton
+          slug={resumeData.id || ""}
         />
       </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3">

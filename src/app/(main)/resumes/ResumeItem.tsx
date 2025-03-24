@@ -24,7 +24,7 @@ import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import { deleteResume } from "./actions";
 
 interface ResumeItemProps {
@@ -34,10 +34,22 @@ interface ResumeItemProps {
 export default function ResumeItem({ resume }: ResumeItemProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef,
-    documentTitle: resume.title || "Resume",
-  });
+  // const reactToPrintFn = useReactToPrint({
+  //   contentRef,
+  //   documentTitle: resume.title || "Resume",
+  // });
+  const reactToPrintFn = async () => {
+    try {
+      const response = await fetch(`/api/generate-pdf?resumeId=${resume.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) throw new Error("Failed to generate PDF");
+    } catch (error) {
+      console.error("Print error:", error);
+    }
+  };
 
   const wasUpdated = resume.updatedAt !== resume.createdAt;
 
@@ -59,8 +71,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
           </p>
         </Link>
-        <Link
-          href={`/editor?resumeId=${resume.id}`}
+        <div
           className="relative inline-block w-full"
         >
           <ResumePreview
@@ -69,7 +80,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
-        </Link>
+        </div>
       </div>
       <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
     </div>

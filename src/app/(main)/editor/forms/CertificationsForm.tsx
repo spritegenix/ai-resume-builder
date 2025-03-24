@@ -209,7 +209,7 @@ function CertificationItem({ id, form, index, remove }: CertificationItemProps) 
         name={`certifications.${index}.description`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>What did you do?</FormLabel>
+            <FormLabel>What did you Learn?</FormLabel>
             <FormControl>
               <div className="overflow-hidden rounded-md border">
                 <Textarea {...field} placeholder="Write something about what you Learn" />

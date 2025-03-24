@@ -26,8 +26,8 @@ export const steps: {
     component: ProjectsForm,
     key: "projects",
   },
-  { title: "Academics", component: EducationForm, key: "education" },
   { title: "Skills", component: SkillsForm, key: "skills" },
+  { title: "Academics", component: EducationForm, key: "education" },
   { title: "Certifications", component: CertificationsForm, key: "certification" },
   {
     title: "Summary",
