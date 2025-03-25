@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Menu = ({ navItemsArray, activeItemId, onItemClick }: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return navItemsArray?.map((item: any, index: number) => (
     <li key={item?.id} className="group relative transition-all">
       <Link

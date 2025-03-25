@@ -60,6 +60,7 @@ export default function LayoutClient({
         window.removeEventListener("scroll", controlNavbar);
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastScrollY, isMobileMenuOpen]);
 
   const handleNavItemClick = (itemId: string, href: string) => {
