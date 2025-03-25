@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingButton from "@/components/LoadingButton";
-import ResumePreview from "@/components/ResumePreview";
+import ResumePreview from "@/components/ResumeStyles/ResumePreview";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,11 +22,11 @@ import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
-import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 // import { useReactToPrint } from "react-to-print";
 import { deleteResume } from "./actions";
 import { env } from "@/env";
+import { Link } from "next-view-transitions";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -65,13 +65,15 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
-          className="inline-block w-full text-center"
+          className="inline-block w-full cursor-pointer text-center"
         >
-          <p className="line-clamp-1 font-semibold">
+          <p className="line-clamp-1 cursor-pointer font-semibold">
             {resume.title || "No title"}
           </p>
           {resume.description && (
-            <p className="line-clamp-2 text-sm">{resume.description}</p>
+            <p className="line-clamp-2 cursor-pointer text-sm">
+              {resume.description}
+            </p>
           )}
           <p className="text-xs text-muted-foreground">
             {wasUpdated ? "Updated" : "Created"} on{" "}
@@ -84,7 +86,10 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             contentRef={contentRef}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
+          <Link
+            href={`/editor?resumeId=${resume.id}`}
+            className="absolute inset-0"
+          />
         </div>
       </div>
       <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
@@ -174,7 +179,7 @@ function DeleteConfirmationDialog({
         <DialogHeader>
           <DialogTitle>Delete resume?</DialogTitle>
           <DialogDescription>
-            This will permanently delete this resume. This action cannot be
+            Are You Sure You Want To Delete This Resume? This action cannot be
             undone.
           </DialogDescription>
         </DialogHeader>

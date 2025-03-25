@@ -86,7 +86,8 @@ export default function EducationForm({
       <div className="space-y-1.5 text-center">
         <h2 className="text-2xl font-semibold">Education</h2>
         <p className="text-sm text-muted-foreground">
-          Add as many educations as you like.
+          Add as many educations as you like. You can leave any field blank, if
+          you do&apos;nt want to add in yor resume.
         </p>
       </div>
       <Form {...form}>
@@ -182,7 +183,11 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
           <FormItem>
             <FormLabel>Degree</FormLabel>
             <FormControl>
-              <Input {...field} placeholder="B.Tech, MBA, Polytechnic, ..." autoFocus />
+              <Input
+                {...field}
+                placeholder="B.Tech, MBA, Polytechnic, ..."
+                autoFocus
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -196,7 +201,10 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
           <FormItem>
             <FormLabel>Institution</FormLabel>
             <FormControl>
-              <Input {...field} placeholder="ABC College, XYZ University, ..." />
+              <Input
+                {...field}
+                placeholder="ABC College, XYZ University, ..."
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -238,7 +246,10 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
           <FormItem>
             <FormLabel>Stream</FormLabel>
             <FormControl>
-              <Input {...field} placeholder="Computer Science, Electronics, ..." />
+              <Input
+                {...field}
+                placeholder="Computer Science, Electronics, ..."
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -252,7 +263,10 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
           <FormItem>
             <FormLabel>Description</FormLabel>
             <FormControl>
-              <Textarea {...field} placeholder="Write something about your education" />
+              <Textarea
+                {...field}
+                placeholder="Write something about your education"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -1,7 +1,7 @@
 import React from "react";
 import prisma from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
-import ResumePreview from "@/components/ResumePreview";
+import ResumePreview from "@/components/ResumeStyles/ResumePreview";
 import { mapToResumeValues } from "@/lib/utils";
 import { Metadata } from "next";
 
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default async function FullScreenResumePreview({ params }: Props) {
-
   const resumeId = (await params).slug;
   const resumeToEdit = resumeId
     ? await prisma.resume.findUnique({
@@ -25,7 +24,7 @@ export default async function FullScreenResumePreview({ params }: Props) {
   const resumeData = resumeToEdit ? mapToResumeValues(resumeToEdit) : {};
   return (
     <>
-    <ResumePreview resumeData={resumeData} className="w-full" />
+      <ResumePreview resumeData={resumeData} className="w-full" />
     </>
   );
 }

@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "./SocialMediaIconFinder";
+import SocialMediaIconFinder from "../SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 
@@ -38,14 +38,18 @@ export default function ResumePreview({
       ref={containerRef}
     >
       <div
-        className={cn("space-y-2 p-6", BaseFontSize, !width && "invisible")}
+        className={cn("space-y-2 p-6 font-inter", BaseFontSize, !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData} />
+        {resumeData.photo ? (
+          <PersonalInfoHeader resumeData={resumeData} />
+        ) : (
+          <PersonalInfoHeader1 resumeData={resumeData} />
+        )}
         {/* Summary */}
         {resumeData.summary && (
           <>
@@ -74,13 +78,15 @@ export default function ResumePreview({
                   </span>
                   {exp.jobLocation && <span>{exp.jobLocation}</span>}
                 </div>
-                <div className="flex items-center justify-between text-[1.1em]">
-                  <span className="font-semibold italic">{exp.position}</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[1.1em] font-semibold italic">
+                    {exp.position}
+                  </span>
                   {exp.startDate && (
                     <span>
-                      {formatDate(exp.startDate, "MM/yyyy")} -{" "}
+                      {formatDate(exp.startDate, "MMM yyyy")} -{" "}
                       {exp.endDate
-                        ? formatDate(exp.endDate, "MM/yyyy")
+                        ? formatDate(exp.endDate, "MMM yyyy")
                         : "Present"}
                     </span>
                   )}
@@ -113,7 +119,7 @@ export default function ResumePreview({
                     </Link>
                     {!!item.links &&
                       item.links.map((l, index) => (
-                        <span key={index} className="mt-1">
+                        <span key={index} className="mr-1 mt-1">
                           <ContactLinks href={l} text={"NO_TEXT"} />
                         </span>
                       ))}
@@ -122,9 +128,9 @@ export default function ResumePreview({
                     {item.company && <span>{item.company}</span>}
                     {item.startDate && (
                       <span>
-                        {formatDate(item.startDate, "MM/yyyy")} -{" "}
+                        {formatDate(item.startDate, "MMM yyyy")} -{" "}
                         {item.endDate
-                          ? formatDate(item.endDate, "MM/yyyy")
+                          ? formatDate(item.endDate, "MMM yyyy")
                           : "Present"}
                       </span>
                     )}
@@ -167,9 +173,9 @@ export default function ResumePreview({
                   </span>{" "}
                   <span>
                     {edu.startDate &&
-                      `${formatDate(edu.startDate, "MM/yyyy")} -`}{" "}
+                      `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
                     {edu.endDate
-                      ? formatDate(edu.endDate, "MM/yyyy")
+                      ? formatDate(edu.endDate, "MMM yyyy")
                       : "Present"}
                   </span>
                 </p>
@@ -296,12 +302,14 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
       </div>
       {/* Social Links  */}
       <div className="my-auto ml-auto">
-        <p className="flex items-center gap-1">
-          <BiSolidMap />
-          {city}
-          {city && country ? ", " : ""}
-          {country}
-        </p>
+        {(city || country) && (
+          <p className="flex items-center gap-1">
+            <BiSolidMap />
+            {city}
+            {city && country ? ", " : ""}
+            {country}
+          </p>
+        )}
         <ContactLinks text={phone} href={`tel:${phone}`} />
         <ContactLinks text={email} href={`mailto:${email}`} />
         {!!socialLinks &&
@@ -312,7 +320,73 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
               href={link}
             />
           ))}
-        <ContactLinks text={"Portfolio"} href={portfolioLink} />
+        {portfolioLink && (
+          <ContactLinks text={"Portfolio"} href={portfolioLink} />
+        )}
+      </div>
+    </div>
+  );
+}
+function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
+  const {
+    firstName,
+    lastName,
+    jobTitle,
+    portfolioLink,
+    socialLinks,
+    city,
+    country,
+    phone,
+    email,
+    colorHex,
+  } = resumeData;
+
+  return (
+    <div className="mb-2">
+      <Link
+        href={resumeData.portfolioLink || "#"}
+        className="cursor-pointer text-center"
+      >
+        <p
+          className="text-[3em] font-bold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          {firstName} {lastName}
+        </p>
+        <p
+          className="text-[1.6em] font-medium"
+          style={{
+            color: colorHex,
+          }}
+        >
+          {jobTitle}
+        </p>
+      </Link>
+      {/* Social Links  */}
+      <div className="mx-auto flex max-w-xl flex-wrap justify-center gap-x-4">
+        {(city || country) && (
+          <p className="flex items-center gap-1">
+            <BiSolidMap />
+            {city}
+            {city && country ? ", " : ""}
+            {country}
+          </p>
+        )}
+        <ContactLinks text={phone} href={`tel:${phone}`} />
+        <ContactLinks text={email} href={`mailto:${email}`} />
+        {!!socialLinks &&
+          socialLinks.map((link) => (
+            <ContactLinks
+              key={link}
+              text={link.split("://")?.[1]}
+              href={link}
+            />
+          ))}
+        {portfolioLink && (
+          <ContactLinks text={"Portfolio"} href={portfolioLink} />
+        )}
       </div>
     </div>
   );

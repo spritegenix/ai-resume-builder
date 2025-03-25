@@ -5,7 +5,7 @@ import { Link } from "next-view-transitions";
 export default function FullScreenPreviewButton({ slug }: { slug: string }) {
   const Icon = ExternalLink;
   return (
-    <Button asChild variant="outline" size="icon" title="Change border style">
+    <Button asChild variant="outline" size="icon" title="Full Screen View">
       <Link href={slug ? `/resume/${slug}` : "#"} target="_blank">
         <Icon className="size-5" />
       </Link>

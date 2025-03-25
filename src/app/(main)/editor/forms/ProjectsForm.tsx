@@ -57,20 +57,20 @@ export default function ProjectsForm({
       const isValid = await form.trigger();
       if (!isValid) return;
 
-      const projectWorks = values.projectWorks
-      ?.filter((pro) => pro !== undefined)
-      ?.map((pro) => ({
-        ...pro,
-        links: pro.links
+      const projectWorks =
+        values.projectWorks
           ?.filter((pro) => pro !== undefined)
-          .map((pro) => pro.trim())
-          .filter((pro) => pro !== ""),
-      })) || []
+          ?.map((pro) => ({
+            ...pro,
+            links: pro.links
+              ?.filter((pro) => pro !== undefined)
+              .map((pro) => pro.trim())
+              .filter((pro) => pro !== ""),
+          })) || [];
 
       setResumeData({
         ...resumeData,
-        projectWorks:
-          projectWorks || [],
+        projectWorks: projectWorks || [],
       });
     });
     return unsubscribe;
@@ -104,7 +104,8 @@ export default function ProjectsForm({
       <div className="space-y-1.5 text-center">
         <h2 className="text-2xl font-semibold">Your Project Work</h2>
         <p className="text-sm text-muted-foreground">
-          Add your projects to your resume
+          Add your Projects to your resume. You can leave any field blank, if you
+          do&apos;nt want to add in yor resume.
         </p>
       </div>
       <Form {...form}>
@@ -160,12 +161,7 @@ interface ProjectItemProps {
   remove: (index: number) => void;
 }
 
-function ProjectItem({
-  id,
-  form,
-  index,
-  remove,
-}: ProjectItemProps) {
+function ProjectItem({ id, form, index, remove }: ProjectItemProps) {
   const {
     attributes,
     listeners,
@@ -215,27 +211,30 @@ function ProjectItem({
           </FormItem>
         )}
       />
-            <FormField
-              control={form.control}
-              name={`projectWorks.${index}.links`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Project Related Links</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      placeholder="e.g. Deployed Link, Github Link,..."
-                      onChange={(e) => {
-                        const l = e.target.value.split(",");
-                        field.onChange(l);
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>Separate each link with a comma.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      <FormField
+        control={form.control}
+        name={`projectWorks.${index}.links`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Project Related Links</FormLabel>
+            <FormControl>
+              <Textarea
+                {...field}
+                placeholder="e.g. Deployed Link, Github Link,..."
+                onChange={(e) => {
+                  const l = e.target.value.split(",");
+                  field.onChange(l);
+                }}
+              />
+            </FormControl>
+            <FormDescription>
+              Separate each link with a comma. First link will also attach to
+              Project Title.
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name={`projectWorks.${index}.company`}
