@@ -35,6 +35,7 @@ model Resume {
   projectWorks    ProjectWork[]
   certifications  Certification[]
   others          Other?
+  styleId         String?
 
   @@map("resumes")
 }

@@ -3,6 +3,7 @@ import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import ResumeEditor from "./ResumeEditor";
+import Layout from "@/components/layout/Layout";
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string }>;
@@ -28,5 +29,9 @@ export default async function Page({ searchParams }: PageProps) {
       })
     : null;
 
-  return <ResumeEditor resumeToEdit={resumeToEdit} />;
+  return (
+    <Layout>
+      <ResumeEditor resumeToEdit={resumeToEdit} />
+    </Layout>
+  );
 }

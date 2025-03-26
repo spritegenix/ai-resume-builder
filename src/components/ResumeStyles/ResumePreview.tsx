@@ -12,13 +12,11 @@ import { BiSolidMap } from "react-icons/bi";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
-  contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
 }
 
 export default function ResumePreview({
   resumeData,
-  contentRef,
   className,
 }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,11 +36,14 @@ export default function ResumePreview({
       ref={containerRef}
     >
       <div
-        className={cn("space-y-2 p-6 font-inter", BaseFontSize, !width && "invisible")}
+        className={cn(
+          "space-y-2 p-6 font-inter",
+          BaseFontSize,
+          !width && "invisible",
+        )}
         style={{
           zoom: (1 / 794) * width,
         }}
-        ref={contentRef}
         id="resumePreviewContent"
       >
         {resumeData.photo ? (
@@ -108,7 +109,9 @@ export default function ResumePreview({
                 <div className="!m-0 flex justify-between gap-1">
                   <p className="flex gap-1">
                     <Link
-                      href={item.links ? item.links[0] : "#"}
+                      href={
+                        !!item?.links && item?.links[0] ? item?.links[0] : "#"
+                      }
                       target="_blank"
                       className="text-[1.2em] font-semibold"
                       style={{
@@ -124,11 +127,14 @@ export default function ResumePreview({
                         </span>
                       ))}
                   </p>
-                  <p className="flex flex-col">
-                    {item.company && <span>{item.company}</span>}
+                  <p className="flex flex-col text-right">
+                    {item.company && (
+                      <span className="italic">{item.company}</span>
+                    )}
                     {item.startDate && (
                       <span>
-                        {formatDate(item.startDate, "MMM yyyy")} -{" "}
+                        {item.startDate &&
+                          `${formatDate(item.startDate, "MMM yyyy")} - `}
                         {item.endDate
                           ? formatDate(item.endDate, "MMM yyyy")
                           : "Present"}
@@ -193,7 +199,7 @@ export default function ResumePreview({
         {/* Certifications  */}
         {!!resumeData.certifications && (
           <>
-            <Heading colorHex={resumeData.colorHex}>Skills</Heading>
+            <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
             <div
               className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
             >
@@ -215,7 +221,7 @@ export default function ResumePreview({
         )}
         {/* Interest  */}
         {!!resumeData.others?.title && (
-          <>
+          <div className="!m-0 break-inside-avoid">
             <Heading colorHex={resumeData.colorHex}>
               {resumeData.others.title}
             </Heading>
@@ -225,7 +231,7 @@ export default function ResumePreview({
               }}
               className="richTextEditorStyle whitespace-pre-line"
             />
-          </>
+          </div>
         )}
       </div>
     </div>

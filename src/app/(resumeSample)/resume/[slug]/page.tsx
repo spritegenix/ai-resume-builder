@@ -24,6 +24,7 @@ export default async function FullScreenResumePreview({ params }: Props) {
   const resumeData = resumeToEdit ? mapToResumeValues(resumeToEdit) : {};
   return (
     <>
+    
       <ResumePreview resumeData={resumeData} className="w-full" />
     </>
   );

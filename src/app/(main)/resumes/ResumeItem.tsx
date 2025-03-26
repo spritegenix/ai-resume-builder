@@ -22,7 +22,7 @@ import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 // import { useReactToPrint } from "react-to-print";
 import { deleteResume } from "./actions";
 import { env } from "@/env";
@@ -33,12 +33,6 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  // const reactToPrintFn = useReactToPrint({
-  //   contentRef,
-  //   documentTitle: resume.title || "Resume",
-  // });
   const reactToPrintFn = async () => {
     try {
       const url = `${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}`;
@@ -83,7 +77,6 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
         <div className="relative inline-block w-full">
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
-            contentRef={contentRef}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
           <Link

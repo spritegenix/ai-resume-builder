@@ -153,6 +153,7 @@ export const resumeSchema = z.object({
   colorHex: optionalString,
   borderStyle: optionalString,
   baseFontSize: z.number().min(10, "Must be at least 10").max(20, "Must be at most 20").optional(),
+  styleId: optionalString,
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {

@@ -21,7 +21,7 @@ export default function Header({
     >
       {/* Desktop Section */}
       {/* Upper Nav  */}
-      <Wrapper className="flex w-full items-center justify-between py-1 max-md:hidden">
+      <Wrapper as={"nav"} className="flex w-full items-center justify-between py-1 max-md:hidden">
         {/* Logo with Link */}
         <Logo />
         <div className="flex items-center gap-3 md:gap-4">
@@ -56,7 +56,7 @@ export default function Header({
       </Wrapper>
       {/* -------------------------------------  */}
       {/* Mobile Section */}
-      <Wrapper className="flex w-full items-center justify-between gap-3 py-2 md:hidden">
+      <Wrapper as={"nav"} className="flex w-full items-center justify-between gap-3 py-2 md:hidden">
         {/* Logo with Link */}
         <Logo />
         <div className="flex items-center gap-x-4">
