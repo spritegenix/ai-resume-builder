@@ -18,7 +18,7 @@ interface ResumeEditorProps {
 
 export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   const searchParams = useSearchParams();
-
+  console.log(searchParams, searchParams.get("styleId"), searchParams.get("step"));
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
   );
@@ -30,12 +30,15 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   useUnloadWarning(hasUnsavedChanges);
 
   const currentStep = searchParams.get("step") || steps[0].key;
+  const currentStyleId = searchParams.get("styleId") || "1";
 
   function setStep(key: string) {
     const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("styleId", currentStyleId);
     newSearchParams.set("step", key);
+  
     window.history.pushState(null, "", `?${newSearchParams.toString()}`);
-  } 
+  }
 
   const FormComponent = steps.find(
     (step) => step.key === currentStep,

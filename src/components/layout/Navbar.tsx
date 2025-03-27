@@ -6,7 +6,6 @@ import { UserButton } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-// import Link from "next/link";
 import { Link } from "next-view-transitions";
 
 export default function Navbar() {

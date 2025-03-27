@@ -7,6 +7,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/stripe-webhook",
   "/api/generate-pdf",
   "/resume/(.*)",
+  "/templates",
 ]);
 
 export default clerkMiddleware(async (auth, request) => {

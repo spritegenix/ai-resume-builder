@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingButton from "@/components/LoadingButton";
-import ResumePreview from "@/components/ResumeStyles/ResumePreview";
+import ResumePreview from "@/components/ResumeStyles/ATSStyle1";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -58,7 +58,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
     <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-colors hover:border-border">
       <div className="space-y-3">
         <Link
-          href={`/editor?resumeId=${resume.id}`}
+          href={`/editor?resumeId=${resume.id}&styleId=${resume.styleId}`}
           className="inline-block w-full cursor-pointer text-center"
         >
           <p className="line-clamp-1 cursor-pointer font-semibold">
@@ -80,7 +80,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
           <Link
-            href={`/editor?resumeId=${resume.id}`}
+            href={`/editor?resumeId=${resume.id}&styleId=${resume.styleId}`}
             className="absolute inset-0"
           />
         </div>

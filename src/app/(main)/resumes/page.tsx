@@ -1,13 +1,14 @@
-import { canCreateResume } from "@/lib/permissions";
 import prisma from "@/lib/prisma";
 import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
-import CreateResumeButton from "./CreateResumeButton";
 import ResumeItem from "./ResumeItem";
 import Layout from "@/components/layout/Layout";
 import Wrapper from "@/components/Wrappers";
+import { Button } from "@/components/ui/button";
+import { Link } from "next-view-transitions";
+import { PlusSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Your Resumes",
@@ -20,7 +21,7 @@ export default async function Page() {
     return null;
   }
 
-  const [resumes, totalCount, subscriptionLevel] = await Promise.all([
+  const [resumes, totalCount] = await Promise.all([
     prisma.resume.findMany({
       where: {
         userId,
@@ -46,9 +47,13 @@ export default async function Page() {
             <h1 className="text-3xl font-bold">Your Resumes</h1>
             <p>Total: {totalCount}</p>
           </div>
-          <CreateResumeButton
-            canCreate={canCreateResume(subscriptionLevel, totalCount)}
-          />
+          <Button asChild className=" flex w-fit gap-2">
+        <Link href={`/templates`}>
+          <PlusSquare className="size-5" />
+          New Resumes
+        </Link>
+        {/* <CreateResumeButton canCreate={canCreateResume(subscriptionLevel, totalCount)} /> */}
+      </Button>
         </div>
         <div className="flex w-full grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">
           {resumes.map((resume) => (

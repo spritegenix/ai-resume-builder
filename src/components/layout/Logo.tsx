@@ -1,7 +1,7 @@
 // import { logoDark, logoWhite } from "@/assets";
 import { cn } from "@/lib/utils";
+import { Link } from "next-view-transitions";
 // import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 export default function Logo({

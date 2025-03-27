@@ -1,9 +1,13 @@
+import BackStyle1 from "@/components/backgroundStyle/BackStyle1";
+import Layout from "@/components/layout/Layout";
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <main className="flex h-screen items-center justify-center p-3">
-      <SignUp />
-    </main>
+   <BackStyle1 className="flex justify-center items-center py-8">
+      <Layout>
+        <SignUp />
+      </Layout>
+    </BackStyle1>
   );
 }

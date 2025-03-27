@@ -42,6 +42,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
             photo: undefined,
           }),
           id: resumeId,
+          styleId: searchParams.get("styleId") || "1",
         });
 
         setResumeId(updatedResume.id);
@@ -50,6 +51,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
         if (searchParams.get("resumeId") !== updatedResume.id) {
           const newSearchParams = new URLSearchParams(searchParams);
           newSearchParams.set("resumeId", updatedResume.id);
+          // newSearchParams.set("styleId", searchParams.get("styleId") || "1");
           window.history.replaceState(
             null,
             "",

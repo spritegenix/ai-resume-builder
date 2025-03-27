@@ -1,7 +1,7 @@
 import React from "react";
 import prisma from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
-import ResumePreview from "@/components/ResumeStyles/ResumePreview";
+import ResumePreview from "@/components/ResumeStyles/ATSStyle1";
 import { mapToResumeValues } from "@/lib/utils";
 import { Metadata } from "next";
 
@@ -24,7 +24,6 @@ export default async function FullScreenResumePreview({ params }: Props) {
   const resumeData = resumeToEdit ? mapToResumeValues(resumeToEdit) : {};
   return (
     <>
-    
       <ResumePreview resumeData={resumeData} className="w-full" />
     </>
   );

@@ -6,7 +6,7 @@ import ResumeEditor from "./ResumeEditor";
 import Layout from "@/components/layout/Layout";
 
 interface PageProps {
-  searchParams: Promise<{ resumeId?: string }>;
+  searchParams: Promise<{ resumeId?: string; styleId?: string }>;
 }
 
 export const metadata: Metadata = {
@@ -31,7 +31,9 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <Layout>
-      <ResumeEditor resumeToEdit={resumeToEdit} />
+      <ResumeEditor
+        resumeToEdit={resumeToEdit}
+      />
     </Layout>
   );
 }

@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ResumePreview({
+export default function ATSStyle1({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -61,7 +61,7 @@ export default function ResumePreview({
           </>
         )}
         {/* Experience */}
-        {!!resumeData.workExperiences && (
+        { !!resumeData?.workExperiences && resumeData?.workExperiences?.length > 0 && (
           <>
             <Heading colorHex={resumeData.colorHex}>
               Professional Experience
@@ -101,7 +101,7 @@ export default function ResumePreview({
           </>
         )}
         {/* Projects */}
-        {!!resumeData.projectWorks && (
+        {!!resumeData.projectWorks && resumeData.projectWorks?.length > 0 && (
           <>
             <Heading colorHex={resumeData.colorHex}>Project Work</Heading>
             {resumeData.projectWorks?.map((item, index) => (
@@ -151,7 +151,7 @@ export default function ResumePreview({
           </>
         )}
         {/* Skills  */}
-        {!!resumeData.skills && (
+        {!!resumeData.skills && resumeData.skills?.length > 0 && (
           <>
             <Heading colorHex={resumeData.colorHex}>Skills</Heading>
             {resumeData.skills?.map((skill, index) => (
@@ -168,7 +168,7 @@ export default function ResumePreview({
           </>
         )}
         {/* Academics */}
-        {!!resumeData.educations && (
+        {!!resumeData.educations && resumeData.educations?.length > 0 && (
           <>
             <Heading colorHex={resumeData.colorHex}>Academics</Heading>
             {resumeData.educations?.map((edu, index) => (
@@ -197,7 +197,7 @@ export default function ResumePreview({
           </>
         )}
         {/* Certifications  */}
-        {!!resumeData.certifications && (
+        {!!resumeData.certifications && resumeData.certifications?.length > 0 && (
           <>
             <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
             <div

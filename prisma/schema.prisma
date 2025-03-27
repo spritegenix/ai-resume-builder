@@ -52,7 +52,7 @@ model WorkExperience {
   updatedAt   DateTime  @updatedAt
 
   resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId String
+  resumeId String @default("1")
 
   @@map("work_experiences")
 }

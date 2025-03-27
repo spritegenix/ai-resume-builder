@@ -1,4 +1,4 @@
-import ResumePreview from "@/components/ResumeStyles/ResumePreview";
+// import ResumePreview from "@/components/ResumeStyles/ResumePreview";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import BorderStyleButton from "./BorderStyleButton";
@@ -20,19 +20,13 @@ export default function ResumePreviewSection({
   setResumeData,
   className,
 }: ResumePreviewSectionProps) {
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-    const currentStyleId = searchParams.get("resume-style") || resumeStyles[0].id;
-  
-    function setStep(key: string) {
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set("resume-style", key);
-      window.history.pushState(null, "", `?${newSearchParams.toString()}`);
-    } 
+  const currentStyleId = searchParams.get("styleId") || "pankaj-prajapat";
 
-    const ResumeStyleComponent = resumeStyles.find(
-      (step) => step.id === currentStyleId,
-    )?.component;
+  const ResumeStylePreview = resumeStyles.find(
+    (style) => style.id === currentStyleId,
+  )?.component;
 
   return (
     <div
@@ -55,16 +49,22 @@ export default function ResumePreviewSection({
         <DownloadButton resumeId={resumeData.id || ""} />
         <ShareButton resumeData={resumeData} />
       </div>
-      <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3">
-        <div className="relative">
-          <p className="absolute -left-6  top-[912px] w-24 text-nowrap border-t text-red-600 border-red-600 text-[10px]">
-            Next Page
-          </p>
-          <ResumePreview
+      <div className="relative flex w-full justify-center overflow-y-auto bg-secondary p-3">
+        <p className="absolute -left-6 top-[912px] w-24 text-nowrap border-t border-red-600 text-[10px] text-red-600">
+          Next Page
+        </p>
+        {/* <ResumePreview
+            resumeData={resumeData}
+            className="max-w-2xl shadow-md"
+          /> */}
+        {ResumeStylePreview ? (
+          <ResumeStylePreview
             resumeData={resumeData}
             className="max-w-2xl shadow-md"
           />
-        </div>
+        ): (
+          <div className="text-center">You need to select a resume style</div>
+        )}
       </div>
     </div>
   );
