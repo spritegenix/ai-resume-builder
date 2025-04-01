@@ -1,5 +1,6 @@
 "use client";
 
+import PremiumModal from "@/components/premium/PremiumModal";
 import { ResumeStyle } from "@/components/ResumeStyles/Styles";
 import usePremiumModal from "@/hooks/usePremiumModal";
 import { Link } from "next-view-transitions";
@@ -32,7 +33,7 @@ export default function TemplateCard({
   if (canCreate) {
     console.log("can create");
     return (
-      <Link href={`/editor?styleId=${style.id}`}>
+      <Link href={`/editor?&styleId=${style.id}`}>
         <div className="cursor-pointer">
           <Card style={style} />
         </div>
@@ -40,29 +41,33 @@ export default function TemplateCard({
     );
   }
 
-  console.log("cannot create");
   return (
-    <button
-      onClick={() => premiumModal.setOpen(true)}
-      className="w-full cursor-pointer"
-    >
-      <Card style={style} />
-    </button>
+    <>
+      <button
+        onClick={() => premiumModal.setOpen(true)}
+        className="w-full cursor-pointer"
+      >
+        <Card style={style} />
+      </button>
+      <PremiumModal />
+    </>
   );
 }
 
 export function Card({ style }: { style: ResumeStyle }) {
   return (
-    <div className="cursor-pointer border-2 border-webColor p-2 text-center transition-all duration-300 hover:border-black">
+    <div className="group relative cursor-pointer rounded-sm border-0 text-center transition-all duration-300 hover:border-2 hover:border-black">
       <Image
         src={style.samplePic}
         alt={style.name}
         width={650}
         height={650}
-        className="mb-2 border border-zinc-300 object-contain"
+        className="object-contain transition-all duration-500"
       />
-      <h2 className="text-xl font-medium">{style.name}</h2>
-      <p className="line-clamp-2 text-sm hover:line-clamp-none">{style.desc}</p>
+      <div className="absolute inset-x-0 top-0 z-10 flex h-0 flex-col items-center justify-center overflow-hidden bg-black/70 text-white transition-all duration-500 group-hover:h-32 group-hover:p-2">
+        <h2 className="text-xl font-medium">{style.name}</h2>
+        <p className="line-clamp-4 font-rubik text-sm">{style.desc}</p>
+      </div>
     </div>
   );
 }

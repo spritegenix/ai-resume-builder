@@ -9,11 +9,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing URL parameter" }, { status: 400 });
     }
 
-    // Launch Puppeteer
-    const browser = await puppeteer.launch();
+    // Launch Puppeteer with specific arguments to fix text selection
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
 
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
+    await page.evaluateHandle('document.fonts.ready');
+    
+    const loadedFonts = await page.evaluate(() =>
+      Array.from(document.fonts).map((f) => f.family)
+    );
+    console.log("Loaded Fonts:", loadedFonts);
+
 
     // Generate PDF
     const pdfBuffer = await page.pdf({

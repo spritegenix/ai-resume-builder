@@ -1,7 +1,6 @@
 "use client";
 
 import LoadingButton from "@/components/LoadingButton";
-import ResumePreview from "@/components/ResumeStyles/ATSStyle1";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,41 +20,38 @@ import { useToast } from "@/hooks/use-toast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
-import { MoreVertical, Printer, Trash2 } from "lucide-react";
+import {
+  ExternalLink,
+  MoreVertical,
+  Printer,
+  Share2,
+  Trash2,
+} from "lucide-react";
 import { useState, useTransition } from "react";
 // import { useReactToPrint } from "react-to-print";
 import { deleteResume } from "./actions";
-import { env } from "@/env";
 import { Link } from "next-view-transitions";
+import { usePrintPdf } from "@/hooks/usePrintPdf";
+import { RWebShare } from "react-web-share";
+import { env } from "@/env";
+import { resumeStyles } from "@/components/ResumeStyles/Styles";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const reactToPrintFn = async () => {
-    try {
-      const url = `${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}`;
-      const response = await fetch("/api/generate-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
-      if (!response.ok) throw new Error("Failed to download PDF");
-      const blob = await response.blob();
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "resume.pdf";
-      link.click();
-    } catch (error) {
-      console.error("Print error:", error);
-    }
-  };
+  const printPdf = usePrintPdf();
+  const currentStyleId = resume.styleId || "pankaj-prajapat";
 
   const wasUpdated = resume.updatedAt !== resume.createdAt;
 
+  const ResumeStylePreview = resumeStyles.find(
+    (style) => style.id === currentStyleId,
+  )?.component;
+
   return (
-    <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-colors hover:border-border">
+    <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-all duration-300 hover:border-border hover:bg-webColor">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}&styleId=${resume.styleId}`}
@@ -65,27 +61,35 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             {resume.title || "No title"}
           </p>
           {resume.description && (
-            <p className="line-clamp-2 cursor-pointer text-sm">
+            <p className="line-clamp-2 font-rubik cursor-pointer text-sm">
               {resume.description}
             </p>
           )}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs font-rubik text-muted-foreground">
             {wasUpdated ? "Updated" : "Created"} on{" "}
             {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
           </p>
         </Link>
         <div className="relative inline-block w-full">
-          <ResumePreview
-            resumeData={mapToResumeValues(resume)}
-            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
-          />
+          {ResumeStylePreview ? (
+            <ResumeStylePreview
+              resumeData={mapToResumeValues(resume)}
+              className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+            />
+          ) : (
+            <p>Corrupt File</p>
+          )}
           <Link
             href={`/editor?resumeId=${resume.id}&styleId=${resume.styleId}`}
             className="absolute inset-0"
           />
         </div>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
+      <MoreMenu
+        resumeId={resume.id}
+        resumeData={resume}
+        onPrintClick={() => printPdf(`${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}?&styleId=${resume.styleId}`)}
+      />
     </div>
   );
 }
@@ -93,9 +97,10 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 interface MoreMenuProps {
   resumeId: string;
   onPrintClick: () => void;
+  resumeData: ResumeServerData;
 }
 
-function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
+function MoreMenu({ resumeId, resumeData, onPrintClick }: MoreMenuProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   return (
@@ -111,12 +116,15 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem
-            className="flex items-center gap-2"
-            onClick={() => setShowDeleteConfirmation(true)}
-          >
-            <Trash2 className="size-4" />
-            Delete
+          <DropdownMenuItem asChild>
+            <Link
+              href={resumeData.id ? `/resume/${resumeData.id}?&styleId=${resumeData.styleId}` : "#"}
+              target="_blank"
+              className="flex items-center gap-2"
+            >
+              <ExternalLink className="size-4" />
+              Full Screen View
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2"
@@ -124,6 +132,28 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
           >
             <Printer className="size-4" />
             Print
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2">
+            <RWebShare
+              data={{
+                title: `${resumeData.firstName} ${resumeData.lastName}'s Resume`,
+                text: "Check out my resume!",
+                url: `${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}`,
+              }}
+              onClick={() => console.log("Shared successfully!")}
+            >
+              <div className="flex cursor-pointer items-center gap-2">
+                <Share2 className="size-4" />
+                Share
+              </div>
+            </RWebShare>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+            onClick={() => setShowDeleteConfirmation(true)}
+          >
+            <Trash2 className="size-4" />
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

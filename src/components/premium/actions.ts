@@ -13,11 +13,11 @@ export async function createCheckoutSession(priceId: string) {
     if (!user) {
       throw new Error("Unauthorized");
     }
-  
+
     // const stripeCustomerId = user.privateMetadata.stripeCustomerId as
     //   | string
     //   | undefined;
-  
+
     // const session = await stripe.checkout.sessions.create({
     //   line_items: [{ price: priceId, quantity: 1 }],
     //   mode: "subscription",
@@ -37,25 +37,25 @@ export async function createCheckoutSession(priceId: string) {
     //   },
     //   custom_text: {
     //     terms_of_service_acceptance: {
-    //       message: `I have read AI Resume Builder's [terms of service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them.`,
+    //       message: `I have read SimpliCV's [terms of service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them.`,
     //     },
     //   },
     //   consent_collection: {
     //     terms_of_service: "required",
     //   },
     // });
-  
+
     // if (!session.url) {
     //   throw new Error("Failed to create checkout session");
     // }
-  
+
     // return session.url;
-  
+
     await (
       await clerkClient()
     ).users.updateUserMetadata(user.id, {
       privateMetadata: {
-        stripeCustomerId: priceId ,   // free: 1, pro: 3, pro_plus: Infinity,
+        stripeCustomerId: priceId,   // free: 1, pro: 3, pro_plus: Infinity,
       },
     });
 
@@ -78,7 +78,7 @@ export async function createCheckoutSession(priceId: string) {
       },
     });
     return true;
-  
+
   } catch (error) {
     console.error("Error creating checkout session:", error);
     throw new Error("Failed to create checkout session.");

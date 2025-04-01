@@ -30,7 +30,7 @@ export default function ATSStyle1({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white text-black",
+        "aspect-[210/297] h-fit w-full bg-white text-zinc-900",
         className,
       )}
       ref={containerRef}
@@ -61,45 +61,46 @@ export default function ATSStyle1({
           </>
         )}
         {/* Experience */}
-        { !!resumeData?.workExperiences && resumeData?.workExperiences?.length > 0 && (
-          <>
-            <Heading colorHex={resumeData.colorHex}>
-              Professional Experience
-            </Heading>
-            {resumeData.workExperiences?.map((exp, index) => (
-              <div key={index} className="!m-0 break-inside-avoid">
-                <div className="!m-0 flex items-center justify-between">
-                  <span
-                    className="text-[1.2em] font-semibold"
-                    style={{
-                      color: resumeData.colorHex,
-                    }}
-                  >
-                    {exp.company}
-                  </span>
-                  {exp.jobLocation && <span>{exp.jobLocation}</span>}
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[1.1em] font-semibold italic">
-                    {exp.position}
-                  </span>
-                  {exp.startDate && (
-                    <span>
-                      {formatDate(exp.startDate, "MMM yyyy")} -{" "}
-                      {exp.endDate
-                        ? formatDate(exp.endDate, "MMM yyyy")
-                        : "Present"}
+        {!!resumeData?.workExperiences &&
+          resumeData?.workExperiences?.length > 0 && (
+            <>
+              <Heading colorHex={resumeData.colorHex}>
+                Professional Experience
+              </Heading>
+              {resumeData.workExperiences?.map((exp, index) => (
+                <div key={index} className="!m-0 break-inside-avoid">
+                  <div className="!m-0 flex items-center justify-between">
+                    <span
+                      className="text-[1.2em] font-semibold"
+                      style={{
+                        color: resumeData.colorHex,
+                      }}
+                    >
+                      {exp.company}
                     </span>
-                  )}
+                    {exp.jobLocation && <span>{exp.jobLocation}</span>}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[1.1em] font-semibold italic">
+                      {exp.position}
+                    </span>
+                    {exp.startDate && (
+                      <span>
+                        {formatDate(exp.startDate, "MMM yyyy")} -{" "}
+                        {exp.endDate
+                          ? formatDate(exp.endDate, "MMM yyyy")
+                          : "Present"}
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: exp.description || "" }}
+                    className="richTextEditorStyle whitespace-pre-line"
+                  />
                 </div>
-                <div
-                  dangerouslySetInnerHTML={{ __html: exp.description || "" }}
-                  className="richTextEditorStyle whitespace-pre-line"
-                />
-              </div>
-            ))}
-          </>
-        )}
+              ))}
+            </>
+          )}
         {/* Projects */}
         {!!resumeData.projectWorks && resumeData.projectWorks?.length > 0 && (
           <>
@@ -158,8 +159,10 @@ export default function ATSStyle1({
               <div key={index} className="!m-0 break-inside-avoid">
                 <div className="!m-0 flex items-center justify-between">
                   <p>
-                    <span className="font-semibold">{skill.title}</span> -{" "}
-                    <span>{skill.skillName?.join(", ")}</span>
+                    <span className="font-semibold">{skill.title}</span>
+                    {skill.skillName && skill.skillName.length > 0 && (
+                      <span>- {skill.skillName?.join(", ")}</span>
+                    )}
                   </p>
                 </div>
                 <p className="whitespace-pre-line"></p>
@@ -197,28 +200,29 @@ export default function ATSStyle1({
           </>
         )}
         {/* Certifications  */}
-        {!!resumeData.certifications && resumeData.certifications?.length > 0 && (
-          <>
-            <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
-            <div
-              className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
-            >
-              {resumeData.certifications?.map((skill, index) => (
-                <div key={index} className="!m-0 break-inside-avoid">
-                  <Link
-                    href={skill.link ? skill.link : "#"}
-                    className="before:mr-1 before:content-['•']"
-                  >
-                    {skill.title}
-                  </Link>{" "}
-                  {skill.description && (
-                    <span className="italic"> - {skill.description}</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        {!!resumeData.certifications &&
+          resumeData.certifications?.length > 0 && (
+            <>
+              <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
+              <div
+                className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
+              >
+                {resumeData.certifications?.map((skill, index) => (
+                  <div key={index} className="!m-0 break-inside-avoid">
+                    <Link
+                      href={skill.link ? skill.link : "#"}
+                      className="before:mr-1 before:content-['•']"
+                    >
+                      {skill.title}
+                    </Link>{" "}
+                    {skill.description && (
+                      <span className="italic"> - {skill.description}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         {/* Interest  */}
         {!!resumeData.others?.title && (
           <div className="!m-0 break-inside-avoid">
@@ -269,8 +273,8 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         {photoSrc && (
           <Image
             src={photoSrc}
-            width={100}
-            height={100}
+            width={500}
+            height={500}
             alt="Author photo"
             className="aspect-square h-[100px] w-[100px] object-cover object-top"
             style={{

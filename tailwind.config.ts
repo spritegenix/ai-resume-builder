@@ -12,6 +12,8 @@ export default {
 			fontFamily: {
 				teko: ["Teko", "sans-serif"],
 				inter: ["Inter", "sans-serif"],
+				styleScript: ["Style Script", "cursive"],
+				rubik: ["Rubik", "sans-serif"],
 			},
 			colors: {
 				background: 'hsl(var(--background))',

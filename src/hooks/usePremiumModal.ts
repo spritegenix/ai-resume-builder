@@ -7,7 +7,10 @@ interface PremiumModalState {
 
 const usePremiumModal = create<PremiumModalState>((set) => ({
   open: false,
-  setOpen: (open: boolean) => set({ open }),
+  setOpen: (open: boolean) => {
+    console.log("PremiumModal State Changed:", open);
+    set({ open });
+  },
 }));
 
 export default usePremiumModal;

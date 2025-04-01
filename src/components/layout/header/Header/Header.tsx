@@ -17,7 +17,7 @@ export default function Header({
   const { theme } = useTheme();
   return (
     <header
-      className={`fixed top-0 z-50 w-full bg-black transition-transform duration-300 ${show}`}
+      className={`fixed top-0 z-50 w-full bg-black transition-transform duration-300 font-teko ${show}`}
     >
       {/* Desktop Section */}
       {/* Upper Nav  */}

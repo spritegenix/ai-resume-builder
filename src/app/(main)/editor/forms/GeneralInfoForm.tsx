@@ -52,7 +52,11 @@ export default function GeneralInfoForm({
               <FormItem>
                 <FormLabel>Project Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Resume Purpose Title" autoFocus />
+                  <Input
+                    {...field}
+                    placeholder="Resume Purpose Title"
+                    autoFocus
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -65,10 +69,13 @@ export default function GeneralInfoForm({
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Short description about your resume" />
+                  <Input
+                    {...field}
+                    placeholder="Short description about your resume"
+                  />
                 </FormControl>
                 <FormDescription>
-                 This description will be added in Sharing Link.
+                  This description will be added in Sharing Link.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -76,6 +83,13 @@ export default function GeneralInfoForm({
           />
         </form>
       </Form>
+      <div className="!mt-3">
+        <h2 className="font-semibold">Note:</h2>
+        <ul className="list-inside list-disc text-sm text-muted-foreground">
+          <li>All fields are optional and can be left blank.</li>
+          <li>Some fields may not work according to your resume template.</li>
+        </ul>
+      </div>
     </div>
   );
 }

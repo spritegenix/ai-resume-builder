@@ -8,7 +8,7 @@ import BackStyle1 from "@/components/backgroundStyle/BackStyle1";
 export default function Home() {
   return (
     <Layout>
-      <BackStyle1 className="grid gap-5 py-8 md:grid-cols-2">
+      <BackStyle1 className="grid gap-5 py-8 font-teko md:grid-cols-2">
         <div className="my-auto space-y-3">
           <h1 className="scroll-m-20 text-4xl md:leading-[5rem] lg:text-[5rem]">
             Land Your Dream Job with a Winning Resume.
@@ -17,7 +17,7 @@ export default function Home() {
             Create a clean, concise, and ATS-optimized resume in minutes.
             Maximize your reach and get noticed by top recruiters.
           </h6>
-          <ul className="list-inside list-disc font-inter text-zinc-600 dark:text-zinc-400 max-sm:text-sm">
+          <ul className="list-inside list-disc font-rubik text-zinc-600 dark:text-zinc-400 max-sm:text-sm">
             <li>Built with smart design & formatting</li>
             <li>Optimized for modern job search platforms</li>
             <li>Increase your interview chances instantly</li>

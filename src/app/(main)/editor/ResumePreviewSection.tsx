@@ -8,6 +8,7 @@ import DownloadButton from "./DownloadButton";
 import ShareButton from "./ShareButton";
 import { resumeStyles } from "@/components/ResumeStyles/Styles";
 import { useSearchParams } from "next/navigation";
+import { env } from "@/env";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -27,7 +28,6 @@ export default function ResumePreviewSection({
   const ResumeStylePreview = resumeStyles.find(
     (style) => style.id === currentStyleId,
   )?.component;
-
   return (
     <div
       className={cn("group relative hidden w-full md:flex md:w-1/2", className)}
@@ -45,24 +45,24 @@ export default function ResumePreviewSection({
             setResumeData({ ...resumeData, borderStyle })
           }
         />
-        <FullScreenPreviewButton slug={resumeData.id || ""} />
-        <DownloadButton resumeId={resumeData.id || ""} />
+        <FullScreenPreviewButton
+          href={`/resume/${resumeData.id}?&styleId=${resumeData.styleId}`}
+        />
+        <DownloadButton
+          url={`${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}?&styleId=${resumeData.styleId}`}
+        />
         <ShareButton resumeData={resumeData} />
       </div>
       <div className="relative flex w-full justify-center overflow-y-auto bg-secondary p-3">
-        <p className="absolute -left-6 top-[912px] w-24 text-nowrap border-t border-red-600 text-[10px] text-red-600">
+        <p className="absolute left-0 w-24 text-nowrap border-t border-red-600 text-[10px] text-red-600 max-md:hidden md:top-[902px]">
           Next Page
         </p>
-        {/* <ResumePreview
-            resumeData={resumeData}
-            className="max-w-2xl shadow-md"
-          /> */}
         {ResumeStylePreview ? (
           <ResumeStylePreview
             resumeData={resumeData}
             className="max-w-2xl shadow-md"
           />
-        ): (
+        ) : (
           <div className="text-center">You need to select a resume style</div>
         )}
       </div>

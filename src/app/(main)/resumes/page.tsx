@@ -5,10 +5,12 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import ResumeItem from "./ResumeItem";
 import Layout from "@/components/layout/Layout";
-import Wrapper from "@/components/Wrappers";
 import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import { PlusSquare } from "lucide-react";
+import BackStyle2 from "@/components/backgroundStyle/BackStyle2";
+// import CreateResumeButton from "./CreateResumeButton";
+// import { canCreateResume } from "@/lib/permissions";
 
 export const metadata: Metadata = {
   title: "Your Resumes",
@@ -41,26 +43,26 @@ export default async function Page() {
 
   return (
     <Layout>
-      <Wrapper isTop2>
+      <BackStyle2>
         <div className="flex justify-between">
           <div>
             <h1 className="text-3xl font-bold">Your Resumes</h1>
             <p>Total: {totalCount}</p>
           </div>
-          <Button asChild className=" flex w-fit gap-2">
-        <Link href={`/templates`}>
-          <PlusSquare className="size-5" />
-          New Resumes
-        </Link>
-        {/* <CreateResumeButton canCreate={canCreateResume(subscriptionLevel, totalCount)} /> */}
-      </Button>
+          <Button asChild className="flex w-fit gap-2">
+            <Link href={`/templates`}>
+              <PlusSquare className="size-5" />
+              New Resumes
+            </Link>
+            {/* <CreateResumeButton canCreate={canCreateResume(subscriptionLevel, totalCount)} /> */}
+          </Button>
         </div>
         <div className="flex w-full grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">
           {resumes.map((resume) => (
             <ResumeItem key={resume.id} resume={resume} />
           ))}
         </div>
-      </Wrapper>
+      </BackStyle2>
     </Layout>
   );
 }

@@ -18,7 +18,7 @@ interface ResumeEditorProps {
 
 export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   const searchParams = useSearchParams();
-  console.log(searchParams, searchParams.get("styleId"), searchParams.get("step"));
+  // console.log(searchParams, searchParams.get("styleId"), searchParams.get("step"));
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
   );
@@ -46,18 +46,11 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
 
   return (
     <div className="flex h-screen grow flex-col pt-20">
-      <div className="space-y-1.5 border-b px-3 py-5 text-center">
-        <h1 className="text-2xl font-bold">Design your resume</h1>
-        <p className="text-muted-foreground">
-          Follow the steps below to create your resume. Your progress will be
-          saved automatically.
-        </p>
-      </div>
-      <main className="relative grow font-inter">
+      <main className="relative grow font-rubik">
         <div className="absolute bottom-0 top-0 flex w-full">
           <div
             className={cn(
-              "w-full space-y-6 overflow-y-auto p-3 md:block md:w-1/2",
+              "w-full space-y-6 overflow-y-auto px-3 md:block md:w-1/2",
               showSmResumePreview && "hidden",
             )}
           >

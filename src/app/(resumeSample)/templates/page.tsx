@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { canCreateResume } from "@/lib/permissions";
 import prisma from "@/lib/prisma";
 import TemplateCard from "./TemplateCard";
-import BackStyle1 from "@/components/backgroundStyle/BackStyle1";
+import BackStyle2 from "@/components/backgroundStyle/BackStyle2";
 
 export default async function TemplatesPage() {
   const { userId } = await auth();
@@ -22,11 +22,10 @@ export default async function TemplatesPage() {
       getUserSubscriptionLevel(userId),
     ]);
   }
-  console.log(userId, totalCount, subscriptionLevel);
   return (
     <Layout>
-      <BackStyle1>
-        <div className="flex w-full grid-cols-2 flex-col gap-2 sm:grid md:grid-cols-3 lg:grid-cols-4">
+      <BackStyle2>
+        <div className="flex w-full grid-cols-2 flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-3">
           {resumeStyles.map((style) => (
             <TemplateCard
               key={style.id}
@@ -40,7 +39,7 @@ export default async function TemplatesPage() {
             />
           ))}
         </div>
-      </BackStyle1>
+      </BackStyle2>
     </Layout>
   );
 }
