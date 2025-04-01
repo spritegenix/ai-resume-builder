@@ -122,6 +122,10 @@ body {
   outline: none;
 }
 
+.cl-rootBox{
+  font-family: "Rubik", sans-serif;
+}
+
 /* custom scrollbar  */
 ::-webkit-scrollbar {
   width: 4px;

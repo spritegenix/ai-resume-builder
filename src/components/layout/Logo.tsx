@@ -13,7 +13,7 @@ export default function Logo({
 }) {
   return (
     <Link
-      href="/"
+      href="/resumes"
       className={cn("flex cursor-pointer items-center gap-2", className)}
     >
       <Image
