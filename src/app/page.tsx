@@ -1,14 +1,14 @@
-import resumePreview from "@/assets/resume-preview.jpg";
 import image1 from "@/assets/about1.png";
 import check from "@/assets/check.png";
 import c1 from "@/assets/1.png";
 import c2 from "@/assets/2.png";
 import c3 from "@/assets/3.png";
 import c4 from "@/assets/4.png";
-import c5 from "@/assets/5.png";
-import c6 from "@/assets/6.png";
-import c7 from "@/assets/7.png";
+import c5 from "@/assets/5.gif";
+import c6 from "@/assets/6.gif";
+import c7 from "@/assets/7.gif";
 import testimonial from "@/assets/test.png";
+import banner from "@/assets/banner.png";
 
 import bg from "@/assets/texture.png";
 import hoverMe from "@/assets/hoverMe.png";
@@ -19,9 +19,7 @@ import { Link } from "next-view-transitions";
 import Layout from "@/components/layout/Layout";
 import Wrapper from "@/components/Wrappers";
 import { AutoTextLineBreak } from "@/components/TextWithLineBreak";
-import { IoMdCrop } from "react-icons/io";
-import { IoHelpBuoyOutline } from "react-icons/io5";
-import { LuBadgeIndianRupee, LuTriangleRight } from "react-icons/lu";
+import { LuBadgeIndianRupee } from "react-icons/lu";
 import BackStyle3 from "@/components/backgroundStyle/BackStyle3";
 import { cn } from "@/lib/utils";
 import { resumeStyles } from "@/components/ResumeStyles/Styles";
@@ -31,6 +29,7 @@ import prisma from "@/lib/prisma";
 import TemplateCard from "./(resumeSample)/templates/TemplateCard";
 import { canCreateResume } from "@/lib/permissions";
 import { PremiumCards } from "@/components/premium/PremiumModal";
+import Testimonials from "./_sections/Testimonials";
 
 export default function Home() {
   return (
@@ -40,16 +39,16 @@ export default function Home() {
       <Section2 />
       <Templates />
       <PricingPlans />
-      <Testimonials />
+      <TestimonialsSection />
     </Layout>
   );
 }
 
 function BannerSection() {
   return (
-    <BackStyle3 className="grid gap-5 py-16 font-inter md:grid-cols-2">
-      <div className="space-y-5">
-        <h2 className="flex items-center gap-1 rounded-full bg-w1/30 p-1 px-4 text-sm  text-white sm:w-max sm:text-pretty sm:text-base">
+    <BackStyle3 className="grid gap-5 lg:h-[90vh] py-8 md:py-16 font-inter md:grid-cols-2">
+      <div className="space-y-5 my-auto">
+        <h2 className="flex items-center gap-1 rounded-full bg-w1/30 p-1 px-4 text-sm text-white sm:w-max sm:text-pretty sm:text-base">
           <LuBadgeIndianRupee className="rounded-full bg-w1 p-1 text-3xl text-white" />{" "}
           Discover The Easiest ways to Build Your CV!
         </h2>
@@ -66,14 +65,19 @@ function BannerSection() {
           <li>Optimized for modern job search platforms</li>
           <li>Increase your interview chances instantly</li>
         </ul>
-        <div>
-          
-        </div>
         <Button className="!px-8 !py-2" asChild size="lg" variant="premium">
           <Link href="/resumes">Create Your CV</Link>
         </Button>
       </div>
-      <div className="flex items-center justify-center"></div>
+      <div className="flex items-center justify-center">
+        <Image
+          src={banner}
+          alt="resume preview"
+          width={800}
+          height={800}
+          className="h-[25rem] object-contain"
+        />
+      </div>
     </BackStyle3>
   );
 }
@@ -86,7 +90,7 @@ function Section1() {
         On-the-Fly Creative Resume and CV \n Builder ✍️ Across Your Favorite
         Tools
       </Title>
-      <div className="!mt-20 grid grid-cols-1 gap-20 md:grid-cols-3">
+      <div className="mt-10 md:!mt-20 grid grid-cols-1 gap-10 md:gap-20 md:grid-cols-3">
         <Card
           icon={c5}
           title="AI-Powered Resume \n Writing"
@@ -109,7 +113,7 @@ function Section1() {
 
 function Section2() {
   return (
-    <Wrapper className="bg-custom-gradient rounded-t-3xl py-16 font-inter">
+    <Wrapper className="bg-custom-gradient rounded-t-3xl py-16 font-inter px-3">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         <Image
           src={image1}
@@ -119,18 +123,18 @@ function Section2() {
           className="hidden w-full object-contain md:block"
         />
         <div className="space-y-5">
-          <SubTitle>Learn about us</SubTitle>
-          <Title>Remove Headache of Creating a Resume!</Title>
+          <SubTitle className="max-md:mx-auto">Learn about us</SubTitle>
+          <Title className="max-md:text-center">Remove Headache of Creating a Resume!</Title>
           <p>
             Struggling to create the perfect resume? Our AI-powered platform
             takes the stress out of resume writing, ensuring a professional,
             polished, and job-winning CV in minutes.
           </p>
-          <Button asChild size="lg" variant="premium">
+          <Button asChild size="lg" variant="premium" className="max-md:mx-auto">
             <Link href="/resumes">Create Your CV</Link>
           </Button>
         </div>
-        <ul className="list-none space-y-5 text-xl md:mt-8">
+        <ul className="list-none md:space-y-5 md:text-xl md:mt-8">
           {[
             "Proven CV Templates to increase Hiring Chance",
             "Creative and Clean Templates Design",
@@ -177,7 +181,7 @@ async function Templates() {
   return (
     <Wrapper
       bgImage={bg}
-      bgColor="bg-[#1d88ed]"
+      bgColor="bg-w3"
       className="relative space-y-5 py-16"
     >
       <Image
@@ -217,11 +221,11 @@ async function Templates() {
   );
 }
 
-function Testimonials() {
+function TestimonialsSection() {
   return (
     <Wrapper
       bgImage={bg}
-      bgColor="bg-[#1d88ed]"
+      bgColor="bg-w3"
       className="relative space-y-5 py-16"
     >
       <SubTitle className="mx-auto bg-white/40 text-white">
@@ -234,10 +238,10 @@ function Testimonials() {
         <Image
           src={testimonial}
           alt="Testimonials"
-          className="w-full object-contain hidden sm:block"
+          className="hidden w-full object-contain sm:block"
         />
-        <div className="col-span-2">
-
+        <div className="col-span-2 flex items-center">
+          <Testimonials />
         </div>
       </div>
     </Wrapper>
@@ -266,7 +270,7 @@ function SubTitle({
   return (
     <h2
       className={cn(
-        "w-max rounded-md bg-w2/20 px-4 py-1 text-center font-semibold text-w2",
+        "w-max rounded-md bg-w2/20 px-4 py-1 text-center font-semibold text-w3",
         className,
       )}
     >
@@ -286,7 +290,7 @@ function Title({
     <>
       <AutoTextLineBreak
         as={"h2"}
-        className={cn("text-4xl font-extrabold text-w3", className)}
+        className={cn("text-2xl md:text-4xl font-bold text-w3", className)}
       >
         {children}
       </AutoTextLineBreak>
@@ -306,11 +310,11 @@ function Card({
   return (
     <div className="space-y-5 text-center">
       <div className="mx-auto w-max rounded-lg bg-white p-3 shadow-lg">
-        <Image src={icon} alt="Resume Steps" className="w-16 object-contain" />
+        <Image src={icon} alt="Resume Steps" className="w-20 object-contain" />
       </div>
       <AutoTextLineBreak
         as={"h2"}
-        className="border-w2 text-3xl font-bold text-w3"
+        className="border-w2 text-xl md:text-3xl font-bold text-w3"
       >
         {title}
       </AutoTextLineBreak>
@@ -334,7 +338,7 @@ function Card1({
         <Image src={icon} alt="Resume Steps" className="w-16 object-contain" />
       </div>
       <p className="font-semibold">Step Num #{index}</p>
-      <p className="text-lg font-bold">{title}</p>
+      <p className="text-lg font-bold text-center">{title}</p>
     </div>
   );
 }

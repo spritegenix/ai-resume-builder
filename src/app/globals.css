@@ -81,7 +81,7 @@ body {
     @apply bg-background text-foreground;
   }
   .bg-custom-gradient {
-    background: linear-gradient(rgba(11, 119, 237, 0.25), transparent);
+    background: linear-gradient(rgba(19, 188, 201, 0.3), transparent);
   }
   .richTextEditorStyle {
     ul {

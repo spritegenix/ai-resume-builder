@@ -1,8 +1,6 @@
 import React, { ReactNode, ElementType } from "react";
 import Wrapper from "../Wrappers";
 import { cn } from "@/lib/utils";
-import t1 from "@/assets/texture1.svg"
-import Image from "next/image";
 
 interface WrapperProps {
   children: ReactNode;
