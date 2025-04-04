@@ -80,6 +80,9 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  .bg-custom-gradient {
+    background: linear-gradient(rgba(11, 119, 237, 0.25), transparent);
+  }
   .richTextEditorStyle {
     ul {
       @apply ml-3 list-disc;

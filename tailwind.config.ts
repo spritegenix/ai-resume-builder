@@ -49,6 +49,9 @@ export default {
 				webColor: {
 					DEFAULT: '#ffaa17',
 				},
+				w1: '#80e0ef',
+				w2: '#0c56db',
+				w3: '#193b65',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

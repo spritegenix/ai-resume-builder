@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Header from "./header/Header/Header";
+import Footer from "./footer/Footer";
 
 export default function LayoutClient({
   header1Data,
   headerStyle = 1,
   children,
+  footerStyle = false
 }: any) {
   const upperNavItems = header1Data?.upperNav;
   // Mobile Menu
@@ -83,7 +85,7 @@ export default function LayoutClient({
         />
       )}
       <main>{children}</main>
-      {/* {footerStyle == 1 && <Footer1 footerData={footerData} />} */}
+      {footerStyle && <Footer  />}
     </>
   );
 }

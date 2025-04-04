@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+import Image, { StaticImageData } from "next/image";
 import React, { ReactNode, ElementType } from "react";
 
 interface WrapperProps {
@@ -11,6 +13,7 @@ interface WrapperProps {
   as?: ElementType;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
+  bgImage?: StaticImageData;
 }
 
 export default function Wrapper({
@@ -22,14 +25,38 @@ export default function Wrapper({
   className = "",
   isMaxWidthChangeRequired = "max-w-screen-2xl",
   as: Component = "section",
+  bgImage,
   ...props
 }: WrapperProps) {
   return (
     <Component
-      className={`w-full px-3 xl:px-20 ${bgColor} ${containerClassName} font-teko ${isTop && "pt-[4.5rem] md:pt-36"} ${isTop2 && "pt-20"} `}
+      className={cn(
+        "w-full px-3 xl:px-20",
+        bgColor,
+        containerClassName,
+        "font-inter",
+        isTop && "pt-[4.5rem] md:pt-36",
+        isTop2 && "pt-20",
+        bgImage && "relative",
+      )}
       {...props}
     >
-      <div className={`mx-auto w-full ${isMaxWidthChangeRequired} ${className}`}>{children}</div>
+      {bgImage && (
+        <>
+          <Image
+            src={bgImage}
+            alt="Background-Image"
+            width={150}
+            height={150}
+            className="absolute inset-0 w-full"
+          />
+        </>
+      )}
+      <div
+        className={cn("mx-auto w-full", isMaxWidthChangeRequired, className)}
+      >
+        {children}
+      </div>
     </Component>
   );
 }

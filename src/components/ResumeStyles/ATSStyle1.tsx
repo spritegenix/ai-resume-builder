@@ -322,10 +322,10 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         )}
         <ContactLinks text={phone} href={`tel:${phone}`} />
         <ContactLinks text={email} href={`mailto:${email}`} />
-        {!!socialLinks &&
-          socialLinks.map((link) => (
+        {!!socialLinks && socialLinks.length > 0 &&
+          socialLinks.map((link, index) => (
             <ContactLinks
-              key={link}
+              key={index}
               text={link.split("://")?.[1]}
               href={link}
             />

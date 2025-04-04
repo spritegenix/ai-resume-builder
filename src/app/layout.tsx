@@ -2,11 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Teko } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import "./swiper.css";
 import { ViewTransitions } from "next-view-transitions";
 
-const teko = Teko({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "700", "300", "500", "600"],
 });
@@ -29,10 +30,10 @@ export default function RootLayout({
             async
           />
         </head> */}
-        <body className={`${teko.className} antialiased`}>
+        <body className={`${inter.className} antialiased`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
