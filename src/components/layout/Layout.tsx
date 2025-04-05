@@ -3,7 +3,7 @@ import LayoutClient from "./LayoutClient";
 import { header } from "@/data/layout";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Layout({ headerStyle = 1, footerStyle = 1, children }: any) {
+export default async function Layout({ headerStyle = 1,   footerStyle = false, children }: any) {
   const headerData = {
     upperNav: header?.upperNav,
   };
