@@ -27,21 +27,21 @@ function StyledCard({ data }: any) {
   );
 }
 
-  const testimonials = [
-    {
-      id: 1,
-      userName: "Pankaj Kumar",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur placeat, autem et tempora hic obcaecati ad ab unde magnam ipsa nihil eos possimus officiis non doloremque iure aliquid nemo libero aspernatur pariatur eligendi veniam deserunt amet.",
-      rating: 5,
-      designation: "Full Stack Web Developer",
-    },
-    {
-      id: 2,
-      userName: "Ashik",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur placeat, autem et tempora hic obcaecati ad ab unde magnam ipsa nihil eos possimus officiis non doloremque iure aliquid nemo libero aspernatur pariatur eligendi veniam deserunt amet.",
-      rating: 5,
-      designation: "Front Web Developer",
-    },
-  ];
+const testimonials = [
+  {
+    id: 1,
+    userName: "Pankaj Kumar",
+    review:
+      "This resume builder is a game-changer. The AI suggestions were incredibly helpful, and I landed more interviews within days. Highly recommend it to anyone job hunting!",
+    rating: 5,
+    designation: "Full Stack Web Developer",
+  },
+  {
+    id: 2,
+    userName: "Ashik",
+    review:
+      "Super easy to use and the templates are professional. I created a polished resume in under 10 minutes. It’s the best tool I’ve used so far.",
+    rating: 5,
+    designation: "Front-End Developer",
+  },
+];

@@ -26,6 +26,7 @@ export default function LayoutClient({
       if (window.scrollY > 200) {
         if (window.scrollY > lastScrollY && !isMobileMenuOpen) {
           setShow("-translate-y-[75px]");
+          
         } else {
           setShow("shadow-sm");
         }
@@ -85,7 +86,7 @@ export default function LayoutClient({
         />
       )}
       <main>{children}</main>
-      {footerStyle && <Footer  />}
+      {footerStyle===true && <Footer  />}
     </>
   );
 }

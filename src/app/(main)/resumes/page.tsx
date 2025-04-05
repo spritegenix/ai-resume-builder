@@ -8,7 +8,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import { PlusSquare } from "lucide-react";
-import BackStyle2 from "@/components/backgroundStyle/BackStyle2";
+import Wrapper from "@/components/Wrappers";
 // import CreateResumeButton from "./CreateResumeButton";
 // import { canCreateResume } from "@/lib/permissions";
 
@@ -43,7 +43,7 @@ export default async function Page() {
 
   return (
     <Layout>
-      <BackStyle2>
+      <Wrapper as={"footer"} bgColor="bg-w3 pattern3" >
         <div className="flex justify-between">
           <div>
             <h1 className="text-3xl font-bold">Your Resumes</h1>
@@ -62,7 +62,7 @@ export default async function Page() {
             <ResumeItem key={resume.id} resume={resume} />
           ))}
         </div>
-      </BackStyle2>
+      </Wrapper>
     </Layout>
   );
 }

@@ -56,7 +56,7 @@ export default function TemplateCard({
 
 export function Card({ style }: { style: ResumeStyle }) {
   return (
-    <div className="group relative cursor-pointer rounded-sm border-0 text-center transition-all duration-300 hover:border-2 hover:border-black">
+    <div className="group relative cursor-pointer rounded-sm border-0 text-center transition-all duration-300">
       <Image
         src={style.samplePic}
         alt={style.name}

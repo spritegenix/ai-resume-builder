@@ -33,7 +33,7 @@ import Testimonials from "./_sections/Testimonials";
 
 export default function Home() {
   return (
-    <Layout footer>
+    <Layout footerStyle>
       <BannerSection />
       <Section1 />
       <Section2 />
