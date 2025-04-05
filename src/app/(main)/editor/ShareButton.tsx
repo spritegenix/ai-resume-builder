@@ -10,7 +10,7 @@ export default function ShareButton({
 }: {
   resumeData: ResumeValues;
 }) {
-  const url = `${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}`;
+  const url = `${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}?styleId=${resumeData.styleId}`;
   return (
     <RWebShare
       data={{
