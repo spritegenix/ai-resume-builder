@@ -10,7 +10,7 @@ import c7 from "@/assets/7.gif";
 import testimonial from "@/assets/test.png";
 import banner from "@/assets/banner.png";
 
-import bg from "@/assets/texture.png";
+import bg from "@/assets/texture2.svg";
 import hoverMe from "@/assets/hoverMe.png";
 
 import { Button } from "@/components/ui/button";
@@ -113,7 +113,7 @@ function Section1() {
 
 function Section2() {
   return (
-    <Wrapper className="bg-custom-gradient rounded-t-3xl py-16 font-inter px-3">
+    <Wrapper className="bg-custom-gradient rounded-t-3xl py-8 md:py-16 font-inter px-3">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         <Image
           src={image1}
@@ -180,8 +180,7 @@ async function Templates() {
   }
   return (
     <Wrapper
-      bgImage={bg}
-      bgColor="bg-w3"
+      bgColor="pattern1 bg-w3"
       className="relative space-y-5 py-16"
     >
       <Image

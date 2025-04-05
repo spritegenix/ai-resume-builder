@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <Wrapper as={"footer"} bgColor="bg-w3" className="text-white">
-      <div className="flex flex-col py-10 justify-between sm:flex-row md:items-center">
-        <Logo />
-        <ul className="flex flex-col gap-5 sm:flex-row md:items-center">
+    <Wrapper as={"footer"} bgColor="bg-w3 pattern3" className="text-white" containerClassName="border-t border-white/50">
+      <div className="flex flex-col justify-between py-3 md:py-10 sm:flex-row md:items-center">
+        <Logo className="max-sm:pb-3" />
+        <ul className="flex  gap-5  md:items-center">
           <li>
             <Link href="/about-us">About</Link>
           </li>
@@ -24,8 +24,8 @@ export default function Footer() {
         </ul>
       </div>
       <hr className="border-white/50" />
-      <div className="flex flex-col py-2 justify-between sm:flex-row md:items-center">
-        <ul className="flex flex-col gap-5 sm:flex-row md:items-center">
+      <div className="flex flex-col justify-between py-2 sm:flex-row md:items-center">
+        <ul className="flex gap-5  md:items-center">
           <li>
             <Link href="/terms">Terms</Link>
           </li>

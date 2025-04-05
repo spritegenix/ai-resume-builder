@@ -1,7 +1,7 @@
 "use client";
 import Menu from "../Menu";
 
-import ThemeToggle from "@/components/ThemeToggle";
+// import ThemeToggle from "@/components/ThemeToggle";
 import { UserButton } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Wrapper from "@/components/Wrappers";
@@ -17,7 +17,7 @@ export default function Header({
   const { theme } = useTheme();
   return (
     <header
-      className={`fixed top-0 z-50 w-full bg-black transition-transform duration-300 font-teko ${show}`}
+      className={`fixed top-0 z-50 w-full bg-w3 transition-transform duration-300 font-teko ${show}`}
     >
       {/* Desktop Section */}
       {/* Upper Nav  */}
@@ -32,7 +32,7 @@ export default function Header({
               onItemClick={handleNavItemClick}
             />
           </ul>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <UserButton
             appearance={{
               baseTheme: theme === "dark" ? dark : undefined,
@@ -60,7 +60,7 @@ export default function Header({
         {/* Logo with Link */}
         <Logo />
         <div className="flex items-center gap-x-4">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <UserButton
             appearance={{
               baseTheme: theme === "dark" ? dark : undefined,

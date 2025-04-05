@@ -37,7 +37,7 @@ export default function Wrapper({
         "font-inter",
         isTop && "pt-[4.5rem] md:pt-36",
         isTop2 && "pt-20",
-        bgImage && "relative",
+        bgImage && "relative overflow-hidden",
       )}
       {...props}
     >
@@ -48,7 +48,7 @@ export default function Wrapper({
             alt="Background-Image"
             width={150}
             height={150}
-            className="absolute inset-0 w-full"
+            className="absolute inset-0 w-full object-cover"
           />
         </>
       )}

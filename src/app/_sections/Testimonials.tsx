@@ -7,20 +7,21 @@ import React from 'react'
 export default function Testimonials() {
   return (
     <Slider data={testimonials}
+    swiperButtonStyle="opacity-50 hover:opacity-100 transition-all duration-300 !top-[96%] max-md:!hidden"
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     renderItem={(item: any) => <StyledCard data={item} />}
-   />
+   /> 
   )
 }
 
 function StyledCard({ data }: any) {
   return (
-    <div className="space-y-3 rounded-lg border bg-white p-3 text-zinc-500">
+    <div className="space-y-3 rounded-lg border bg-white p-3">
       <StarRating rating={data.rating} className="text-yellow-500" />
-      <p>{data.review}</p>
-      <div>
-        <p>{data.userName}</p>
-        <p>{data.designation}</p>
+      <p className='italic text-w3 font-medium'>&quot;{data.review}&quot;</p>
+      <div className=''>
+        <p className='font-semibold text-w3'>{data.userName}</p>
+        <p className='text-sm text-zinc-500'>{data.designation}</p>
       </div>
     </div>
   );
