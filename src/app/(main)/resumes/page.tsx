@@ -43,9 +43,9 @@ export default async function Page() {
 
   return (
     <Layout>
-      <Wrapper as={"footer"} bgColor="bg-w3 pattern3" >
+      <Wrapper bgColor="bg-w3 pattern3 pb-20" isTop2>
         <div className="flex justify-between">
-          <div>
+          <div className="text-white">
             <h1 className="text-3xl font-bold">Your Resumes</h1>
             <p>Total: {totalCount}</p>
           </div>
