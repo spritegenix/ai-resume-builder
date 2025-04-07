@@ -13,3 +13,6 @@ export default function useDebounce<T>(value: T, delay: number = 250) {
 
   return debouncedValue;
 }
+
+// How To Use 
+// const debouncedResumeData = useDebounce(resumeData, 1500); 

@@ -100,7 +100,7 @@ function InputDialog({
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Something went wrong. Please try again.",
+        description: "Something went wrong. Please try again.",       
       });
     }
   }

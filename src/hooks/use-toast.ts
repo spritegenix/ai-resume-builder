@@ -193,3 +193,11 @@ function useToast() {
 }
 
 export { useToast, toast }
+
+// How to Use 
+// const { toast } = useToast()
+
+// toast({
+//   variant: "destructive",
+//   description: "Something went wrong. Please try again.",
+// });

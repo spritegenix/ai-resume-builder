@@ -17,11 +17,6 @@ export async function POST(req: NextRequest) {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
     await page.evaluateHandle('document.fonts.ready');
-    
-    const loadedFonts = await page.evaluate(() =>
-      Array.from(document.fonts).map((f) => f.family)
-    );
-    console.log("Loaded Fonts:", loadedFonts);
 
 
     // Generate PDF

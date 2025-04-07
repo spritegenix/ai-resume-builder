@@ -15,3 +15,7 @@ export default function useUnloadWarning(condition = true) {
     return () => window.removeEventListener("beforeunload", listener);
   }, [condition]);
 }
+
+
+// how to use 
+//  useUnloadWarning(hasUnsavedChanges);

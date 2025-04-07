@@ -37,3 +37,6 @@ export default function useDimensions(
 
   return dimensions;
 }
+
+// How to Use 
+  // const { width, height } = useDimensions(containerRef);

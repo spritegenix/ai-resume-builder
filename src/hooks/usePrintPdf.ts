@@ -11,12 +11,14 @@ export function usePrintPdf() {
 
             const blob = await response.blob();
             //--------- Download the PDF-----------//
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "resume.pdf";
-            link.click();
-            //--------- Print the PDF-----------//
-            // const pdfUrl = URL.createObjectURL(blob);
+            // const link = document.createElement("a");
+            // link.href = URL.createObjectURL(blob);
+            // link.download = "resume.pdf";
+            // link.click();
+            // //--------- Print the PDF-----------//
+            const pdfUrl = URL.createObjectURL(blob);
+            console.log("PDF URL:", pdfUrl);
+            window.open(pdfUrl, "_blank");
             // Create an iframe, set the PDF as source, and trigger the print dialog
             // const iframe = document.createElement("iframe");
             // iframe.style.display = "none";
