@@ -1,5 +1,10 @@
-import puppeteer from "puppeteer";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+import puppeteer, { type Browser } from "puppeteer";
+import puppeteerCore, { type Browser as BrowserCore } from "puppeteer-core";
+import chromium from "@sparticuz/chromium-min";
+
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,26 +14,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing URL parameter" }, { status: 400 });
     }
 
-    // Launch Puppeteer with specific arguments to fix text selection
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    let browser: Browser | BrowserCore;
+
+    if (process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production") {
+      const executablePath = await chromium.executablePath(
+        "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
+      );
+
+      browser = await puppeteerCore.launch({
+        executablePath,
+        args: chromium.args,
+        headless: chromium.headless,
+        defaultViewport: chromium.defaultViewport,
+      });
+    } else {
+        // ✅ Local dev — uses regular puppeteer
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+    }
 
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
-    await page.evaluateHandle('document.fonts.ready');
+    // await page.evaluateHandle("document.fonts.ready");
 
-    await page.evaluate(() =>
-      Array.from(document.fonts).map((f) => f.family)
-    );
-    // console.log("Loaded Fonts:", loadedFonts);
-
-
-    // Generate PDF
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
-      displayHeaderFooter: false,
       margin: { top: "0px", bottom: "0px", left: "0px", right: "0px" },
     });
 
@@ -42,8 +55,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("PDF Generation Error:", error);
-    return NextResponse.json({ error: "Failed to generate PDF" }, { status: 500 });
+    console.error("PDF generation error:", error);
+    return NextResponse.json({ message: "Error generating PDF" }, { status: 500 });
   }
 }
-
