@@ -1,34 +1,61 @@
+
+// import { useEffect, useState } from "react";
+import { useToast } from "./use-toast";
+import { usePdfGeneratingModalState } from "@/components/GeneratingPdfModal";
+
 export function usePrintPdf() {
-    return async (url: string) => {
+    // const [pdfLink, setPdfLink] = useState<string | null>(null);
+    const { setOpen } = usePdfGeneratingModalState()
+    const { toast } = useToast();
+
+    // useEffect(() => {
+    //     if (pdfLink) {
+    //         window.open(pdfLink, "_blank");
+    //     }
+    // }, [pdfLink]);
+    async function handlePrintPdf(url: string) {
+        setOpen(true);
         try {
             const response = await fetch("/api/generate-pdf", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({ url }),
             });
 
-            if (!response.ok) throw new Error("Failed to generate PDF");
+            if (!response.ok) {
+                throw new Error("Failed to generate PDF");
+            }
 
             const blob = await response.blob();
-            //--------- Download the PDF-----------//
+            const pdfUrl = URL.createObjectURL(blob);
+            // setPdfLink(pdfUrl);
+           window.open(pdfUrl, "_self");
+            // if (!newTab) {
+            //     throw new Error("Popup blocked. Please allow popups for this site.");
+            // }
+    
+            // Clean up after a short delay
+            setTimeout(() => URL.revokeObjectURL(pdfUrl), 10000);
+            console.log(pdfUrl)
+            setOpen(false);
+            //--------- Open the PDF in a new tab -----------//
+            // window.open(pdfUrl, "_blank");
+            //--------- Download the PDF -----------//
             // const link = document.createElement("a");
-            // link.href = URL.createObjectURL(blob);
+            // link.href = pdfUrl;
             // link.download = "resume.pdf";
             // link.click();
-            // //--------- Print the PDF-----------//
-            const pdfUrl = URL.createObjectURL(blob);
-            console.log("PDF URL:", pdfUrl);
-            window.open(pdfUrl, "_blank");
-            // Create an iframe, set the PDF as source, and trigger the print dialog
-            // const iframe = document.createElement("iframe");
-            // iframe.style.display = "none";
-            // iframe.src = pdfUrl;
-            // document.body.appendChild(iframe);
-            // iframe.onload = () => {
-            //     iframe.contentWindow?.print();
-            // };
         } catch (error) {
             console.error("Print error:", error);
+            setOpen(false);
+            toast({
+                variant: "destructive",
+                description: "Something went wrong. Please try again.",
+            });
         }
-    };
+    }
+
+    return handlePrintPdf;
 }

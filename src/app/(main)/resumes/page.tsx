@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import { PlusSquare } from "lucide-react";
 import Wrapper from "@/components/Wrappers";
+import GeneratingPdfModal from "@/components/GeneratingPdfModal";
 // import CreateResumeButton from "./CreateResumeButton";
 // import { canCreateResume } from "@/lib/permissions";
 
@@ -63,6 +64,7 @@ export default async function Page() {
           ))}
         </div>
       </Wrapper>
+      <GeneratingPdfModal />
     </Layout>
   );
 }

@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
     await page.goto(url, { waitUntil: "networkidle0" });
     await page.evaluateHandle('document.fonts.ready');
 
+    await page.evaluate(() =>
+      Array.from(document.fonts).map((f) => f.family)
+    );
+    // console.log("Loaded Fonts:", loadedFonts);
+
 
     // Generate PDF
     const pdfBuffer = await page.pdf({

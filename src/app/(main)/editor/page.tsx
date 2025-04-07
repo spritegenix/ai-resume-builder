@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import ResumeEditor from "./ResumeEditor";
 import Layout from "@/components/layout/Layout";
+import GeneratingPdfModal from "@/components/GeneratingPdfModal";
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string; styleId?: string }>;
@@ -34,6 +35,7 @@ export default async function Page({ searchParams }: PageProps) {
       <ResumeEditor
         resumeToEdit={resumeToEdit}
       />
+      <GeneratingPdfModal />
     </Layout>
   );
 }
