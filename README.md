@@ -28,3 +28,52 @@ break-inside-avoid
 
 
 https://www.figma.com/design/0ZZNHmvaw3hlHTQmBQBQmR/Untitled-(Copy)?node-id=394-2
+
+
+<!-- ---------JEST ----------- -->
+bun install -D jest @testing-library/react @testing-library/jest-dom @testing-library/user-event ts-jest jest-environment-jsdom @types/jest ts-node @testing-library/react-hooks
+
+bunx ts-jest config:init                                                                                                               
+
+// jest.config.ts
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
+ 
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: './',
+})
+ 
+// Add any custom config to be passed to Jest
+const config: Config = {
+  coverageProvider: 'v8',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1', // if you use @/ alias for imports
+  },
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
+}
+ 
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config)
+<!-- ------------------- -->
+./jest.setup.ts:
+import '@testing-library/jest-dom'
+
+package.json:
+    "test": "jest",
+    "test:watch": "jest --watch"
+
+bun i -D eslint-plugin-jest-dom eslint-plugin-testing-library
+
+.eslintrc.json:
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier", "plugin:testing-library/react", "plugin:jest-dom/recommended"],
+
+
+__tests__\Wrappers.test.tsx:
+
+
+

@@ -23,11 +23,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider
-    appearance={{
-      layout: {
-        unsafe_disableDevelopmentModeWarnings: true,
-      },
-    }}
+      appearance={{
+        layout: {
+          unsafe_disableDevelopmentModeWarnings: true,
+        },
+      }}
     >
       <html lang="en" suppressHydrationWarning>
         {/* <head>
@@ -43,7 +43,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ViewTransitions>{children}</ViewTransitions>
+            <ViewTransitions>
+              {/*  modal portal */}
+              <div id="modal-portal" className="relative z-[999999]" />
+              {children}
+            </ViewTransitions>
             <Toaster />
           </ThemeProvider>
         </body>

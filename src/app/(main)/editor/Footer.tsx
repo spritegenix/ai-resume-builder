@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FileUserIcon, PenLineIcon } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  FileUser,
+  FileUserIcon,
+  Layout,
+  PenLineIcon,
+} from "lucide-react";
 import { steps } from "./steps";
 import { Link } from "next-view-transitions";
+import { create } from "zustand";
 
 interface FooterProps {
   currentStep: string;
@@ -27,10 +35,20 @@ export default function Footer({
     (_, index) => steps[index - 1]?.key === currentStep,
   )?.key;
 
+  const { setOpen } = useStyleAsideState();
   return (
     <footer className="w-full border-t px-3 py-2">
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
         <div className="flex items-center gap-3">
+          <Button
+            variant="premium"
+             className="!text-sm"
+            onClick={() => setOpen(true)}
+            title={"Change Style"}
+          >
+             <span className="hidden sm:inline">Change Resume Style</span>
+             <FileUser className="inline sm:hidden" />
+          </Button>
           <Button
             variant="secondary"
             onClick={
@@ -38,13 +56,18 @@ export default function Footer({
             }
             disabled={!previousStep}
           >
-            Previous step
+            {/* Text on desktop, hidden on mobile */}
+            <span className="hidden sm:inline">Previous step</span>
+            {/* Icon on mobile, hidden on desktop */}
+            <ChevronLeft className="inline sm:hidden" />
           </Button>
+
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
           >
-            Next step
+            <span className="hidden sm:inline">Next step</span>
+            <ChevronRight className="inline sm:hidden" />
           </Button>
         </div>
         <Button
@@ -75,3 +98,17 @@ export default function Footer({
     </footer>
   );
 }
+
+// Zustand store
+interface StyleAsideState {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export const useStyleAsideState = create<StyleAsideState>((set) => ({
+  open: false,
+  setOpen: (open: boolean) => {
+    console.log("Style Aside State Changed:", open);
+    set({ open });
+  },
+}));
