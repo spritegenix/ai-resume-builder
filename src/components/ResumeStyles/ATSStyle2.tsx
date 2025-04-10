@@ -60,7 +60,7 @@ export default function ATSStyle2({
             <Text>{resumeData.summary}</Text>
           </>
         )}
-        {/* Experience */}
+        Experience
         {!!resumeData?.workExperiences &&
           resumeData?.workExperiences?.length > 0 && (
             <>
@@ -208,13 +208,13 @@ export default function ATSStyle2({
                   </p>
                 </div>
                 <div className="col-span-3">
-                  <p className="!m-0 flex w-full flex-col justify-between">
+                  <div className="!m-0 flex w-full flex-col justify-between">
                     <span className="font-semibold">{edu.school}</span>{" "}
                     <span className="">
                       {edu.degree} ({edu.stream})
                     </span>
                     <p>{edu.description}</p>
-                  </p>
+                  </div>
                 </div>
               </div>
             ))}
