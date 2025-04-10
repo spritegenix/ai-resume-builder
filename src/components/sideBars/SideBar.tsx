@@ -35,7 +35,7 @@ export const Sidebar = ({
             {/* Sidebar */}
             <motion.aside
               className={cn(
-                "fixed left-0 top-0 z-50 h-full w-64 bg-white shadow-lg",
+                "fixed left-0 top-0 z-50 h-full w-full bg-white shadow-lg",
                 className,
               )}
               initial={{ x: "-100%" }}

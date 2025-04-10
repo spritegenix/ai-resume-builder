@@ -5,7 +5,6 @@ import {
   ChevronRight,
   FileUser,
   FileUserIcon,
-  Layout,
   PenLineIcon,
 } from "lucide-react";
 import { steps } from "./steps";

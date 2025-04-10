@@ -3,6 +3,7 @@
 import PremiumModal from "@/components/premium/PremiumModal";
 import { ResumeStyle } from "@/components/ResumeStyles/Styles";
 import usePremiumModal from "@/hooks/usePremiumModal";
+import { cn } from "@/lib/utils";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 
@@ -54,7 +55,7 @@ export default function TemplateCard({
   );
 }
 
-export function Card({ style }: { style: ResumeStyle }) {
+export function Card({ style, isOnEditPage}: { style: ResumeStyle, isOnEditPage?: boolean }) {
   return (
     <div className="group relative cursor-pointer rounded-sm border-0 text-center transition-all duration-300">
       <Image
@@ -64,8 +65,8 @@ export function Card({ style }: { style: ResumeStyle }) {
         height={650}
         className="object-contain transition-all duration-500"
       />
-      <div className="absolute inset-x-0 top-0 z-10 flex h-0 flex-col items-center justify-center overflow-hidden bg-black/70 text-white transition-all duration-500 group-hover:h-32 group-hover:p-2">
-        <h2 className="text-xl font-medium">{style.name}</h2>
+      <div className={cn("absolute inset-x-0 top-0 z-10 flex h-0 flex-col items-center justify-center overflow-hidden bg-black/70 text-white transition-all duration-500 group-hover:h-32 group-hover:p-2", isOnEditPage && "group-hover:h-full")}>
+        <h2 className={cn("text-xl font-medium", isOnEditPage && "text-base")}>{style.name}</h2>
         <p className="line-clamp-4 font-rubik text-sm">{style.desc}</p>
       </div>
     </div>

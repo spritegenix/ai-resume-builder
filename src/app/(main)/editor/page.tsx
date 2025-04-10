@@ -37,7 +37,7 @@ export default async function Page({ searchParams }: PageProps) {
         resumeToEdit={resumeToEdit}
       />
       <GeneratingPdfModal />
-      <ResumeTemplateAside />
+      <ResumeTemplateAside resumeToEdit={resumeToEdit} />
     </Layout>
   );
 }

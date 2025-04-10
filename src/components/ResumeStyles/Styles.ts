@@ -17,7 +17,8 @@ export interface ResumeStyle {
     component: ComponentType<ResumePreviewProps>;
     desc: string;
     samplePic: StaticImageData; // Assuming it's a URL string. If using next/image, use `StaticImageData`
-    category: string[];
+    category:("All" | "ATS Friendly" | "Creative" | "Stylish" | "Simple" | "Modern")[];
+    tags: ("Single Page" | "Multi Page")[];
     price: string;
 }
 
@@ -30,6 +31,7 @@ export const resumeStyles: ResumeStyle[] = [
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
         samplePic: s1,
         category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
         price: "FREE",
     },
     {
@@ -39,6 +41,7 @@ export const resumeStyles: ResumeStyle[] = [
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
         samplePic: s2,
         category: ["All", "ATS Friendly"],
+        tags: ["Single Page"],
         price: "FREE",
     },
 ]
