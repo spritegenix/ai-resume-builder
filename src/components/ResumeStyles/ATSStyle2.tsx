@@ -479,11 +479,11 @@ function Heading({
           {children}
         </h1>
         <div
-          className="border-1 mb-[2px] mt-auto h-0 w-full border border-zinc-700"
+          className="border-1 mb-[5px] mt-auto h-0 w-full border"
           style={{
             borderColor: colorHex,
           }}
-        ></div>
+        />
       </div>
     </>
   );
