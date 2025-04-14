@@ -41,7 +41,7 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const printPdf = usePrintPdf();
+  const { handlePrintPdf } = usePrintPdf();
   const currentStyleId = resume.styleId || "pankaj-prajapat";
 
   const wasUpdated = resume.updatedAt !== resume.createdAt;
@@ -88,7 +88,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
       <MoreMenu
         resumeId={resume.id}
         resumeData={resume}
-        onPrintClick={() => printPdf(`${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}?&styleId=${resume.styleId}`)}
+        onPrintClick={() => handlePrintPdf(`${env.NEXT_PUBLIC_BASE_URL}/resume/${resume.id}?&styleId=${resume.styleId}`)}
       />
     </div>
   );

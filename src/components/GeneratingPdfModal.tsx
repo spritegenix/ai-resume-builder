@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import { usePrintPdf } from "@/hooks/usePrintPdf";
 
 // Zustand store
 interface PdfGeneratingModalState {
@@ -28,13 +29,22 @@ export const usePdfGeneratingModalState = create<PdfGeneratingModalState>(
 
 // Component
 export default function GeneratingPdfModal() {
-  const { open } = usePdfGeneratingModalState();
+  const { open , setOpen } = usePdfGeneratingModalState();
+  const { abortPdfGeneration } = usePrintPdf();
+
+  const handleClose = (isOpen: boolean) => {
+    if (!isOpen) {
+      abortPdfGeneration(); // 👈 abort when user closes
+    } else {
+      setOpen(true);
+    }
+  };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Generate Your Resume</DialogTitle>
+          <DialogTitle className="text-2xl">Generating Your Resume</DialogTitle>
           <DialogDescription>
             We are generating your PDF. This may take a moment.
           </DialogDescription>

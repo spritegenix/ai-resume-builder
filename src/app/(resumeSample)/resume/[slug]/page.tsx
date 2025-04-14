@@ -32,7 +32,6 @@ export default async function FullScreenResumePreview({
     (style) => style.id === currentStyleId.toString(),
   )?.component;
 
-
   return (
     <>
       {ResumeStylePreview ? (

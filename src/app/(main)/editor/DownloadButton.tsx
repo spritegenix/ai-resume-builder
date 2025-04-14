@@ -4,14 +4,14 @@ import { Printer } from "lucide-react";
 import React from "react";
 
 export default function DownloadButton({ url }: { url: string }) {
-  const printPdf = usePrintPdf();
+  const { handlePrintPdf } = usePrintPdf();
 
   return (
     <Button
       variant="outline"
       size="icon"
       title="Download Resume"
-      onClick={() => printPdf(url)}
+      onClick={() => handlePrintPdf(url)}
     >
       <Printer className="size-5" />
     </Button>
