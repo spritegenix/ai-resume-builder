@@ -3,7 +3,7 @@ import { ComponentType } from "react";
 import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
 import { ATSStyle1, ATSStyle2, Stylish1 } from "./index";
-import { s1, s2 } from "@/assets/resume-styles";
+import { s1, s2, s3 } from "@/assets/resume-styles";
 
 
 interface ResumePreviewProps {
@@ -64,10 +64,10 @@ export const resumeStyles: ResumeStyle[] = [
     },
     {
         id: "3",
-        name: "ATS FRIENDLY Professional CV Resume",
+        name: "Classic monochrome resume template for executives",
         component: ATSStyle2,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s1,
+        samplePic: s3,
         category: ["All", "ATS Friendly"],
         tags: ["Multi Page"],
         price: "FREE",

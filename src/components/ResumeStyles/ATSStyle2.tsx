@@ -70,7 +70,7 @@ export default function ATSStyle2({
               {resumeData.workExperiences?.map((exp, index) => (
                 <div
                   key={index}
-                  className="!m-0 grid break-inside-avoid grid-cols-4 pb-2"
+                  className="!m-0 grid break-inside-avoid grid-cols-4 pt-1"
                 >
                   <div className="flex flex-col gap-y-1">
                     {exp.startDate && (
@@ -116,7 +116,10 @@ export default function ATSStyle2({
           <>
             <Heading colorHex={resumeData.colorHex}>Project Work</Heading>
             {resumeData.projectWorks?.map((item, index) => (
-              <div key={index} className="!m-0 break-inside-avoid space-y-1">
+              <div
+                key={index}
+                className="!m-0 break-inside-avoid space-y-1 pt-1"
+              >
                 <div className="!m-0 flex justify-between gap-1">
                   <p className="flex gap-1">
                     <Link
@@ -192,7 +195,7 @@ export default function ATSStyle2({
             {resumeData.educations?.map((edu, index) => (
               <div
                 key={index}
-                className="!m-0 grid break-inside-avoid grid-cols-4 gap-x-2 gap-y-2"
+                className="grid break-inside-avoid grid-cols-4 gap-x-2 gap-y-2"
               >
                 <div className="">
                   <p className="!m-0 flex w-full flex-col justify-between">
@@ -246,7 +249,7 @@ export default function ATSStyle2({
           )}
         {/* Interest  */}
         {!!resumeData.others?.title && (
-          <div className="!m-0 break-inside-avoid">
+          <div className="break-inside-avoid">
             <Heading colorHex={resumeData.colorHex}>
               {resumeData.others.title}
             </Heading>
@@ -254,7 +257,7 @@ export default function ATSStyle2({
               dangerouslySetInnerHTML={{
                 __html: resumeData.others.description || "",
               }}
-              className="richTextEditorStyle whitespace-pre-line"
+              className="richTextEditorStyle whitespace-pre-line pt-1"
             />
           </div>
         )}
@@ -309,7 +312,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
           />
         )}
         <div
-          className={`flex ${photoSrc ? "h-[100px]" : ""} flex-col justify-between`}
+          className={`flex ${photoSrc ? "h-[100px]" : ""} gird flex-col justify-between`}
         >
           <div className="my-auto">
             <p
@@ -332,7 +335,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       </div>
       {/* Social Links  */}
-      <div className="my-auto ml-auto">
+      <div className="my-auto ml-auto grid grid-cols-2">
         {(city || country) && (
           <p className="flex items-center gap-1">
             <BiSolidMap />
@@ -374,7 +377,7 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
   } = resumeData;
 
   return (
-    <div className="mb-2 space-y-2">
+    <div className="mb-2 space-y-1">
       <Link
         href={resumeData.portfolioLink || "#"}
         className="cursor-pointer text-center"
@@ -401,7 +404,7 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       </Link>
       {/* Social Links  */}
-      <div className="grid grid-cols-3 flex-wrap gap-x-8 gap-y-3">
+      <div className="grid grid-cols-3 flex-wrap gap-x-8 gap-y-1">
         {(city || country) && (
           <p className="flex items-center gap-1">
             <BiSolidMap />
@@ -454,7 +457,7 @@ function ContactLinks({
 }
 
 function Text({ children }: { children: string }) {
-  return <p className="!m-0 whitespace-pre-line">{children}</p>;
+  return <p className="!m-0 whitespace-pre-line pt-1">{children}</p>;
 }
 
 function Heading({
@@ -466,7 +469,7 @@ function Heading({
 }) {
   return (
     <>
-      <div className="flex break-inside-avoid flex-col space-y-1 py-2 text-base">
+      <div className="flex break-inside-avoid flex-col space-y-1 text-base">
         <h1
           className="text-nowrap text-[1.2em] font-semibold"
           style={{
@@ -476,7 +479,7 @@ function Heading({
           {children}
         </h1>
         <div
-          className="border-1 mb-[5px] mt-auto h-0 w-full border"
+          className="border-1 mb-[2px] mt-auto h-0 w-full border border-zinc-700"
           style={{
             borderColor: colorHex,
           }}
