@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import puppeteer, { type Browser } from "puppeteer";
 import puppeteerCore, { type Browser as BrowserCore } from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
+import { env } from "@/env";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -16,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     let browser: Browser | BrowserCore;
 
-    if (process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production") {
+    if (env.NEXT_PUBLIC_NODE_ENV === "production") {
       const executablePath = await chromium.executablePath(
         "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
       );

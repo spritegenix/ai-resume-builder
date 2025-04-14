@@ -66,8 +66,8 @@ export async function generateSummary(input: GenerateSummaryInput) {
     ${skills}
   `;
 
-  console.log("systemMessage", systemMessage);
-  console.log("userMessage", userMessage);
+  // console.log("systemMessage", systemMessage);
+  // console.log("userMessage", userMessage);
 
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
   const response = await model.generateContent([systemMessage, userMessage]);

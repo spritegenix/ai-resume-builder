@@ -24,7 +24,7 @@ export default async function TemplatesPage() {
   }
   return (
     <Layout footerStyle>
-    <Wrapper bgColor="bg-w3 pattern3 pb-20" isTop2 >
+      <Wrapper bgColor="bg-w3 pattern3 pb-20" isTop2>
         <div className="flex w-full grid-cols-2 flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-3">
           {resumeStyles.map((style) => (
             <TemplateCard

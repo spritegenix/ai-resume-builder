@@ -4,15 +4,9 @@ import { useToast } from "./use-toast";
 import { usePdfGeneratingModalState } from "@/components/GeneratingPdfModal";
 
 export function usePrintPdf() {
-    // const [pdfLink, setPdfLink] = useState<string | null>(null);
     const { setOpen } = usePdfGeneratingModalState()
     const { toast } = useToast();
 
-    // useEffect(() => {
-    //     if (pdfLink) {
-    //         window.open(pdfLink, "_blank");
-    //     }
-    // }, [pdfLink]);
     async function handlePrintPdf(url: string) {
         setOpen(true);
         try {
@@ -30,12 +24,7 @@ export function usePrintPdf() {
 
             const blob = await response.blob();
             const pdfUrl = URL.createObjectURL(blob);
-            // setPdfLink(pdfUrl);
-           window.open(pdfUrl, "_self");
-            // if (!newTab) {
-            //     throw new Error("Popup blocked. Please allow popups for this site.");
-            // }
-    
+           window.open(pdfUrl, "_self");  
             // Clean up after a short delay
             setTimeout(() => URL.revokeObjectURL(pdfUrl), 10000);
             console.log(pdfUrl)
