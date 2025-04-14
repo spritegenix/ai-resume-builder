@@ -43,7 +43,7 @@ describe('usePrintPdf', () => {
     const { result } = renderHook(() => usePrintPdf())
 
     await act(async () => {
-      await result.current('https://simplicv.com/')
+      await result.current.handlePrintPdf('https://simplicv.com/')
     })
 
     expect(setOpenMock).toHaveBeenCalledWith(true)
