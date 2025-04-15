@@ -36,7 +36,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("styleId", currentStyleId);
     newSearchParams.set("step", key);
-  
+
     window.history.pushState(null, "", `?${newSearchParams.toString()}`);
   }
 
@@ -50,7 +50,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
         <div className="absolute bottom-0 top-0 flex w-full">
           <div
             className={cn(
-              "w-full space-y-6 overflow-y-auto px-3 md:block md:w-1/2 pb-5",
+              "w-full space-y-6 overflow-y-auto px-3 pb-5 md:block md:w-1/2",
               showSmResumePreview && "hidden",
             )}
           >

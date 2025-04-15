@@ -2,7 +2,11 @@
 import { useStyleAsideState } from "@/app/(main)/editor/Footer";
 import React, { useState } from "react";
 import { Sidebar } from "./SideBar";
-import { resumeCategories, ResumeCategory, resumeStyles } from "../ResumeStyles/Styles";
+import {
+  resumeCategories,
+  ResumeCategory,
+  resumeStyles,
+} from "../ResumeStyles/Styles";
 import { Card } from "@/app/(resumeSample)/templates/TemplateCard";
 import { ResumeValues } from "@/lib/validation";
 import { cn, mapToResumeValues } from "@/lib/utils";
@@ -10,7 +14,7 @@ import { ResumeServerData } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import useAutoSaveResume from "@/app/(main)/editor/useAutoSaveResume";
 import useUnloadWarning from "@/hooks/useUnloadWarning";
-import { CircleX } from "lucide-react";
+import { CircleX, Loader2 } from "lucide-react";
 import TabsScroll from "../TabsScroll";
 
 interface ResumeEditorProps {
@@ -24,20 +28,34 @@ export default function ResumeTemplateAside({
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
   );
-  const [selectedCat, setSelectedCat] = useState<ResumeCategory>(resumeCategories[0]);
+  const [selectedCat, setSelectedCat] = useState<ResumeCategory>(
+    resumeCategories[0],
+  );
 
-  const { hasUnsavedChanges } = useAutoSaveResume(resumeData);
+  const { isSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
+
+  // useEffectAfterFirst(() => {
+  //   if (!isSaving) {
+  //     window.location.reload();
+  //   }
+  // }, [isSaving]);
+
+  // useEffect(() => {
+  //   console.log(isSaving, "isA");
+  //   if (!isSaving) {
+  //     window.location.reload();
+  //   }
+  // }, [isSaving]);
 
   useUnloadWarning(hasUnsavedChanges);
   const router = useRouter();
   const searchParams = useSearchParams();
-  function handleSelectResumeTemplate(styleId: string) {
+  async function handleSelectResumeTemplate(styleId: string) {
     setResumeData({ ...resumeData, styleId });
     // Update styleId in URL without losing other query params
     const params = new URLSearchParams(searchParams.toString());
     params.set("styleId", styleId);
-
-    router.push(`/editor?${params.toString()}`);
+    router.replace(`/editor?${params.toString()}`);
   }
   return (
     <Sidebar
@@ -60,27 +78,35 @@ export default function ResumeTemplateAside({
         NavigationButtonClassName="bg-w3 text-white"
       >
         {resumeCategories.map((category, index) => (
-          <Tabs key={index} onClick={() => setSelectedCat(category)} isActive={selectedCat === category}>
+          <Tabs
+            key={index}
+            onClick={() => setSelectedCat(category)}
+            isActive={selectedCat === category}
+          >
             {category}
           </Tabs>
         ))}
       </TabsScroll>
       {/* Search  */}
-      
-      <div className="grid h-full grid-cols-2 gap-4 overflow-y-auto">
+      <div className="grid grid-cols-2 items-start gap-4 overflow-y-auto">
         {resumeStyles
           .filter((style) => style.category?.includes(selectedCat))
           .map((style) => (
             <div
               key={style.id}
               className={cn(
-                "cursor-pointer",
+                "relative cursor-pointer",
                 style.id === resumeData.styleId &&
                   "h-min border-4 border-w1 p-1",
               )}
               onClick={() => handleSelectResumeTemplate(style.id)}
             >
-              <Card style={style} isOnEditPage />
+              {isSaving && style.id === resumeData.styleId && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-w3/50">
+                  <Loader2 className="size-5 animate-spin" />
+                </div>
+              )}
+              <Card style={style} isOnEditPage isSaving={isSaving} />
             </div>
           ))}
       </div>
@@ -91,7 +117,7 @@ export default function ResumeTemplateAside({
 function Tabs({
   children,
   onClick,
-  isActive
+  isActive,
 }: {
   children: string;
   onClick: () => void;
@@ -100,7 +126,10 @@ function Tabs({
   return (
     <li
       onClick={onClick}
-      className={cn("text-nowrap rounded-lg bg-w1 p-1 px-2 text-w3 cursor-pointer", isActive && "bg-w3 text-white border-2 border-w1")}
+      className={cn(
+        "cursor-pointer text-nowrap rounded-lg bg-w1 p-1 px-2 text-w3",
+        isActive && "border-2 border-w1 bg-w3 text-white",
+      )}
     >
       {children}
     </li>

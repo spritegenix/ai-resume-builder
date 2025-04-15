@@ -23,7 +23,7 @@ export default function ResumePreviewSection({
 }: ResumePreviewSectionProps) {
   const searchParams = useSearchParams();
 
-  const currentStyleId = searchParams.get("styleId") || "pankaj-prajapat";
+  const currentStyleId = searchParams.get("styleId") || "1";
 
   const ResumeStylePreview = resumeStyles.find(
     (style) => style.id === currentStyleId,
@@ -46,10 +46,10 @@ export default function ResumePreviewSection({
           }
         />
         <FullScreenPreviewButton
-          href={`/resume/${resumeData.id}?&styleId=${resumeData.styleId}`}
+          href={`/resume/${resumeData.id}?&styleId=${currentStyleId}`}
         />
         <DownloadButton
-          url={`${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}?&styleId=${resumeData.styleId}`}
+          url={`${env.NEXT_PUBLIC_BASE_URL}/resume/${resumeData.id}?&styleId=${currentStyleId}`}
         />
         <ShareButton resumeData={resumeData} />
       </div>

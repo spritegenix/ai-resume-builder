@@ -58,9 +58,11 @@ export default function TemplateCard({
 export function Card({
   style,
   isOnEditPage,
+  isSaving
 }: {
   style: ResumeStyle;
   isOnEditPage?: boolean;
+  isSaving?: boolean;
 }) {
   return (
     <div className="group relative cursor-pointer rounded-sm border-0 text-center transition-all duration-300">
@@ -73,9 +75,9 @@ export function Card({
           className="object-contain transition-all duration-500"
         />
       )}
-      <div
+     {!isSaving && <div
         className={cn(
-          "absolute inset-x-0 top-0 z-10 flex h-0 flex-col items-center justify-center overflow-hidden bg-black/70 text-white transition-all duration-500 group-hover:h-32 group-hover:p-2",
+           "absolute inset-x-0 top-0 z-10 flex h-0 flex-col items-center justify-center overflow-hidden bg-black/70 text-white transition-all duration-500 group-hover:h-32 group-hover:p-2",
           isOnEditPage && "group-hover:h-full",
         )}
       >
@@ -83,7 +85,7 @@ export function Card({
           {style.name}
         </h2>
         <p className="line-clamp-4 font-rubik text-sm">{style.desc}</p>
-      </div>
+      </div>}
     </div>
   );
 }
