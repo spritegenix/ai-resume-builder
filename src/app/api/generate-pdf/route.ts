@@ -39,6 +39,16 @@ export async function POST(req: NextRequest) {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
     // await page.evaluateHandle("document.fonts.ready");
+    await page.addStyleTag({
+      content: `
+        @page { margin: 0; }
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          box-sizing: border-box;
+        }
+      `,
+    });
 
     const pdfBuffer = await page.pdf({
       format: "A4",
