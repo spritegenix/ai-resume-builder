@@ -88,7 +88,8 @@ export default function ResumeTemplateAside({
         ))}
       </TabsScroll>
       {/* Search  */}
-      <div className="grid grid-cols-2 items-start gap-4 overflow-y-auto">
+      {/* Templates  */}
+      <div className="grid grid-cols-2 items-start gap-4 md:h-[calc(100vh-7.2rem)] overflow-y-auto">
         {resumeStyles
           .filter((style) => style.category?.includes(selectedCat))
           .map((style) => (
