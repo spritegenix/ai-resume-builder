@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle2({
+export default function ATSStyle3({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -30,14 +30,14 @@ export default function ATSStyle2({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white px-4 text-zinc-900",
+        "aspect-[210/297] h-fit w-full bg-white p-6 text-zinc-900",
         className,
       )}
       ref={containerRef}
     >
       <div
         className={cn(
-          "space-y-2 p-6 font-inter",
+          "space-y-2 font-inter",
           BaseFontSize,
           !width && "invisible",
         )}
