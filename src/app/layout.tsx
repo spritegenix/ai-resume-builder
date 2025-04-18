@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: { template: "%s | SimpliCV", absolute: "SimpliCV" },
   description:
     "SimpliCV is the easiest way to create a professional resume using AI that will help you land your dream job.",
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({
