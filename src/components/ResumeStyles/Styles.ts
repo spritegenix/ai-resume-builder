@@ -2,8 +2,10 @@
 import { ComponentType } from "react";
 import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
-import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1, ATSStyle4 } from "./index";
-import { s1, s2, s3, s4, s5, s6 } from "@/assets/resume-styles";
+
+import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6, ATSStyle4 } from "./index";
+import { s1, s2, s3, s4, s5,as6, as7,as8, s6 } from "@/assets/resume-styles";
+
 
 
 interface ResumePreviewProps {
@@ -92,6 +94,39 @@ export const resumeStyles: ResumeStyle[] = [
     tags: ["Multi Page"],
     price: "FREE",
    },
+
+    {
+        id: "7",
+        name: "Hunter Green · Multi-column resume with accent",
+        component: AATSStyle4,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: as6,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+    },
+    {
+        id: "8",
+        name: "Green and Black Professional Corporate ATS Resume",
+        component: AATSStyle5,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: as7,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+    },
+    {
+        id: "a-9",
+        name: "Viola · Minimalistic resume · Classic",
+        component: AATSStyle6,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: as8,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+    },
+   
+
    {
     id: "6",
     name: "Classic monochrome resume template for executives",
@@ -102,5 +137,6 @@ export const resumeStyles: ResumeStyle[] = [
     tags: ["Single Page"],
     price: "FREE",
    },
+
 ]
 
