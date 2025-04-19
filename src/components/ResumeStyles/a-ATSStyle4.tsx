@@ -496,7 +496,10 @@ function Heading({
   );
 }
 
-function hexToRgbaPercent(hex, alphaPercent = 100) {
+function hexToRgbaPercent(
+  hex: string = "#fff",
+  alphaPercent: number = 100,
+): string {
   // Remove "#" if present
   hex = hex.replace(/^#/, "");
 
@@ -512,9 +515,9 @@ function hexToRgbaPercent(hex, alphaPercent = 100) {
     throw new Error("Invalid hex color.");
   }
 
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
+  const r: number = parseInt(hex.substring(0, 2), 16);
+  const g: number = parseInt(hex.substring(2, 4), 16);
+  const b: number = parseInt(hex.substring(4, 6), 16);
 
   // Clamp alpha between 0–100
   alphaPercent = Math.max(0, Math.min(100, alphaPercent));
