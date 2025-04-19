@@ -3,8 +3,9 @@ import { ComponentType } from "react";
 import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
 
-import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6, ATSStyle4, ATSStyle7, ATSStyle8 } from "./index";
-import { s1, s2, s3, s4, s5,as6, as7,as8, s6, s7, s8 } from "@/assets/resume-styles";
+
+import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6, ATSStyle4, AATSStyle7,ATSStyle8, ATSStyle7 } from "./index";
+import { s1, s2, s3, s4, s5,as6, as7,as8, s6,as9, s7, s8 } from "@/assets/resume-styles";
 
 
 
@@ -124,8 +125,8 @@ export const resumeStyles: ResumeStyle[] = [
         category: ["All", "ATS Friendly"],
         tags: ["Multi Page"],
         price: "FREE",
-    }, 
-   {
+    },  
+    {
     id: "6",
     name: "Classic monochrome resume template for executives",
     component: ATSStyle4,
@@ -155,6 +156,17 @@ export const resumeStyles: ResumeStyle[] = [
     tags: ["Single Page"],
     price: "FREE",
    },
+
+   {
+    id: "a-10",
+    name: "Mercury · One-Column · Header · Classic resume",
+    component: AATSStyle7,
+    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+    samplePic: as9,
+    category: ["All", "ATS Friendly"],
+    tags: ["Multi Page"],
+    price: "FREE",
+},
 
 ]
 
