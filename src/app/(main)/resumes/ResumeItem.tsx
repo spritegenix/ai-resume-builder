@@ -51,7 +51,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   )?.component;
 
   return (
-    <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-all duration-300 hover:border-border hover:bg-webColor">
+    <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-all duration-300 hover:border-border hover:bg-w1">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}&styleId=${resume.styleId}`}
