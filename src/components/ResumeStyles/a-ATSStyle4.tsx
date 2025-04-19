@@ -496,7 +496,7 @@ function Heading({
   );
 }
 
-function hexToRgbaPercent(
+export function hexToRgbaPercent(
   hex: string = "#fff",
   alphaPercent: number = 100,
 ): string {
