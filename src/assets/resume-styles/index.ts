@@ -5,4 +5,5 @@ import s4 from "@/assets/resume-styles/4.jpeg";
 import s5 from "@/assets/resume-styles/5.png";
 import as6 from "@/assets/resume-styles/a-6.webp";
 import as7 from "@/assets/resume-styles/a-7.jpg";
-export { s1, s2, s3, s4, s5, as6, as7 };
+import as8 from "@/assets/resume-styles/a-8.webp";
+export { s1, s2, s3, s4, s5, as6, as7, as8 };
