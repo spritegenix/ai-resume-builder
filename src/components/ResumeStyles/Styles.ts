@@ -3,7 +3,7 @@ import { ComponentType } from "react";
 import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
 import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, ATSStyle4 } from "./index";
-import { s1, s2, s3, s4, s5,s6, s7, s6 } from "@/assets/resume-styles";
+import { s1, s2, s3, s4, s5,as6, as7, s6 } from "@/assets/resume-styles";
 
 
 interface ResumePreviewProps {
@@ -97,7 +97,7 @@ export const resumeStyles: ResumeStyle[] = [
         name: "Hunter Green · Multi-column resume with accent",
         component: AATSStyle4,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s6,
+        samplePic: as6,
         category: ["All", "ATS Friendly"],
         tags: ["Multi Page"],
         price: "FREE",
@@ -107,7 +107,7 @@ export const resumeStyles: ResumeStyle[] = [
         name: "Green and Black Professional Corporate ATS Resume",
         component: AATSStyle5,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s7,
+        samplePic: as7,
         category: ["All", "ATS Friendly"],
         tags: ["Multi Page"],
         price: "FREE",
