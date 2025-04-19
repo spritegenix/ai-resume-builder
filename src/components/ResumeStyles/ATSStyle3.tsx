@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle2({
+export default function ATSStyle3({
   resumeData,
   className,
 }: ResumePreviewProps) {
