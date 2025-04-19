@@ -2,13 +2,10 @@
 import { ComponentType } from "react";
 import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
-<<<<<<< HEAD
-import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6 } from "./index";
-import { s1, s2, s3, s4, s5,as6, as7,as8 } from "@/assets/resume-styles";
-=======
-import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1, ATSStyle4 } from "./index";
-import { s1, s2, s3, s4, s5, s6 } from "@/assets/resume-styles";
->>>>>>> 43e906cc0f3ea065c833b213894c9c147a5e59ec
+
+import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6, ATSStyle4 } from "./index";
+import { s1, s2, s3, s4, s5,as6, as7,as8, s6 } from "@/assets/resume-styles";
+
 
 
 interface ResumePreviewProps {
@@ -97,7 +94,7 @@ export const resumeStyles: ResumeStyle[] = [
     tags: ["Multi Page"],
     price: "FREE",
    },
-<<<<<<< HEAD
+
     {
         id: "7",
         name: "Hunter Green · Multi-column resume with accent",
@@ -129,7 +126,7 @@ export const resumeStyles: ResumeStyle[] = [
         price: "FREE",
     },
    
-=======
+
    {
     id: "6",
     name: "Classic monochrome resume template for executives",
@@ -140,6 +137,6 @@ export const resumeStyles: ResumeStyle[] = [
     tags: ["Single Page"],
     price: "FREE",
    },
->>>>>>> 43e906cc0f3ea065c833b213894c9c147a5e59ec
+
 ]
 
