@@ -23,6 +23,7 @@ export default {
 				trebuchet: ["Trebuchet MS", "sans-serif"],
 				verdana: ["Verdana", "sans-serif"],
 				"playfair-display": ["Playfair Display", "serif"],
+				poppins: ["Poppins", "sans-serif"],
 			},
 			colors: {
 				background: 'hsl(var(--background))',

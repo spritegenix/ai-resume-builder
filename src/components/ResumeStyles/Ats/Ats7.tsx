@@ -15,10 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function Ats8({
-  resumeData,
-  className,
-}: ResumePreviewProps) {
+export default function Ats8({ resumeData, className }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
@@ -27,8 +24,8 @@ export default function Ats8({
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
 
-    const colorHex =
-    resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
+  const colorHex =
+    resumeData.colorHex === undefined ? "#354b3f" : resumeData.colorHex;
   return (
     <div
       className={cn(
@@ -63,9 +60,7 @@ export default function Ats8({
           {/* Summary */}
           {resumeData.summary && (
             <>
-              <Heading colorHex={colorHex}>
-                Professional Summary
-              </Heading>
+              <Heading colorHex={colorHex}>Professional Summary</Heading>
               <Text>{resumeData.summary}</Text>
             </>
           )}
@@ -154,9 +149,7 @@ export default function Ats8({
           {/* Interest  */}
           {!!resumeData.others?.title && (
             <div className="!m-0 break-inside-avoid">
-              <Heading colorHex={colorHex}>
-                {resumeData.others.title}
-              </Heading>
+              <Heading colorHex={colorHex}>{resumeData.others.title}</Heading>
               <div
                 dangerouslySetInnerHTML={{
                   __html: resumeData.others.description || "",
@@ -173,9 +166,7 @@ export default function Ats8({
           {!!resumeData?.workExperiences &&
             resumeData?.workExperiences?.length > 0 && (
               <>
-                <Heading colorHex={colorHex}>
-                  Professional Experience
-                </Heading>
+                <Heading colorHex={colorHex}>Professional Experience</Heading>
                 {resumeData.workExperiences?.map((exp, index) => (
                   <div key={index} className="!m-0 break-inside-avoid pb-2">
                     <div className="text-[1.4em] font-semibold italic">
@@ -293,7 +284,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
     borderStyle,
   } = resumeData;
   const colorHex =
-  resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -385,10 +376,10 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
     city,
     country,
     phone,
-    email
+    email,
   } = resumeData;
   const colorHex =
-  resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
 
   return (
     <div className="mb-2 space-y-2">

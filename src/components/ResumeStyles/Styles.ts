@@ -7,9 +7,10 @@ import { ResumeValues } from "@/lib/validation";
 import {
     Ats1, Ats2, Ats3, Ats4, Ats5, Ats6, Ats7, Ats8, Ats9, Ats10,
     Stylish1,
-    Modern1
+    Modern1,
+    Modern2
 } from "./index";
-import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1 } from "@/assets/resume-styles";
+import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1, m2 } from "@/assets/resume-styles";
 
 interface ResumePreviewProps {
     resumeData: ResumeValues;
@@ -167,6 +168,17 @@ const Modern: ResumeStyle[] = [
         component: Modern1,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
         samplePic: m1,
+        category: ["All", "ATS Friendly", "Modern"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 12,
+    },
+    {
+        id: "modern2",
+        name: "Modern Resume",
+        component: Modern2,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: m2,
         category: ["All", "ATS Friendly", "Modern"],
         tags: ["Multi Page"],
         price: "FREE",
