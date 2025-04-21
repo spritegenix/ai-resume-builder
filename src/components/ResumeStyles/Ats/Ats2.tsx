@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 
@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle1({
+export default function Ats2({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -27,6 +27,8 @@ export default function ATSStyle1({
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
 
+    const colorHex =
+    resumeData.colorHex === "#000000" ? "#000000" : resumeData.colorHex;
   return (
     <div
       className={cn(
@@ -54,36 +56,25 @@ export default function ATSStyle1({
         {/* Summary */}
         {resumeData.summary && (
           <>
-            <Heading colorHex={resumeData.colorHex}>
+            <Heading colorHex={colorHex}>
               Professional Summary
             </Heading>
             <Text>{resumeData.summary}</Text>
           </>
         )}
-        {/* Experience */}
+        Experience
         {!!resumeData?.workExperiences &&
           resumeData?.workExperiences?.length > 0 && (
             <>
-              <Heading colorHex={resumeData.colorHex}>
+              <Heading colorHex={colorHex}>
                 Professional Experience
               </Heading>
               {resumeData.workExperiences?.map((exp, index) => (
-                <div key={index} className="!m-0 break-inside-avoid">
-                  <div className="!m-0 flex items-center justify-between">
-                    <span
-                      className="text-[1.2em] font-semibold"
-                      style={{
-                        color: resumeData.colorHex,
-                      }}
-                    >
-                      {exp.company}
-                    </span>
-                    {exp.jobLocation && <span>{exp.jobLocation}</span>}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[1.1em] font-semibold italic">
-                      {exp.position}
-                    </span>
+                <div
+                  key={index}
+                  className="!m-0 grid break-inside-avoid grid-cols-4 pt-1"
+                >
+                  <div className="flex flex-col gap-y-1">
                     {exp.startDate && (
                       <span>
                         {formatDate(exp.startDate, "MMM yyyy")} -{" "}
@@ -92,11 +83,32 @@ export default function ATSStyle1({
                           : "Present"}
                       </span>
                     )}
+                    {exp.jobLocation && (
+                      <span className="font-semibold">{exp.jobLocation}</span>
+                    )}
                   </div>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: exp.description || "" }}
-                    className="richTextEditorStyle whitespace-pre-line"
-                  />
+                  <div className="col-span-3 !m-0">
+                    <div className="flex items-center justify-between">
+                      <span
+                        className="text-[1.2em] font-semibold"
+                        style={{
+                          color: colorHex,
+                        }}
+                      >
+                        {exp.company}
+                      </span>
+                    </div>
+                    <div className="text-[1.1em] font-semibold italic">
+                      {exp.position}
+                    </div>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: exp.description || "",
+                      }}
+                      className="richTextEditorStyle whitespace-pre-line"
+                    />
+                  </div>
                 </div>
               ))}
             </>
@@ -104,9 +116,12 @@ export default function ATSStyle1({
         {/* Projects */}
         {!!resumeData.projectWorks && resumeData.projectWorks?.length > 0 && (
           <>
-            <Heading colorHex={resumeData.colorHex}>Project Work</Heading>
+            <Heading colorHex={colorHex}>Project Work</Heading>
             {resumeData.projectWorks?.map((item, index) => (
-              <div key={index} className="!m-0 break-inside-avoid">
+              <div
+                key={index}
+                className="!m-0 break-inside-avoid space-y-1 pt-1"
+              >
                 <div className="!m-0 flex justify-between gap-1">
                   <p className="flex gap-1">
                     <Link
@@ -116,7 +131,7 @@ export default function ATSStyle1({
                       target="_blank"
                       className="text-[1.2em] font-semibold"
                       style={{
-                        color: resumeData.colorHex,
+                        color: colorHex,
                       }}
                     >
                       {item.title}
@@ -128,7 +143,9 @@ export default function ATSStyle1({
                         </span>
                       ))}
                   </p>
-                  <p className="flex flex-col text-right">
+                </div>
+                <div className="font-semibold">
+                  <p className="flex flex-row">
                     {item.company && (
                       <span className="italic">{item.company}</span>
                     )}
@@ -154,47 +171,56 @@ export default function ATSStyle1({
         {/* Skills  */}
         {!!resumeData.skills && resumeData.skills?.length > 0 && (
           <>
-            <Heading colorHex={resumeData.colorHex}>Skills</Heading>
-            {resumeData.skills?.map((skill, index) => (
-              <div key={index} className="!m-0 break-inside-avoid">
-                <div className="!m-0 flex items-center justify-between">
-                  <p>
-                    <span className="font-semibold">{skill.title}</span>
-                    {skill.skillName && skill.skillName.length > 0 && (
-                      <span>- {skill.skillName?.join(", ")}</span>
-                    )}
-                  </p>
+            <Heading colorHex={colorHex}>Skills</Heading>
+            <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+              {resumeData.skills?.map((skill, index) => (
+                <div key={index} className="!m-0 break-inside-avoid">
+                  <div className="!m-0 flex items-center justify-between">
+                    <p className="flex flex-col">
+                      <span className="font-semibold">{skill.title}</span>
+                      {skill.skillName && skill.skillName.length > 0 && (
+                        <span>{skill.skillName?.join(", ")}</span>
+                      )}
+                    </p>
+                  </div>
+                  <p className="whitespace-pre-line"></p>
                 </div>
-                <p className="whitespace-pre-line"></p>
-              </div>
-            ))}
+              ))}
+            </div>
           </>
         )}
         {/* Academics */}
         {!!resumeData.educations && resumeData.educations?.length > 0 && (
           <>
-            <Heading colorHex={resumeData.colorHex}>Academics</Heading>
+            <Heading colorHex={colorHex}>Academics</Heading>
+
             {resumeData.educations?.map((edu, index) => (
-              <div key={index} className="!m-0 break-inside-avoid">
-                <p className="!m-0 flex w-full justify-between">
-                  <span className="font-semibold">
-                    {edu.school}, {edu.location}
-                  </span>{" "}
-                  <span>
-                    {edu.startDate &&
-                      `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
-                    {edu.endDate
-                      ? formatDate(edu.endDate, "MMM yyyy")
-                      : "Present"}
-                  </span>
-                </p>
-                <p className="!m-0 flex w-full justify-between">
-                  <span className="">
-                    {edu.degree} ({edu.stream})
-                  </span>
-                  <span>{edu.marks}</span>
-                </p>
-                <p>{edu.description}</p>
+              <div
+                key={index}
+                className="grid break-inside-avoid grid-cols-4 gap-x-2 gap-y-2"
+              >
+                <div className="">
+                  <p className="!m-0 flex w-full flex-col justify-between">
+                    <span>
+                      {edu.startDate &&
+                        `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
+                      {edu.endDate
+                        ? formatDate(edu.endDate, "MMM yyyy")
+                        : "Present"}
+                    </span>
+                    <span> {edu.location}</span>
+                    {edu.marks && <span>Percentage: {edu.marks}%</span>}
+                  </p>
+                </div>
+                <div className="col-span-3">
+                  <div className="!m-0 flex w-full flex-col justify-between">
+                    <span className="font-semibold">{edu.school}</span>{" "}
+                    <span className="">
+                      {edu.degree} ({edu.stream})
+                    </span>
+                    <p>{edu.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </>
@@ -203,7 +229,7 @@ export default function ATSStyle1({
         {!!resumeData.certifications &&
           resumeData.certifications?.length > 0 && (
             <>
-              <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
+              <Heading colorHex={colorHex}>Certifications</Heading>
               <div
                 className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
               >
@@ -225,15 +251,15 @@ export default function ATSStyle1({
           )}
         {/* Interest  */}
         {!!resumeData.others?.title && (
-          <div className="!m-0 break-inside-avoid">
-            <Heading colorHex={resumeData.colorHex}>
+          <div className="break-inside-avoid">
+            <Heading colorHex={colorHex}>
               {resumeData.others.title}
             </Heading>
             <div
               dangerouslySetInnerHTML={{
                 __html: resumeData.others.description || "",
               }}
-              className="richTextEditorStyle whitespace-pre-line"
+              className="richTextEditorStyle whitespace-pre-line pt-1"
             />
           </div>
         )}
@@ -254,9 +280,10 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
     country,
     phone,
     email,
-    colorHex,
     borderStyle,
   } = resumeData;
+      const colorHex =
+    resumeData.colorHex === "#000000" ? "#000000" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -288,7 +315,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
           />
         )}
         <div
-          className={`flex ${photoSrc ? "h-[100px]" : ""} flex-col justify-between`}
+          className={`flex ${photoSrc ? "h-[100px]" : ""} gird flex-col justify-between`}
         >
           <div className="my-auto">
             <p
@@ -311,7 +338,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       </div>
       {/* Social Links  */}
-      <div className="my-auto ml-auto">
+      <div className="my-auto ml-auto grid grid-cols-2">
         {(city || country) && (
           <p className="flex items-center gap-1">
             <BiSolidMap />
@@ -322,7 +349,8 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         )}
         <ContactLinks text={phone} href={`tel:${phone}`} />
         <ContactLinks text={email} href={`mailto:${email}`} />
-        {!!socialLinks && socialLinks.length > 0 &&
+        {!!socialLinks &&
+          socialLinks.length > 0 &&
           socialLinks.map((link, index) => (
             <ContactLinks
               key={index}
@@ -348,34 +376,39 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
     country,
     phone,
     email,
-    colorHex,
   } = resumeData;
+      const colorHex =
+    resumeData.colorHex === "#000000" ? "#000000" : resumeData.colorHex;
 
   return (
-    <div className="mb-2">
+    <div className="mb-2 space-y-1">
       <Link
         href={resumeData.portfolioLink || "#"}
         className="cursor-pointer text-center"
       >
-        <p
-          className="text-[3em] font-bold"
-          style={{
-            color: colorHex,
-          }}
-        >
-          {firstName} {lastName}
-        </p>
-        <p
-          className="text-[1.6em] font-medium"
-          style={{
-            color: colorHex,
-          }}
-        >
-          {jobTitle}
-        </p>
+        <div className="flex items-end gap-x-3">
+          <p
+            className="text-2xl font-bold"
+            style={{
+              color: colorHex,
+            }}
+          >
+            {firstName &&
+              firstName?.charAt(0).toUpperCase() + firstName?.slice(1)}{" "}
+            {lastName}
+          </p>
+          <p
+            className="text-xl"
+            style={{
+              color: colorHex,
+            }}
+          >
+            {jobTitle}
+          </p>
+        </div>
       </Link>
       {/* Social Links  */}
-      <div className="mx-auto flex max-w-xl flex-wrap justify-center gap-x-4">
+      <div className="grid grid-cols-3 flex-wrap gap-x-8 gap-y-1">
         {(city || country) && (
           <p className="flex items-center gap-1">
             <BiSolidMap />
@@ -428,7 +461,7 @@ function ContactLinks({
 }
 
 function Text({ children }: { children: string }) {
-  return <p className="!m-0 whitespace-pre-line">{children}</p>;
+  return <p className="!m-0 whitespace-pre-line pt-1">{children}</p>;
 }
 
 function Heading({
@@ -440,7 +473,7 @@ function Heading({
 }) {
   return (
     <>
-      <div className="flex break-inside-avoid gap-x-0.5">
+      <div className="flex break-inside-avoid flex-col space-y-1 text-base">
         <h1
           className="text-nowrap text-[1.2em] font-semibold"
           style={{

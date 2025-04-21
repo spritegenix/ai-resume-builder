@@ -4,19 +4,18 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
-import LineStyle from "../LineStyle";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
   className?: string;
 }
 
-export default function AATSStyle5({
+export default function Ats8({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -532,42 +531,33 @@ export function Heading({
         >
           {children}
         </h1>
-        {/* <div
-          className="border-1 mb-[5px] mt-auto h-0 w-full border"
-          style={{
-            borderColor: colorHex,
-          }}
-        ></div> */}
       </div>
     </>
   );
 }
 
-// function hexToRgbaPercent(
-//   hex: string = "#ffff",
-//   alphaPercent: number = 100,
-// ): string {
-//   // Remove "#" if present
-//   hex = hex.replace(/^#/, "");
-
-//   // Expand shorthand (#f06 → #ff0066)
-//   if (hex.length === 3) {
-//     hex = hex
-//       .split("")
-//       .map((char) => char + char)
-//       .join("");
-//   }
-
-//   if (hex.length !== 6) {
-//     throw new Error("Invalid hex color.");
-//   }
-
-//   const r: number = parseInt(hex.substring(0, 2), 16);
-//   const g: number = parseInt(hex.substring(2, 4), 16);
-//   const b: number = parseInt(hex.substring(4, 6), 16);
-
-//   // Clamp alpha between 0–100
-//   alphaPercent = Math.max(0, Math.min(100, alphaPercent));
-
-//   return `rgba(${r}, ${g}, ${b}, ${alphaPercent}%)`;
-// }
+interface LineStyleProps {
+  colorHex: string;
+  header: string;
+  children: ReactNode;
+}
+const LineStyle: React.FC<LineStyleProps> = ({
+  colorHex,
+  header,
+  children,
+}) => {
+  return (
+    <div className="relative grid grid-cols-12 gap-x-4">
+      <div className="col-span-2 pb-2">
+        <Heading colorHex={colorHex}>{header}</Heading>
+      </div>
+      <div className="relative col-span-10 pb-2">
+        <div
+          className="absolute left-0 top-0 h-full w-[2px]"
+          style={{ backgroundColor: colorHex }}
+        />
+        <div className="pl-4">{children}</div>
+      </div>
+    </div>
+  );
+};

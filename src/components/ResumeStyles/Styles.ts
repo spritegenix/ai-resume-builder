@@ -4,10 +4,12 @@ import { StaticImageData } from "next/image";
 import { ResumeValues } from "@/lib/validation";
 
 
-import { ATSStyle1, ATSStyle2, Stylish1, ATSStyle3, Modern1,AATSStyle4, AATSStyle5, AATSStyle6, ATSStyle4, AATSStyle7,ATSStyle8, ATSStyle7 } from "./index";
-import { s1, s2, s3, s4, s5,as6, as7,as8, s6,as9, s7, s8 } from "@/assets/resume-styles";
-
-
+import {
+    Ats1, Ats2, Ats3, Ats4, Ats5, Ats6, Ats7, Ats8, Ats9, Ats10,
+    Stylish1,
+    Modern1
+} from "./index";
+import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1 } from "@/assets/resume-styles";
 
 interface ResumePreviewProps {
     resumeData: ResumeValues;
@@ -21,16 +23,16 @@ export const resumeCategories = [
     "Stylish",
     "Simple",
     "Modern",
-  ] as const;
+] as const;
 
-  export type ResumeCategory = (typeof resumeCategories)[number];
+export type ResumeCategory = (typeof resumeCategories)[number];
 
-  export const resumeTags = [
+export const resumeTags = [
     "Single Page",
     "Multi Page",
-  ] as const;
+] as const;
 
-  export type ResumeTag = (typeof resumeTags)[number];
+export type ResumeTag = (typeof resumeTags)[number];
 
 export interface ResumeStyle {
     id: string;
@@ -41,132 +43,158 @@ export interface ResumeStyle {
     category?: (ResumeCategory)[];
     tags?: ResumeTag[];
     price?: string;
+    priority: number
 }
 
-
-export const resumeStyles: ResumeStyle[] = [
+const Ats: ResumeStyle[] = [
     {
-        id: "1",
+        id: "ats1",
         name: "ATS Friendly Resume",
-        component: ATSStyle1,
+        component: Ats1,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s1,
+        samplePic: a1,
         category: ["All", "ATS Friendly"],
         tags: ["Multi Page"],
         price: "FREE",
+        priority: 1
     },
     {
-        id: "2",
-        name: "Black Simple Professional CV Resume",
+        id: "ats2",
+        name: "Classic monochrome resume template for executives",
+        component: Ats2,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a2,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 2
+    },
+    {
+        id: "ats3",
+        name: "Classic monochrome resume template for executives",
+        component: Ats3,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a3,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 3
+    },
+    {
+        id: "ats4",
+        name: "Classic monochrome resume template for executives",
+        component: Ats4,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a4,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 4
+    },
+    {
+        id: "ats5",
+        name: "Classic monochrome resume template for executives",
+        component: Ats5,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a5,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 5
+    },
+    {
+        id: "ats6",
+        name: "Classic monochrome resume template for executives",
+        component: Ats6,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a6,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 6
+    },
+    {
+        id: "ats7",
+        name: "Classic monochrome resume template for executives",
+        component: Ats7,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a7,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 7
+    },
+    {
+        id: "ats8",
+        name: "Classic monochrome resume template for executives",
+        component: Ats8,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a8,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 8
+    },
+    {
+        id: "ats9",
+        name: "Classic monochrome resume template for executives",
+        component: Ats9,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a9,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 9
+    },
+    {
+        id: "ats10",
+        name: "Classic monochrome resume template for executives",
+        component: Ats10,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: a10,
+        category: ["All", "ATS Friendly"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 10
+    },
+]
+const Creative: ResumeStyle[] = []
+
+const Modern: ResumeStyle[] = [
+    {
+        id: "modern1",
+        name: "Modern Resume",
+        component: Modern1,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: m1,
+        category: ["All", "ATS Friendly", "Modern"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 12,
+    }
+]
+const Simple: ResumeStyle[] = []
+const Stylish: ResumeStyle[] = [
+    {
+        id: "stylish1",
+        name: "Stylish Resume",
         component: Stylish1,
         desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s2,
+        samplePic: st1,
         category: ["All", "Stylish"],
         tags: ["Single Page"],
         price: "FREE",
+        priority: 11
     },
-    {
-        id: "3",
-        name: "Classic monochrome resume template for executives",
-        component: ATSStyle2,
-        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s3,
-        category: ["All", "ATS Friendly"],
-        tags: ["Multi Page"],
-        price: "FREE",
-    },
-    {
-        id: "4",
-        name: "Classic monochrome resume template for executives",
-        component: ATSStyle3,
-        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: s4,
-        category: ["All", "ATS Friendly"],
-        tags: ["Multi Page"],
-        price: "FREE",
-    },
-   {
-    id: "5",
-    name: "Classic monochrome resume template for executives",
-    component: Modern1,
-    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-    samplePic: s5,
-    category: ["All", "ATS Friendly", "Modern"],
-    tags: ["Multi Page"],
-    price: "FREE",
-   },
+]
 
-    {
-        id: "7",
-        name: "Hunter Green · Multi-column resume with accent",
-        component: AATSStyle4,
-        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: as6,
-        category: ["All", "ATS Friendly"],
-        tags: ["Multi Page"],
-        price: "FREE",
-    },
-    {
-        id: "8",
-        name: "Green and Black Professional Corporate ATS Resume",
-        component: AATSStyle5,
-        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: as7,
-        category: ["All", "ATS Friendly"],
-        tags: ["Multi Page"],
-        price: "FREE",
-    },
-    {
-        id: "a-9",
-        name: "Viola · Minimalistic resume · Classic",
-        component: AATSStyle6,
-        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-        samplePic: as8,
-        category: ["All", "ATS Friendly"],
-        tags: ["Multi Page"],
-        price: "FREE",
-    },  
-    {
-    id: "6",
-    name: "Classic monochrome resume template for executives",
-    component: ATSStyle4,
-    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-    samplePic: s6,
-    category: ["All", "ATS Friendly"],
-    tags: ["Single Page"],
-    price: "FREE",
-   },
-   {
-    id: "10",
-    name: "Classic monochrome resume template for executives",
-    component: ATSStyle7,
-    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-    samplePic: s7,
-    category: ["All", "ATS Friendly"],
-    tags: ["Single Page"],
-    price: "FREE",
-   },
-   {
-    id: "11",
-    name: "Classic monochrome resume template for executives",
-    component: ATSStyle8,
-    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-    samplePic: s8,
-    category: ["All", "ATS Friendly"],
-    tags: ["Single Page"],
-    price: "FREE",
-   },
 
-   {
-    id: "a-10",
-    name: "Mercury · One-Column · Header · Classic resume",
-    component: AATSStyle7,
-    desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
-    samplePic: as9,
-    category: ["All", "ATS Friendly"],
-    tags: ["Multi Page"],
-    price: "FREE",
-},
-
+// -------------------------------------------- //
+export const resumeStyles: ResumeStyle[] = [
+    ...Ats,
+    ...Creative,
+    ...Modern,
+    ...Simple,
+    ...Stylish,
 ]
 

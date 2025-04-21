@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 
@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle4({
+export default function Ats4({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -316,8 +316,10 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
     phone,
     email,
     borderStyle,
-    colorHex,
   } = resumeData;
+
+  const colorHex =
+    resumeData.colorHex === "#000000" ? "#545454" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -330,7 +332,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="flex h-max col-span-8 gap-6">
+      <div className="col-span-8 flex h-max gap-6">
         {photoSrc && (
           <Image
             src={photoSrc}
@@ -360,7 +362,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       </div>
       {/* Social Links  */}
-      <div className="my-auto flex col-span-4 flex-col items-end">
+      <div className="col-span-4 my-auto flex flex-col items-end">
         {(city || country) && (
           <p className="flex items-center gap-1">
             {city}

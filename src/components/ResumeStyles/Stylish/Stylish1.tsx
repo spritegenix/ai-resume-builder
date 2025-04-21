@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 

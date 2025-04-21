@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 
@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle7({
+export default function Ats5({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -288,7 +288,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
   } = resumeData;
 
   const colorHex =
-  resumeData.colorHex === "#000000" ? "#3f63ad" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#3f63ad" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 

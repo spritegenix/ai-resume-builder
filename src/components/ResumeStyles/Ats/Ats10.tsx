@@ -6,10 +6,10 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
-import { hexToRgbaPercent } from "./a-ATSStyle4";
+import { hexToRgbaPercent } from "./Ats7";
 import { ImProfile } from "react-icons/im";
 import { PiCertificate, PiPuzzlePiece, PiSuitcaseSimple } from "react-icons/pi";
 import { FaRegFolderOpen } from "react-icons/fa";
@@ -20,10 +20,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle6({
-  resumeData,
-  className,
-}: ResumePreviewProps) {
+export default function Ats10({ resumeData, className }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
@@ -32,7 +29,7 @@ export default function ATSStyle6({
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
   const colorHex =
-    resumeData.colorHex === undefined ? "#41224a" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#e5e6e3" : resumeData.colorHex;
   return (
     <div
       className={cn(
@@ -257,7 +254,7 @@ export default function ATSStyle6({
                         className="before:mr-1 before:content-['•']"
                       >
                         {skill.title}
-                      </Link>{" "}
+                      </Link>
                       {skill.description && (
                         <span className="italic"> - {skill.description}</span>
                       )}
@@ -292,7 +289,7 @@ function PersonalInfoHeader({
   hexBgColor,
 }: {
   resumeData: ResumeValues;
-  hexBgColor: string;
+  hexBgColor?: string;
 }) {
   const {
     photo,
@@ -324,36 +321,43 @@ function PersonalInfoHeader({
         backgroundColor: hexBgColor,
       }}
     >
-      <div className="col-span-10 flex h-max flex-col">
+      <div className="col-span-3">
+        {photoSrc && (
+          <Image
+            src={photoSrc}
+            width={500}
+            height={500}
+            alt="Author photo"
+            className="aspect-square h-[100px] w-[100px] object-cover object-top"
+            style={{
+              borderRadius:
+                borderStyle === BorderStyles.SQUARE
+                  ? "0px"
+                  : borderStyle === BorderStyles.CIRCLE
+                    ? "9999px"
+                    : "10%",
+            }}
+          />
+        )}
+      </div>
+      <div className="col-span-9 flex h-max flex-col">
         <div className={`gird flex flex-col justify-between`}>
-          <div className="my-auto flex items-end gap-x-2 text-white">
-            <p
-              className="text-[1.8rem] font-bold"
-              // style={{
-              //   color: colorHex,
-              // }}
-            >
+          <div className="flex flex-col items-start gap-x-1 ">
+            <p className="text-[1.8rem] font-bold">
               {firstName} {lastName}
             </p>
-            <p
-              className="text-[2em] font-medium"
-              // style={{
-              //   color: colorHex,
-              // }}
-            >
-              {jobTitle}
-            </p>
+            <p className="text-[2em] font-medium">{jobTitle}</p>
           </div>
         </div>
         {/* Social Links  */}
-        <div className="grid grid-cols-2 text-[1.2em]">
+        <div className="flex w-[60%] flex-wrap gap-x-4 gap-y-1 text-[1.2em]">
           {(city || country) && (
             <p className="flex items-center gap-1">
               <span>
-                <BiSolidMap color={`${hexToRgbaPercent("#fff", 30)}`} />
+                <BiSolidMap color={`${hexToRgbaPercent("#fff", 70)}`} />
               </span>
 
-              <span className="text-white">
+              <span >
                 {city}
                 {city && country ? ", " : ""}
                 {country}
@@ -376,25 +380,6 @@ function PersonalInfoHeader({
           )}
         </div>
       </div>
-      <div className="col-span-2">
-        {photoSrc && (
-          <Image
-            src={photoSrc}
-            width={500}
-            height={500}
-            alt="Author photo"
-            className="aspect-square h-[100px] w-[100px] object-cover object-top"
-            style={{
-              borderRadius:
-                borderStyle === BorderStyles.SQUARE
-                  ? "0px"
-                  : borderStyle === BorderStyles.CIRCLE
-                    ? "9999px"
-                    : "10%",
-            }}
-          />
-        )}
-      </div>
     </div>
   );
 }
@@ -403,7 +388,7 @@ function PersonalInfoHeader1({
   hexBgColor,
 }: {
   resumeData: ResumeValues;
-  hexBgColor: string;
+  hexBgColor?: string;
 }) {
   const {
     firstName,
@@ -428,7 +413,7 @@ function PersonalInfoHeader1({
         href={resumeData.portfolioLink || "#"}
         className="cursor-pointer text-center"
       >
-        <div className="flex items-end gap-x-3 text-white">
+        <div className="flex flex-col items-end gap-x-3">
           <p
             className="text-[1.8rem] font-bold"
             // style={{
@@ -452,9 +437,9 @@ function PersonalInfoHeader1({
       {/* Social Links  */}
       <div className="grid grid-cols-3 flex-wrap gap-x-8 gap-y-1 text-sm">
         {(city || country) && (
-          <p className="flex items-center gap-1 text-white">
+          <p className="flex items-center gap-1 ">
             <span>
-              <BiSolidMap color={`${hexToRgbaPercent("#fff", 30)}`} />
+              <BiSolidMap color={`${hexToRgbaPercent("#fff", 70)}`} />
             </span>
             {city}
             {city && country ? ", " : ""}
@@ -500,12 +485,12 @@ function ContactLinks({
         >
           <span
             style={{
-              color: hexToRgbaPercent(color, 30),
+              color: hexToRgbaPercent(color, 70),
             }}
           >
             {icon ? icon : <SocialMediaIconFinder url={href ? href : ""} />}
           </span>
-          {text === "NO_TEXT" ? "" : <p className="text-white">{text}</p>}
+          {text === "NO_TEXT" ? "" : <p className="">{text}</p>}
         </Link>
       )}
     </>
@@ -525,11 +510,16 @@ function Heading({
 }) {
   return (
     <>
-      <div className="flex break-inside-avoid flex-col space-y-1 text-base">
+      <div
+        className="flex break-inside-avoid flex-col items-center justify-center space-y-1 text-base"
+        style={{
+          backgroundColor: hexToRgbaPercent(colorHex, 20),
+        }}
+      >
         <h1
           className="flex items-center gap-x-2 text-nowrap text-[1.2em] font-semibold"
           style={{
-            color: hexToRgbaPercent(colorHex, 40),
+            color: hexToRgbaPercent(colorHex, 80),
           }}
         >
           {children}

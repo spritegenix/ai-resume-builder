@@ -6,7 +6,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 
@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function ATSStyle8({
+export default function Ats6({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -281,7 +281,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
   } = resumeData;
 
   const colorHex =
-  resumeData.colorHex === "#000000" ? "#5d6064" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#5d6064" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -394,7 +394,7 @@ function Heading({
     <>
       <div className="break-inside-avoid">
         <h1
-          className="text-nowrap text-[1.4em] tracking-widest font-semibold uppercase"
+          className="text-nowrap text-[1.4em] font-semibold uppercase tracking-widest"
           style={{
             color: colorHex,
           }}

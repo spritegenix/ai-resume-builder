@@ -1,18 +1,21 @@
 // ATS
-import ATSStyle1 from "@/components/ResumeStyles/ATSStyle1";
-import ATSStyle2 from "@/components/ResumeStyles/ATSStyle2";
-import ATSStyle3 from "@/components/ResumeStyles/ATSStyle3";
-import ATSStyle4 from "@/components/ResumeStyles/ATSSTYLE4";
-import ATSStyle7 from "@/components/ResumeStyles/ATSStyle7";
-import ATSStyle8 from "@/components/ResumeStyles/ATSStyle8";
-
-
-import AATSStyle4 from "@/components/ResumeStyles/a-ATSStyle4";
-import AATSStyle5 from "@/components/ResumeStyles/a-ATSStyle5";
-import AATSStyle6 from "@/components/ResumeStyles/a-ATSStyle6";
-import AATSStyle7 from "@/components/ResumeStyles/a-ATSStyle7";
+import Ats1 from "./Ats/Ats1";
+import Ats2 from "./Ats/Ats2";
+import Ats3 from "./Ats/Ats3";
+import Ats4 from "./Ats/Ats4";
+import Ats5 from "./Ats/Ats5";
+import Ats6 from "./Ats/Ats6";
+import Ats7 from "./Ats/Ats7";
+import Ats8 from "./Ats/Ats8";
+import Ats9 from "./Ats/Ats9";
+import Ats10 from "./Ats/Ats10";
+import Ats11 from "./Ats/Ats11";
+import Ats12 from "./Ats/Ats12";
+import Ats13 from "./Ats/Ats13";
+import Ats14 from "./Ats/Ats14";
+import Ats15 from "./Ats/Ats15";
 // Stylish 
-import Stylish1 from "./Stylish1";
+import Stylish1 from "./Stylish/Stylish1";
 
 // Simple
 
@@ -20,10 +23,10 @@ import Stylish1 from "./Stylish1";
 // Modern
 
 // Creative
-import Modern1 from "./Modern1";
+import Modern1 from "./Modern/Modern1";
 // --------------------------------------------------------------- //
 export {
-    ATSStyle1, ATSStyle2, ATSStyle3, ATSStyle4, ATSStyle7, ATSStyle8,
+    Ats1, Ats2, Ats3, Ats4, Ats5, Ats6, Ats7, Ats8, Ats9, Ats10, Ats11, Ats12, Ats13, Ats14, Ats15,
     Stylish1,
-    Modern1,AATSStyle4, AATSStyle5,AATSStyle6, AATSStyle7
+    Modern1,
 };

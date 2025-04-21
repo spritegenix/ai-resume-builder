@@ -5,7 +5,7 @@ import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import SocialMediaIconFinder from "../SocialMediaIconFinder";
+import SocialMediaIconFinder from "@/components/SocialMediaIconFinder";
 import Link from "next/link";
 import { BiSolidMap } from "react-icons/bi";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
@@ -15,7 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function AATSStyle4({
+export default function Ats8({
   resumeData,
   className,
 }: ResumePreviewProps) {
@@ -27,6 +27,8 @@ export default function AATSStyle4({
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
 
+    const colorHex =
+    resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
   return (
     <div
       className={cn(
@@ -50,7 +52,7 @@ export default function AATSStyle4({
         <div
           className="col-span-3 p-10"
           style={{
-            backgroundColor: hexToRgbaPercent(resumeData.colorHex, 30),
+            backgroundColor: hexToRgbaPercent(colorHex, 30),
           }}
         >
           {resumeData.photo ? (
@@ -61,7 +63,7 @@ export default function AATSStyle4({
           {/* Summary */}
           {resumeData.summary && (
             <>
-              <Heading colorHex={resumeData.colorHex}>
+              <Heading colorHex={colorHex}>
                 Professional Summary
               </Heading>
               <Text>{resumeData.summary}</Text>
@@ -71,7 +73,7 @@ export default function AATSStyle4({
           {/* Academics */}
           {!!resumeData.educations && resumeData.educations?.length > 0 && (
             <>
-              <Heading colorHex={resumeData.colorHex}>Academics</Heading>
+              <Heading colorHex={colorHex}>Academics</Heading>
 
               {resumeData.educations?.map((edu, index) => (
                 <div key={index} className="!m-0 break-inside-avoid">
@@ -106,7 +108,7 @@ export default function AATSStyle4({
           {/* Skills  */}
           {!!resumeData.skills && resumeData.skills?.length > 0 && (
             <>
-              <Heading colorHex={resumeData.colorHex}>Skills</Heading>
+              <Heading colorHex={colorHex}>Skills</Heading>
               <div className="grid grid-cols-1 gap-x-2 gap-y-2">
                 {resumeData.skills?.map((skill, index) => (
                   <div key={index} className="!m-0 break-inside-avoid">
@@ -128,7 +130,7 @@ export default function AATSStyle4({
           {!!resumeData.certifications &&
             resumeData.certifications?.length > 0 && (
               <>
-                <Heading colorHex={resumeData.colorHex}>Certifications</Heading>
+                <Heading colorHex={colorHex}>Certifications</Heading>
                 <div
                   className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
                 >
@@ -152,7 +154,7 @@ export default function AATSStyle4({
           {/* Interest  */}
           {!!resumeData.others?.title && (
             <div className="!m-0 break-inside-avoid">
-              <Heading colorHex={resumeData.colorHex}>
+              <Heading colorHex={colorHex}>
                 {resumeData.others.title}
               </Heading>
               <div
@@ -171,7 +173,7 @@ export default function AATSStyle4({
           {!!resumeData?.workExperiences &&
             resumeData?.workExperiences?.length > 0 && (
               <>
-                <Heading colorHex={resumeData.colorHex}>
+                <Heading colorHex={colorHex}>
                   Professional Experience
                 </Heading>
                 {resumeData.workExperiences?.map((exp, index) => (
@@ -183,7 +185,7 @@ export default function AATSStyle4({
                       <span
                         className="text-[1.2em] font-semibold"
                         style={{
-                          color: resumeData.colorHex,
+                          color: colorHex,
                         }}
                       >
                         {exp.company}
@@ -216,7 +218,7 @@ export default function AATSStyle4({
           {/* Projects */}
           {!!resumeData.projectWorks && resumeData.projectWorks?.length > 0 && (
             <>
-              <Heading colorHex={resumeData.colorHex}>Project Work</Heading>
+              <Heading colorHex={colorHex}>Project Work</Heading>
               {resumeData.projectWorks?.map((item, index) => (
                 <div
                   key={index}
@@ -231,7 +233,7 @@ export default function AATSStyle4({
                         target="_blank"
                         className="text-[1.2em] font-semibold"
                         style={{
-                          color: resumeData.colorHex,
+                          color: colorHex,
                         }}
                       >
                         {item.title}
@@ -288,9 +290,10 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
     country,
     phone,
     email,
-    colorHex,
     borderStyle,
   } = resumeData;
+  const colorHex =
+  resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -382,9 +385,10 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
     city,
     country,
     phone,
-    email,
-    colorHex,
+    email
   } = resumeData;
+  const colorHex =
+  resumeData.colorHex === "#000000" ? "#354b3f" : resumeData.colorHex;
 
   return (
     <div className="mb-2 space-y-2">

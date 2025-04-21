@@ -1,15 +1,27 @@
-import s1 from "@/assets/resume-styles/1.png";
-import s2 from "@/assets/resume-styles/2.png";
-import s3 from "@/assets/resume-styles/3.jpeg";
-import s4 from "@/assets/resume-styles/4.jpeg";
-import s5 from "@/assets/resume-styles/5.png";
-import s6 from "@/assets/resume-styles/6.png";
-import s7 from "@/assets/resume-styles/7.png";
-import s8 from "@/assets/resume-styles/8.png";
+// ATS Friendly
+import a1 from "@/assets/resume-styles/ats/a1.png";
+import a2 from "@/assets/resume-styles/ats/a2.jpeg";
+import a3 from "@/assets/resume-styles/ats/a3.jpeg";
+import a4 from "@/assets/resume-styles/ats/a4.png";
+import a5 from "@/assets/resume-styles/ats/a5.png";
+import a6 from "@/assets/resume-styles/ats/a6.png";
+import a7 from "@/assets/resume-styles/ats/a7.webp";
+import a8 from "@/assets/resume-styles/ats/a8.jpg";
+import a9 from "@/assets/resume-styles/ats/a9.webp";
+import a10 from "@/assets/resume-styles/ats/a10.webp";
+// Creative
 
+// Stylish
+import st1 from "@/assets/resume-styles/stylish/st1.png"
+// Simple
 
-import as6 from "@/assets/resume-styles/a-6.webp";
-import as7 from "@/assets/resume-styles/a-7.jpg";
-import as8 from "@/assets/resume-styles/a-8.webp";
-import as9 from "@/assets/resume-styles/a-9.webp";
-export { s1, s2, s3, s4, s5, s6,as6, as7, as8, as9 , s7, s8};
+// Modern
+import m1 from "@/assets/resume-styles/modern/m1.png"
+// -------------------------------- //
+export {
+    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
+
+    st1,
+
+    m1
+};
