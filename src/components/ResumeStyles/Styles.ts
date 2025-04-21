@@ -9,6 +9,7 @@ import {
     Stylish1,
     Modern1
 } from "./index";
+
 import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1 } from "@/assets/resume-styles";
 
 interface ResumePreviewProps {
@@ -43,7 +44,7 @@ export interface ResumeStyle {
     category?: (ResumeCategory)[];
     tags?: ResumeTag[];
     price?: string;
-    priority: number
+    priority: number;
 }
 
 const Ats: ResumeStyle[] = [
@@ -190,6 +191,7 @@ const Stylish: ResumeStyle[] = [
 
 
 // -------------------------------------------- //
+
 export const resumeStyles: ResumeStyle[] = [
     ...Ats,
     ...Creative,
@@ -197,4 +199,3 @@ export const resumeStyles: ResumeStyle[] = [
     ...Simple,
     ...Stylish,
 ]
-

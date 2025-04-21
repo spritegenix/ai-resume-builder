@@ -15,10 +15,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function Ats6({
-  resumeData,
-  className,
-}: ResumePreviewProps) {
+export default function Ats6({ resumeData, className }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
@@ -39,34 +36,48 @@ export default function Ats6({
       ref={containerRef}
     >
       <div
-        className={cn(BaseFontSize, !width && "invisible")}
+        className={cn(BaseFontSize, !width && "invisible", "relative")}
         style={{
           zoom: (1 / 794) * width,
         }}
         id="resumePreviewContent"
       >
+        <div className="absolute inset-y-0 left-[67%] h-full w-0 border border-zinc-300" />
+        <div className="absolute inset-x-0 top-[10.7rem] h-0 w-full border border-zinc-300" />
         {/* Top Section  */}
-        <div className="p-6 pb-3">
+        <div className="h-[8.5rem] p-6 pb-3">
           <PersonalInfoHeader resumeData={resumeData} />
         </div>
-        <div className="grid h-full grid-cols-12 space-y-2">
+        <div className="grid h-full grid-cols-12 gap-x-3">
           {/* Left Side  */}
           <div className="col-span-8 space-y-3 p-3 pl-6">
             {/* Summary */}
             {resumeData.summary && (
               <>
-                <Heading colorHex={colorHex}>Profile</Heading>
-                <Text>{resumeData.summary}</Text>
+                <Heading isBorder={false} colorHex={colorHex}>
+                  Profile
+                </Heading>
+                <Text className="text-justify">{resumeData.summary}</Text>
               </>
             )}
             {/* Experience */}
             {!!resumeData?.workExperiences &&
               resumeData?.workExperiences?.length > 0 && (
                 <>
-                  <Heading colorHex={colorHex}>Professional Experience</Heading>
-                  <ul className="space-y-1">
+                  <Heading colorHex={colorHex}>Experience</Heading>
+                  <ul className="relative !mt-0 space-y-1 pl-4">
+                    <div className="absolute inset-y-0 left-1 h-full w-0 border border-l border-zinc-300" />
                     {resumeData.workExperiences?.map((exp, index) => (
-                      <li key={index} className="z-10 break-inside-avoid">
+                      <li
+                        key={index}
+                        className="relative z-10 break-inside-avoid"
+                      >
+                        <span
+                          className="absolute -left-[0.885rem] top-1.5 h-[6px] w-[6px] rounded-full"
+                          style={{
+                            backgroundColor: colorHex,
+                          }}
+                        />
                         <div className="!m-0 flex items-center justify-between">
                           <span
                             className="text-[1.2em] font-semibold"
@@ -107,63 +118,116 @@ export default function Ats6({
               resumeData.projectWorks?.length > 0 && (
                 <>
                   <Heading colorHex={colorHex}>Project Work</Heading>
-                  {resumeData.projectWorks?.map((item, index) => (
-                    <div key={index} className="!m-0 break-inside-avoid">
-                      <div className="!m-0 flex justify-between gap-1">
-                        <p className="flex gap-1">
-                          <Link
-                            href={
-                              !!item?.links && item?.links[0]
-                                ? item?.links[0]
-                                : "#"
-                            }
-                            target="_blank"
-                            className="text-[1.2em] font-semibold"
-                            style={{
-                              color: colorHex,
-                            }}
-                          >
-                            {item.title}
-                          </Link>
-                          {!!item.links &&
-                            item.links.map((l, index) => (
-                              <span key={index} className="mr-1 mt-1">
-                                <ContactLinks href={l} text={"NO_TEXT"} />
+                  <ul className="relative space-y-1 pl-4">
+                    <div className="absolute inset-y-0 left-1 h-full w-0 border border-l border-zinc-300" />
+                    {resumeData.projectWorks?.map((item, index) => (
+                      <li
+                        key={index}
+                        className="relative z-10 break-inside-avoid"
+                      >
+                        <span
+                          className="absolute -left-[0.885rem] top-1.5 h-[6px] w-[6px] rounded-full"
+                          style={{
+                            backgroundColor: colorHex,
+                          }}
+                        />
+                        <div className="!m-0 flex justify-between gap-1">
+                          <p className="flex gap-1">
+                            <Link
+                              href={
+                                !!item?.links && item?.links[0]
+                                  ? item?.links[0]
+                                  : "#"
+                              }
+                              target="_blank"
+                              className="text-[1.2em] font-semibold"
+                              style={{
+                                color: colorHex,
+                              }}
+                            >
+                              {item.title}
+                            </Link>
+                            {!!item.links &&
+                              item.links.map((l, index) => (
+                                <span key={index} className="mr-1 mt-1">
+                                  <ContactLinks href={l} text={"NO_TEXT"} />
+                                </span>
+                              ))}
+                          </p>
+                          <p className="flex flex-col text-right">
+                            {item.company && (
+                              <span className="italic">{item.company}</span>
+                            )}
+                            {item.startDate && (
+                              <span>
+                                {item.startDate &&
+                                  `${formatDate(item.startDate, "MMM yyyy")} - `}
+                                {item.endDate
+                                  ? formatDate(item.endDate, "MMM yyyy")
+                                  : "Present"}
                               </span>
-                            ))}
-                        </p>
-                        <p className="flex flex-col text-right">
-                          {item.company && (
-                            <span className="italic">{item.company}</span>
-                          )}
-                          {item.startDate && (
-                            <span>
-                              {item.startDate &&
-                                `${formatDate(item.startDate, "MMM yyyy")} - `}
-                              {item.endDate
-                                ? formatDate(item.endDate, "MMM yyyy")
-                                : "Present"}
-                            </span>
-                          )}
-                        </p>
-                      </div>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: item.description || "",
-                        }}
-                        className="richTextEditorStyle whitespace-pre-line"
-                      />
-                    </div>
-                  ))}
+                            )}
+                          </p>
+                        </div>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item.description || "",
+                          }}
+                          className="richTextEditorStyle whitespace-pre-line"
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </>
               )}
           </div>
           {/* Right Side  */}
           <div className="col-span-4 space-y-3 p-3 pr-6">
+            {/* Social Links  */}
+            {resumeData.photo && (
+              <>
+                <Heading isBorder={false} colorHex={colorHex}>
+                  Contact
+                </Heading>
+                <div className="!mt-0 space-y-1">
+                  {(resumeData.city || resumeData.country) && (
+                    <p className="flex items-center gap-1">
+                      <BiSolidMap />
+                      {resumeData.city}
+                      {resumeData.city && resumeData.country ? ", " : ""}
+                      {resumeData.country}
+                    </p>
+                  )}
+                  <ContactLinks
+                    text={resumeData.phone}
+                    href={`tel:${resumeData.phone}`}
+                  />
+                  <ContactLinks
+                    text={resumeData.email}
+                    href={`mailto:${resumeData.email}`}
+                  />
+                  {!!resumeData.socialLinks &&
+                    resumeData.socialLinks.length > 0 &&
+                    resumeData.socialLinks.map((link, index) => (
+                      <ContactLinks
+                        key={index}
+                        text={link.split("://")?.[1]}
+                        href={link}
+                      />
+                    ))}
+                  {resumeData.portfolioLink && (
+                    <ContactLinks
+                      text={"Portfolio"}
+                      href={resumeData.portfolioLink}
+                    />
+                  )}
+                </div>
+              </>
+            )}
             {/* Skills  */}
             {!!resumeData.skills && resumeData.skills?.length > 0 && (
               <>
-                <Heading colorHex={colorHex}>Skills</Heading>
+                <Heading isBorder={!resumeData.photo ? false : true} colorHex={colorHex}>Skills</Heading>
                 {resumeData.skills?.map((skill, index) => (
                   <div key={index} className="!m-0 break-inside-avoid">
                     <div className="!m-0 flex items-center justify-between">
@@ -294,7 +358,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-8 flex h-max gap-6">
+      <div className={"col-span-8 flex h-max gap-6"}>
         <div
           className={`flex ${photoSrc ? "h-[100px]" : ""} flex-col justify-between`}
         >
@@ -307,7 +371,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       </div>
       {/* Social Links or Photo */}
-      <div className="col-span-4 my-auto flex flex-col items-end">
+      <div className={cn("col-span-4 my-auto flex h-full flex-col", photoSrc && "items-center")}>
         {photoSrc ? (
           <Image
             src={photoSrc}
@@ -325,13 +389,13 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
             }}
           />
         ) : (
-          <>
+          <div className="flex h-full flex-col justify-between pl-7">
             {(city || country) && (
               <p className="flex items-center gap-1">
+                <BiSolidMap />
                 {city}
                 {city && country ? ", " : ""}
                 {country}
-                <BiSolidMap />
               </p>
             )}
             <ContactLinks text={phone} href={`tel:${phone}`} />
@@ -348,7 +412,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
             {portfolioLink && (
               <ContactLinks text={"Portfolio"} href={portfolioLink} />
             )}
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -379,22 +443,38 @@ function ContactLinks({
   );
 }
 
-function Text({ children }: { children: string }) {
-  return <p className="!m-0 whitespace-pre-line">{children}</p>;
+function Text({
+  children,
+  className,
+}: {
+  children: string;
+  className?: string;
+}) {
+  return (
+    <p className={cn("!m-0 whitespace-pre-line", className)}>{children}</p>
+  );
 }
 
 function Heading({
   children,
   colorHex,
+  isBorder = true,
 }: {
   children: string;
   colorHex: string | undefined;
+  isBorder?: boolean;
 }) {
   return (
     <>
-      <div className="break-inside-avoid">
+      <div className="relative break-inside-avoid pb-2">
+        {isBorder && (
+          <>
+            <div className="absolute inset-x-0 -top-[0.3rem] h-0 w-full border border-zinc-300" />
+            <div className="absolute inset-x-0 bottom-[0.25rem] h-0 w-full border border-zinc-300" />
+          </>
+        )}
         <h1
-          className="text-nowrap text-[1.4em] font-semibold uppercase tracking-widest"
+          className="text-nowrap text-[1.4em] font-bold uppercase tracking-[0.2em]"
           style={{
             color: colorHex,
           }}
