@@ -10,7 +10,8 @@ import {
     Modern1
 } from "./index";
 
-import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1 } from "@/assets/resume-styles";
+import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1, m2 } from "@/assets/resume-styles";
+import Modern2 from "./Modern/Modern2";
 
 interface ResumePreviewProps {
     resumeData: ResumeValues;
@@ -172,6 +173,17 @@ const Modern: ResumeStyle[] = [
         tags: ["Multi Page"],
         price: "FREE",
         priority: 12,
+    },
+    {
+        id: "modern2",
+        name: "Modern Resume",
+        component: Modern2,
+        desc: "Highly ATS Friendly Resume. You can make add or remove your profile photo.",
+        samplePic: m2,
+        category: ["All", "ATS Friendly", "Modern"],
+        tags: ["Multi Page"],
+        price: "FREE",
+        priority: 13,
     }
 ]
 const Simple: ResumeStyle[] = []
