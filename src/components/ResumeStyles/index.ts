@@ -23,6 +23,7 @@ import Stylish2 from "./Stylish/Stylish2";
 // Modern
 import Modern1 from "./Modern/Modern1";
 import Modern2 from "./Modern/Modern2";
+import Modern3 from "./Modern/Modern3";
 
 // Creative
 
@@ -30,5 +31,5 @@ import Modern2 from "./Modern/Modern2";
 export {
     Ats1, Ats2, Ats3, Ats4, Ats5, Ats6, Ats7, Ats8, Ats9, Ats10, Ats11, Ats12, Ats13, Ats14, Ats15,
     Stylish1,Stylish2,
-    Modern1, Modern2,
+    Modern1, Modern2, Modern3,
 };
