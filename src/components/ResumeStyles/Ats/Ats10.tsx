@@ -328,14 +328,14 @@ function PersonalInfoHeader({
         backgroundColor: hexBgColor,
       }}
     >
-      <div className="col-span-4 flex justify-center">
+      <div className="col-span-4 flex justify-center overflow-hidden">
         {photoSrc && (
           <Image
             src={photoSrc}
             width={500}
             height={500}
             alt="Author photo"
-            className="aspect-square h-[140px] w-[140px] object-cover object-top"
+            className="aspect-square h-[135px] w-[135px] object-cover"
             style={{
               borderRadius:
                 borderStyle === BorderStyles.SQUARE

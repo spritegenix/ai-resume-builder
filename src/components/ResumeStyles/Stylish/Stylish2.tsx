@@ -53,7 +53,7 @@ export default function Modern1({ resumeData, className }: ResumePreviewProps) {
         id="resumePreviewContent"
       >
         {/* Left Side  */}
-        <div className="col-span-4 space-y-3 border-2 border-black p-6 text-gray-600">
+        <div className="col-span-4 space-y-3 border-2 border-black p-6">
           <PersonalInfoHeader
             resumeData={resumeData}
             ColorOpacity={ColorOpacity}
