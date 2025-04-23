@@ -169,67 +169,71 @@ export default function Modern2({ resumeData, className }: ResumePreviewProps) {
         {!!resumeData.educations && resumeData.educations?.length > 0 && (
           <>
             <Heading colorHex={colorHex}>Academics</Heading>
-            {resumeData.educations?.map((edu, index) => (
-              <div key={index} className="!m-0 break-inside-avoid">
-                <p className="!m-0 flex w-full justify-between">
-                  <span className="font-semibold">
-                    {edu.school}, {edu.location}
-                  </span>{" "}
-                  <span>
-                    {edu.startDate &&
-                      `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
-                    {edu.endDate
-                      ? formatDate(edu.endDate, "MMM yyyy")
-                      : "Present"}
-                  </span>
-                </p>
-                <p className="!m-0 flex w-full justify-between">
-                  <span className="">
-                    {edu.degree} ({edu.stream})
-                  </span>
-                  <span>{edu.marks}</span>
-                </p>
-                <p>{edu.description}</p>
-              </div>
-            ))}
+            <div className="!m-0 grid grid-cols-2 gap-5">
+              {resumeData.educations?.map((edu, index) => (
+                <div key={index} className="break-inside-avoid">
+                  <p className="!m-0 flex w-full justify-between">
+                    <span className="font-semibold">
+                      {edu.school}, {edu.location}
+                    </span>{" "}
+                    <span>
+                      {edu.startDate &&
+                        `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
+                      {edu.endDate
+                        ? formatDate(edu.endDate, "MMM yyyy")
+                        : "Present"}
+                    </span>
+                  </p>
+                  <p className="!m-0 flex w-full justify-between">
+                    <span className="">
+                      {edu.degree} ({edu.stream})
+                    </span>
+                    <span>{edu.marks}</span>
+                  </p>
+                  <p>{edu.description}</p>
+                </div>
+              ))}
+            </div>
           </>
         )}
-        {/* Certifications  */}
-        {!!resumeData.certifications &&
-          resumeData.certifications?.length > 0 && (
-            <>
-              <Heading colorHex={colorHex}>Certifications</Heading>
-              <div
-                className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
-              >
-                {resumeData.certifications?.map((skill, index) => (
-                  <div key={index} className="!m-0 break-inside-avoid">
-                    <Link
-                      href={skill.link ? skill.link : "#"}
-                      className="before:mr-1 before:content-['•']"
-                    >
-                      {skill.title}
-                    </Link>{" "}
-                    {skill.description && (
-                      <span className="italic"> - {skill.description}</span>
-                    )}
-                  </div>
-                ))}
+        <div className="grid grid-cols-2 gap-5">
+          {/* Certifications  */}
+          {!!resumeData.certifications &&
+            resumeData.certifications?.length > 0 && (
+              <div>
+                <Heading colorHex={colorHex}>Certifications</Heading>
+                <div
+                  className={`flex flex-wrap gap-x-2 ${resumeData.certifications.find((skill) => skill.description) && "flex-col"}`}
+                >
+                  {resumeData.certifications?.map((skill, index) => (
+                    <div key={index} className="!m-0 break-inside-avoid">
+                      <Link
+                        href={skill.link ? skill.link : "#"}
+                        className="before:mr-1 before:content-['•']"
+                      >
+                        {skill.title}
+                      </Link>{" "}
+                      {skill.description && (
+                        <span className="italic"> - {skill.description}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </>
+            )}
+          {/* Interest  */}
+          {!!resumeData.others?.title && (
+            <div className="!m-0 break-inside-avoid">
+              <Heading colorHex={colorHex}>{resumeData.others.title}</Heading>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: resumeData.others.description || "",
+                }}
+                className="richTextEditorStyle whitespace-pre-line"
+              />
+            </div>
           )}
-        {/* Interest  */}
-        {!!resumeData.others?.title && (
-          <div className="!m-0 break-inside-avoid">
-            <Heading colorHex={colorHex}>{resumeData.others.title}</Heading>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: resumeData.others.description || "",
-              }}
-              className="richTextEditorStyle whitespace-pre-line"
-            />
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -250,7 +254,7 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
     borderStyle,
   } = resumeData;
   const colorHex =
-    resumeData.colorHex === "#000000" ? "#fcb400" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#65615f" : resumeData.colorHex;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -345,7 +349,7 @@ function PersonalInfoHeader1({ resumeData }: { resumeData: ResumeValues }) {
     email,
   } = resumeData;
   const colorHex =
-  resumeData.colorHex === "#000000" ? "#fcb400" : resumeData.colorHex;
+    resumeData.colorHex === "#000000" ? "#65615f" : resumeData.colorHex;
 
   return (
     <div className="mb-2">
@@ -436,13 +440,13 @@ function Heading({
 }) {
   return (
     <>
-      <div className="flex break-inside-avoid gap-x-0.5 px-2 py-0.5"
-      style={{
-        backgroundColor: colorHex,
-      }}>
-        <h1
-          className="text-nowrap text-[1.2em] font-bold tracking-[0.2em] text-white"
-        >
+      <div
+        className="flex break-inside-avoid gap-x-0.5 px-2 py-0.5 !mb-1"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      >
+        <h1 className="text-nowrap text-[1.2em] font-bold tracking-[0.2em] text-white">
           {children}
         </h1>
       </div>
