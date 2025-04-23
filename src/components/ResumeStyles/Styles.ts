@@ -10,7 +10,7 @@ import {
     Modern1, Modern2,Modern3,
     Stylish2
 } from "./index";
-import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1, m2, st2 m3 } from "@/assets/resume-styles";
+import { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, st1, m1, m2, st2, m3 } from "@/assets/resume-styles";
 
 interface ResumePreviewProps {
     resumeData: ResumeValues;
