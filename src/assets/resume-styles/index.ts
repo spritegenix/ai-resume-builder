@@ -13,16 +13,18 @@ import a10 from "@/assets/resume-styles/ats/a10.webp";
 
 // Stylish
 import st1 from "@/assets/resume-styles/stylish/st1.png"
+import st2 from "@/assets/resume-styles/stylish/st2.jpg"
 // Simple
 
 // Modern
 import m1 from "@/assets/resume-styles/modern/m1.png"
 import m2 from "@/assets/resume-styles/modern/m2.png"
+import m3 from "@/assets/resume-styles/modern/m3.jpg"
 // -------------------------------- //
 export {
     a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
 
-    st1,
+    st1,st2,
 
-    m1, m2,
+    m1, m2,m3
 };

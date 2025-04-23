@@ -20,10 +20,7 @@ interface ResumePreviewProps {
   className?: string;
 }
 
-export default function Ats9({
-  resumeData,
-  className,
-}: ResumePreviewProps) {
+export default function Ats9({ resumeData, className }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
@@ -32,7 +29,7 @@ export default function Ats9({
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
   const colorHex =
-    resumeData.colorHex === "#000000" ? "#41224a" : resumeData.colorHex;
+    resumeData.colorHex === undefined ? "#41224a" : resumeData.colorHex;
   return (
     <div
       className={cn(

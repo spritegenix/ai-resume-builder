@@ -29,7 +29,7 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
     ? `text-[${resumeData.baseFontSize}px]`
     : "text-[10px]";
   const colorHex =
-    resumeData.colorHex === "#000000" ? "#e5e6e3" : resumeData.colorHex;
+    resumeData.colorHex === undefined ? "#e5e6e3" : resumeData.colorHex;
   return (
     <div
       className={cn(
@@ -75,33 +75,36 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
                   <PiSuitcaseSimple /> Professional Experience
                 </Heading>
                 {resumeData.workExperiences?.map((exp, index) => (
-                  <div key={index} className="!m-0 break-inside-avoid pt-1">
-                    <div className="!m-0">
-                      <div className="flex justify-between text-[1.1em] font-semibold italic">
-                        {exp.position}{" "}
-                        {exp.startDate && (
-                          <span>
-                            {formatDate(exp.startDate, "MMM yyyy")} -{" "}
-                            {exp.endDate
-                              ? formatDate(exp.endDate, "MMM yyyy")
-                              : "Present"}
-                          </span>
-                        )}
-                      </div>
+                  <div
+                    key={index}
+                    className="!m-0 grid break-inside-avoid grid-cols-4 pt-1"
+                  >
+                    <div className="flex flex-col gap-y-1">
+                      {exp.startDate && (
+                        <span>
+                          {formatDate(exp.startDate, "MMM yyyy")} -{" "}
+                          {exp.endDate
+                            ? formatDate(exp.endDate, "MMM yyyy")
+                            : "Present"}
+                        </span>
+                      )}
+                      {exp.jobLocation && (
+                        <span className="font-semibold">{exp.jobLocation}</span>
+                      )}
+                    </div>
+                    <div className="col-span-3 !m-0">
                       <div className="flex items-center justify-between">
                         <span
                           className="text-[1.2em] font-semibold"
                           style={{
-                            color: colorHex,
+                            color: resumeData.colorHex,
                           }}
                         >
                           {exp.company}
                         </span>
-                        {exp.jobLocation && (
-                          <span className="font-semibold">
-                            {exp.jobLocation}
-                          </span>
-                        )}
+                      </div>
+                      <div className="text-[1.1em] font-semibold italic">
+                        {exp.position}
                       </div>
 
                       <div
@@ -125,9 +128,9 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
               {resumeData.projectWorks?.map((item, index) => (
                 <div
                   key={index}
-                  className="!m-0 break-inside-avoid space-y-1 pt-1"
+                  className="!m-0 grid break-inside-avoid grid-cols-4 space-y-1 pt-1"
                 >
-                  <div className="!m-0 flex justify-between gap-1">
+                  <div className="!m-0 flex flex-col gap-y-1">
                     <p className="flex gap-1">
                       <Link
                         href={
@@ -161,18 +164,18 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
                           : "Present"}
                       </span>
                     )}
+                    {item.company && (
+                      <span className="italic">{item.company}</span>
+                    )}
                   </div>
 
-                  <div className="flex justify-between space-x-16">
+                  <div className="col-span-3">
                     <div
                       dangerouslySetInnerHTML={{
                         __html: item.description || "",
                       }}
                       className="richTextEditorStyle whitespace-pre-line"
                     />
-                    {item.company && (
-                      <span className="italic">{item.company}</span>
-                    )}
                   </div>
                 </div>
               ))}
@@ -184,7 +187,7 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
               <Heading colorHex={colorHex}>
                 <BsPersonGear /> Skills
               </Heading>
-              <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+              <div className="grid grid-cols-4 gap-x-2 gap-y-2">
                 {resumeData.skills?.map((skill, index) => (
                   <div key={index} className="!m-0 break-inside-avoid">
                     <div className="!m-0 flex items-center justify-between">
@@ -210,27 +213,31 @@ export default function Ats10({ resumeData, className }: ResumePreviewProps) {
               </Heading>
 
               {resumeData.educations?.map((edu, index) => (
-                <div key={index} className="break-inside-avoid gap-x-2 gap-y-2">
+                <div
+                  key={index}
+                  className="grid break-inside-avoid grid-cols-4"
+                >
                   <div className="">
-                    <div className="!m-0 flex w-full flex-col justify-between">
-                      <span className="flex justify-between font-semibold">
-                        {edu.school}{" "}
-                        <span>
-                          {edu.startDate &&
-                            `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
-                          {edu.endDate
-                            ? formatDate(edu.endDate, "MMM yyyy")
-                            : "Present"}
-                        </span>
-                      </span>{" "}
-                      <span className="flex justify-between">
-                        {edu.degree} ({edu.stream})<span> {edu.location}</span>
-                      </span>
-                      <p>{edu.description}</p>
-                    </div>
+                    <p>
+                      {edu.startDate &&
+                        `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
+                      {edu.endDate
+                        ? formatDate(edu.endDate, "MMM yyyy")
+                        : "Present"}
+                    </p>
+                    <p> {edu.location}</p>
                     <p className="!m-0 flex w-full flex-col justify-between">
                       {edu.marks && <span>Percentage: {edu.marks}%</span>}
                     </p>
+                  </div>
+                  <div className="col-span-3 !m-0 w-full">
+                    <span className="flex justify-between font-semibold">
+                      {edu.school}{" "}
+                    </span>{" "}
+                    <span className="flex justify-between">
+                      {edu.degree} ({edu.stream})
+                    </span>
+                    <p>{edu.description}</p>
                   </div>
                 </div>
               ))}
@@ -289,7 +296,7 @@ function PersonalInfoHeader({
   hexBgColor,
 }: {
   resumeData: ResumeValues;
-  hexBgColor?: string;
+  hexBgColor: string;
 }) {
   const {
     photo,
@@ -316,19 +323,19 @@ function PersonalInfoHeader({
 
   return (
     <div
-      className="mb-2 grid grid-cols-12 p-10"
+      className="mb-2 grid grid-cols-12 px-10 py-5"
       style={{
         backgroundColor: hexBgColor,
       }}
     >
-      <div className="col-span-3">
+      <div className="col-span-4 flex justify-center overflow-hidden">
         {photoSrc && (
           <Image
             src={photoSrc}
             width={500}
             height={500}
             alt="Author photo"
-            className="aspect-square h-[100px] w-[100px] object-cover object-top"
+            className="aspect-square h-[135px] w-[135px] object-cover"
             style={{
               borderRadius:
                 borderStyle === BorderStyles.SQUARE
@@ -340,9 +347,9 @@ function PersonalInfoHeader({
           />
         )}
       </div>
-      <div className="col-span-9 flex h-max flex-col">
+      <div className="col-span-8 flex h-max flex-col">
         <div className={`gird flex flex-col justify-between`}>
-          <div className="flex flex-col items-start gap-x-1 ">
+          <div className="flex flex-col items-start gap-x-1 text-white">
             <p className="text-[1.8rem] font-bold">
               {firstName} {lastName}
             </p>
@@ -350,14 +357,14 @@ function PersonalInfoHeader({
           </div>
         </div>
         {/* Social Links  */}
-        <div className="flex w-[60%] flex-wrap gap-x-4 gap-y-1 text-[1.2em]">
+        <div className="flex w-[70%] flex-wrap gap-x-4 gap-y-1 text-[1.2em]">
           {(city || country) && (
             <p className="flex items-center gap-1">
               <span>
                 <BiSolidMap color={`${hexToRgbaPercent("#fff", 70)}`} />
               </span>
 
-              <span >
+              <span className="text-white">
                 {city}
                 {city && country ? ", " : ""}
                 {country}
@@ -388,7 +395,7 @@ function PersonalInfoHeader1({
   hexBgColor,
 }: {
   resumeData: ResumeValues;
-  hexBgColor?: string;
+  hexBgColor: string;
 }) {
   const {
     firstName,
@@ -413,7 +420,7 @@ function PersonalInfoHeader1({
         href={resumeData.portfolioLink || "#"}
         className="cursor-pointer text-center"
       >
-        <div className="flex flex-col items-end gap-x-3">
+        <div className="flex flex-col items-start gap-x-3 text-white">
           <p
             className="text-[1.8rem] font-bold"
             // style={{
@@ -435,9 +442,9 @@ function PersonalInfoHeader1({
         </div>
       </Link>
       {/* Social Links  */}
-      <div className="grid grid-cols-3 flex-wrap gap-x-8 gap-y-1 text-sm">
+      <div className="grid grid-cols-2 flex-wrap gap-x-8 gap-y-1 text-sm">
         {(city || country) && (
-          <p className="flex items-center gap-1 ">
+          <p className="flex items-center gap-1 text-white">
             <span>
               <BiSolidMap color={`${hexToRgbaPercent("#fff", 70)}`} />
             </span>
@@ -490,7 +497,7 @@ function ContactLinks({
           >
             {icon ? icon : <SocialMediaIconFinder url={href ? href : ""} />}
           </span>
-          {text === "NO_TEXT" ? "" : <p className="">{text}</p>}
+          {text === "NO_TEXT" ? "" : <p className="text-white">{text}</p>}
         </Link>
       )}
     </>
