@@ -18,11 +18,12 @@ import st2 from "@/assets/resume-styles/stylish/st2.jpg"
 
 // Modern
 import m1 from "@/assets/resume-styles/modern/m1.png"
+import m2 from "@/assets/resume-styles/modern/m2.png"
 // -------------------------------- //
 export {
     a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
 
     st1,st2,
 
-    m1
+    m1, m2,
 };
