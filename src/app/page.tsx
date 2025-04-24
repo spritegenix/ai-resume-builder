@@ -46,8 +46,8 @@ export default function Home() {
 
 function BannerSection() {
   return (
-    <BackStyle3 className="grid gap-5 lg:h-[90vh] py-8 md:py-16 font-inter md:grid-cols-2">
-      <div className="space-y-5 my-auto">
+    <BackStyle3 className="grid gap-5 py-8 font-inter md:grid-cols-2 md:py-16 lg:h-[90vh]">
+      <div className="my-auto space-y-5">
         <h2 className="flex items-center gap-1 rounded-full bg-w1/30 p-1 px-4 text-sm text-white sm:w-max sm:text-pretty sm:text-base">
           <LuBadgeIndianRupee className="rounded-full bg-w1 p-1 text-3xl text-white" />{" "}
           Discover The Easiest ways to Build Your CV!
@@ -90,7 +90,7 @@ function Section1() {
         On-the-Fly Creative Resume and CV \n Builder ✍️ Across Your Favorite
         Tools
       </Title>
-      <div className="mt-10 md:!mt-20 grid grid-cols-1 gap-10 md:gap-20 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-10 md:!mt-20 md:grid-cols-3 md:gap-20">
         <Card
           icon={c5}
           title="AI-Powered Resume \n Writing"
@@ -113,7 +113,7 @@ function Section1() {
 
 function Section2() {
   return (
-    <Wrapper className="bg-custom-gradient rounded-t-3xl py-8 md:py-16 font-inter px-3">
+    <Wrapper className="bg-custom-gradient rounded-t-3xl px-3 py-8 font-inter md:py-16">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         <Image
           src={image1}
@@ -124,17 +124,24 @@ function Section2() {
         />
         <div className="space-y-5">
           <SubTitle className="max-md:mx-auto">Learn about us</SubTitle>
-          <Title className="max-md:text-center">Remove Headache of Creating a Resume!</Title>
+          <Title className="max-md:text-center">
+            Remove Headache of Creating a Resume!
+          </Title>
           <p>
             Struggling to create the perfect resume? Our AI-powered platform
             takes the stress out of resume writing, ensuring a professional,
             polished, and job-winning CV in minutes.
           </p>
-          <Button asChild size="lg" variant="premium" className="max-md:mx-auto">
+          <Button
+            asChild
+            size="lg"
+            variant="premium"
+            className="max-md:mx-auto"
+          >
             <Link href="/resumes">Create Your CV</Link>
           </Button>
         </div>
-        <ul className="list-none md:space-y-5 md:text-xl md:mt-8">
+        <ul className="list-none md:mt-8 md:space-y-5 md:text-xl">
           {[
             "Proven CV Templates to increase Hiring Chance",
             "Creative and Clean Templates Design",
@@ -179,10 +186,7 @@ async function Templates() {
     ]);
   }
   return (
-    <Wrapper
-      bgColor="pattern1 bg-w3"
-      className="relative space-y-5 py-16"
-    >
+    <Wrapper bgColor="pattern1 bg-w3" className="relative space-y-5 py-16">
       <Image
         src={hoverMe}
         alt="Hover Me"
@@ -222,11 +226,7 @@ async function Templates() {
 
 function TestimonialsSection() {
   return (
-    <Wrapper
-      bgImage={bg}
-      bgColor="bg-w3"
-      className="relative space-y-5 py-16"
-    >
+    <Wrapper bgImage={bg} bgColor="bg-w3" className="relative space-y-5 py-16">
       <SubTitle className="mx-auto bg-white/40 text-white">
         What Our Client Say
       </SubTitle>
@@ -289,7 +289,7 @@ function Title({
     <>
       <AutoTextLineBreak
         as={"h2"}
-        className={cn("text-2xl md:text-4xl font-bold text-w3", className)}
+        className={cn("text-2xl font-bold text-w3 md:text-4xl", className)}
       >
         {children}
       </AutoTextLineBreak>
@@ -313,7 +313,7 @@ function Card({
       </div>
       <AutoTextLineBreak
         as={"h2"}
-        className="border-w2 text-xl md:text-3xl font-bold text-w3"
+        className="border-w2 text-xl font-bold text-w3 md:text-3xl"
       >
         {title}
       </AutoTextLineBreak>
@@ -337,7 +337,7 @@ function Card1({
         <Image src={icon} alt="Resume Steps" className="w-16 object-contain" />
       </div>
       <p className="font-semibold">Step Num #{index}</p>
-      <p className="text-lg font-bold text-center">{title}</p>
+      <p className="text-center text-lg font-bold">{title}</p>
     </div>
   );
 }
