@@ -25,19 +25,26 @@ export default function Modern1({ resumeData, className }: ResumePreviewProps) {
     : "text-[10px]";
 
   const colorHex =
-    resumeData.colorHex === "#000000" ? "#163853" : resumeData.colorHex;
-
+    resumeData.colorHex === "#000000" || resumeData.colorHex === undefined
+      ? "#6f706a"
+      : resumeData.colorHex;
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white font-arial text-[#545454]",
+        "relative aspect-[210/297] h-fit w-full overflow-hidden bg-white font-poppins",
         className,
       )}
       ref={containerRef}
     >
       <div
+        className="absolute z-[0] h-[180px] w-screen"
+        style={{
+          backgroundColor: hexToRgbaPercent(colorHex, 100),
+        }}
+      />
+      <div
         className={cn(
-          "mx-6 grid h-full grid-cols-12 space-y-2",
+          "mx-10 grid h-full grid-cols-12 space-y-2",
           BaseFontSize,
           !width && "invisible",
         )}
@@ -48,238 +55,238 @@ export default function Modern1({ resumeData, className }: ResumePreviewProps) {
       >
         {/* Left Side  */}
         <div
-          className="col-span-4 mt-16 space-y-3 rounded-t-full p-6"
+          className="z-[1] col-span-4 mt-16 space-y-3 rounded-t-full p-6"
           style={{
-            backgroundColor: colorHex,
+            backgroundColor: alteredHexToRgbaPercent(colorHex),
           }}
         >
           <PersonalInfoHeader resumeData={resumeData} />
           {/* Skills  */}
           {!!resumeData.skills && resumeData.skills?.length > 0 && (
-            <>
+            <div className="space-y-2">
               <Heading>Skills</Heading>
-              {resumeData.skills?.map((skill, index) => (
-                <div key={index} className="!m-0 break-inside-avoid">
-                  <div className="!m-0 flex items-center justify-between">
-                    <p>
-                      <span className="font-semibold">{skill.title}</span>
-                      {skill.skillName && skill.skillName.length > 0 && (
-                        <span>- {skill.skillName?.join(", ")}</span>
-                      )}
-                    </p>
+              <div>
+                {resumeData.skills?.map((skill, index) => (
+                  <div
+                    key={index}
+                    className="!m-0 break-inside-avoid space-y-2"
+                  >
+                    <div className="!m-0 flex items-center justify-between">
+                      <ul>
+                        <li className="list-inside list-disc">
+                          <span className="font-semibold">{skill.title}</span>
+                          {skill.skillName && skill.skillName.length > 0 && (
+                            <span>- {skill.skillName?.join(", ")}</span>
+                          )}
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="whitespace-pre-line"></p>
                   </div>
-                  <p className="whitespace-pre-line"></p>
-                </div>
-              ))}
-            </>
+                ))}
+              </div>
+            </div>
           )}
           {/* Academics */}
           {!!resumeData.educations && resumeData.educations?.length > 0 && (
-            <>
+            <div className="space-y-2">
               <Heading>Education</Heading>
-              {resumeData.educations?.map((edu, index) => (
-                <div
-                  key={index}
-                  className={cn(
-                    "!m-0 break-inside-avoid",
-                    index !== (resumeData.educations?.length ?? 0) - 1 &&
-                      "pb-2",
-                  )}
-                >
-                  <div className="!m-0">
-                    <p>
-                      {edu.startDate &&
-                        `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
-                      {edu.endDate
-                        ? formatDate(edu.endDate, "MMM yyyy")
-                        : "Present"}
-                    </p>
-                    <p className="font-semibold">
-                      {edu.school}
-                      {edu.location && `, ${edu.location}`}
-                    </p>{" "}
-                  </div>
-                  <ul className="!mt-0 list-disc pl-3">
-                    {(edu.degree || edu.stream) && (
-                      <li className="">
-                        {edu.degree} {edu.stream && `(${edu.stream})`}
-                      </li>
+              <div>
+                {resumeData.educations?.map((edu, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      "!m-0 break-inside-avoid",
+                      index !== (resumeData.educations?.length ?? 0) - 1 &&
+                        "pb-2",
                     )}
-                    {edu.marks && <li>{edu.marks}</li>}
-                    {edu.description && <li>{edu.description}</li>}
-                  </ul>
-                </div>
-              ))}
-            </>
+                  >
+                    <div className="!m-0">
+                      <p>
+                        {edu.startDate &&
+                          `${formatDate(edu.startDate, "MMM yyyy")} -`}{" "}
+                        {edu.endDate
+                          ? formatDate(edu.endDate, "MMM yyyy")
+                          : "Present"}
+                      </p>
+                      <p className="font-semibold">
+                        {edu.school}
+                        {edu.location && `, ${edu.location}`}
+                      </p>{" "}
+                    </div>
+                    <ul className="!mt-0 list-disc pl-3">
+                      {(edu.degree || edu.stream) && (
+                        <li className="">
+                          {edu.degree} {edu.stream && `(${edu.stream})`}
+                        </li>
+                      )}
+                      {edu.marks && <li>Percentage: {edu.marks}</li>}
+                      {edu.description && <li>{edu.description}</li>}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
           {/* Certifications  */}
           {!!resumeData.certifications &&
             resumeData.certifications?.length > 0 && (
-              <>
+              <div className="space-y-2">
                 <Heading>Certifications</Heading>
-                <div className={cn("!m-0")}>
-                  {resumeData.certifications?.map((skill, index) => (
-                    <div
-                      key={index}
-                      className={cn(
-                        "break-inside-avoid",
-                        index !==
-                          (resumeData.certifications?.length ?? 0) - 1 &&
-                          "pb-2",
-                      )}
-                    >
-                      <Link
-                        href={skill.link ? skill.link : "#"}
-                        className="before:mr-1 before:content-['•']"
+                <div>
+                  <div className={cn("!m-0")}>
+                    {resumeData.certifications?.map((skill, index) => (
+                      <div
+                        key={index}
+                        className={cn(
+                          "break-inside-avoid",
+                          index !==
+                            (resumeData.certifications?.length ?? 0) - 1 &&
+                            "pb-2",
+                        )}
                       >
-                        {skill.title}
-                      </Link>{" "}
-                      {skill.description && <p>{skill.description}</p>}
-                    </div>
-                  ))}
+                        <Link
+                          href={skill.link ? skill.link : "#"}
+                          className="before:mr-1 before:content-['•']"
+                        >
+                          {skill.title}
+                        </Link>{" "}
+                        {skill.description && <p>{skill.description}</p>}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </>
+              </div>
             )}
           {/* Interest  */}
           {!!resumeData.others?.title && (
-            <>
+            <div className="space-y-2">
               <Heading>{resumeData.others.title}</Heading>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: resumeData.others.description || "",
-                }}
-                className="richTextEditorStyle !mt-0 whitespace-pre-line"
-              />
-            </>
+              <div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: resumeData.others.description || "",
+                  }}
+                  className="richTextEditorStyle !mt-0 whitespace-pre-line"
+                />
+              </div>
+            </div>
           )}
         </div>
         {/* Right Side  */}
-        <div className="col-span-8 space-y-3 p-6 pl-3">
+        <div className="z-[1] col-span-8 space-y-3 p-6 pl-3">
           {/* Name And Job Title  */}
-          <div className="my-auto">
-            <p className="text-[3em]">
-              <span className="font-bold text-[#545454]">
-                {resumeData.firstName}
-              </span>{" "}
-              <span
-                style={{
-                  color: colorHex,
-                }}
-              >
-                {resumeData.lastName}
-              </span>
+          <div className="my-16 text-end text-white">
+            <p className="text-[40px]">
+              <span className="font-bold">{resumeData.firstName}</span>{" "}
+              <span className="font-semibold">{resumeData.lastName}</span>
             </p>
-            <p className="text-[1.6em] font-medium">{resumeData.jobTitle}</p>
+            <p className="text-[16px] font-medium">{resumeData.jobTitle}</p>
           </div>
           {/* Summary */}
           {resumeData.summary && (
-            <>
+            <div className="space-y-2">
               <Heading>Professional Summary</Heading>
-              <Text>{resumeData.summary}</Text>
-            </>
+              <div>
+                <Text>{resumeData.summary}</Text>
+              </div>
+            </div>
           )}
           {/* Experience */}
           {!!resumeData?.workExperiences &&
             resumeData?.workExperiences?.length > 0 && (
-              <>
+              <div className="space-y-2">
                 <Heading>Professional Experience</Heading>
-                <ul className="relative space-y-1 pl-4">
-                  <div className="absolute inset-y-0 left-1 h-full w-0 border border-l border-zinc-300" />
-                  {resumeData.workExperiences?.map((exp, index) => (
-                    <li
-                      key={index}
-                      className="relative z-10 break-inside-avoid"
-                    >
-                      <span
-                        className="absolute -left-[0.885rem] top-1.5 h-[6px] w-[6px] rounded-full"
-                        style={{
-                          backgroundColor: colorHex,
-                        }}
-                      />
-                      <div className="!m-0 flex items-center justify-between">
-                        <span
-                          className="text-[1.2em] font-semibold"
-                          style={{
-                            color: colorHex,
-                          }}
-                        >
-                          {exp.company}
-                        </span>
-                        {exp.jobLocation && <span>{exp.jobLocation}</span>}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[1.1em] font-semibold italic">
-                          {exp.position}
-                        </span>
-                        {exp.startDate && (
-                          <span>
-                            {formatDate(exp.startDate, "MMM yyyy")} -{" "}
-                            {exp.endDate
-                              ? formatDate(exp.endDate, "MMM yyyy")
-                              : "Present"}
+                <div>
+                  <ul className="relative pl-4">
+                    {resumeData.workExperiences?.map((exp, index) => (
+                      <li
+                        key={index}
+                        className="relative z-10 break-inside-avoid before:absolute before:-left-4 before:top-0 before:z-10 before:h-3 before:w-3 before:rounded-full before:border-[1px] before:border-zinc-900 before:bg-white after:absolute after:-left-[11px] after:top-0 after:z-0 after:h-full after:w-px after:bg-zinc-900"
+                      >
+                        <div className="!m-0 flex items-center justify-between">
+                          <span className="text-[1.2em] font-semibold">
+                            {exp.company}
                           </span>
-                        )}
-                      </div>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: exp.description || "",
-                        }}
-                        className="richTextEditorStyle whitespace-pre-line"
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </>
+                          {exp.jobLocation && <span>{exp.jobLocation}</span>}
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-[1.1em] font-semibold italic">
+                            {exp.position}
+                          </span>
+                          {exp.startDate && (
+                            <span>
+                              {formatDate(exp.startDate, "MMM yyyy")} -{" "}
+                              {exp.endDate
+                                ? formatDate(exp.endDate, "MMM yyyy")
+                                : "Present"}
+                            </span>
+                          )}
+                        </div>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: exp.description || "",
+                          }}
+                          className="richTextEditorStyle whitespace-pre-line"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             )}
           {/* Projects */}
           {!!resumeData.projectWorks && resumeData.projectWorks?.length > 0 && (
-            <>
+            <div className="space-y-2">
               <Heading>Project Work</Heading>
-              {resumeData.projectWorks?.map((item, index) => (
-                <div key={index} className="!m-0 break-inside-avoid">
-                  <div className="!m-0 flex justify-between gap-1">
-                    <p className="flex gap-1">
-                      <Link
-                        href={
-                          !!item?.links && item?.links[0] ? item?.links[0] : "#"
-                        }
-                        target="_blank"
-                        className="text-[1.2em] font-semibold"
-                        style={{
-                          color: colorHex,
-                        }}
-                      >
-                        {item.title}
-                      </Link>
-                      {!!item.links &&
-                        item.links.map((l, index) => (
-                          <span key={index} className="mr-1 mt-1">
-                            <ContactLinks href={l} text={"NO_TEXT"} />
+              <div>
+                {resumeData.projectWorks?.map((item, index) => (
+                  <div key={index} className="!m-0 break-inside-avoid pt-2">
+                    <div className="!m-0 flex justify-between gap-1">
+                      <p className="flex gap-1">
+                        <Link
+                          href={
+                            !!item?.links && item?.links[0]
+                              ? item?.links[0]
+                              : "#"
+                          }
+                          target="_blank"
+                          className="text-[1.2em] font-semibold"
+                        >
+                          {item.title}
+                        </Link>
+                        {!!item.links &&
+                          item.links.map((l, index) => (
+                            <span key={index} className="mr-1 mt-1">
+                              <ContactLinks href={l} text={"NO_TEXT"} />
+                            </span>
+                          ))}
+                      </p>
+                      <p className="flex flex-col text-right">
+                        {item.company && (
+                          <span className="italic">{item.company}</span>
+                        )}
+                        {item.startDate && (
+                          <span>
+                            {item.startDate &&
+                              `${formatDate(item.startDate, "MMM yyyy")} - `}
+                            {item.endDate
+                              ? formatDate(item.endDate, "MMM yyyy")
+                              : "Present"}
                           </span>
-                        ))}
-                    </p>
-                    <p className="flex flex-col text-right">
-                      {item.company && (
-                        <span className="italic">{item.company}</span>
-                      )}
-                      {item.startDate && (
-                        <span>
-                          {item.startDate &&
-                            `${formatDate(item.startDate, "MMM yyyy")} - `}
-                          {item.endDate
-                            ? formatDate(item.endDate, "MMM yyyy")
-                            : "Present"}
-                        </span>
-                      )}
-                    </p>
+                        )}
+                      </p>
+                    </div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item.description || "",
+                      }}
+                      className="richTextEditorStyle whitespace-pre-line"
+                    />
                   </div>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: item.description || "" }}
-                    className="richTextEditorStyle whitespace-pre-line"
-                  />
-                </div>
-              ))}
-            </>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -318,8 +325,10 @@ function PersonalInfoHeader({ resumeData }: { resumeData: ResumeValues }) {
         </div>
       )}
       {/* Social Links  */}
-      <div>
-        <Heading>Contact</Heading>
+      <div className="space-y-2">
+        {(city || country || socialLinks || portfolioLink) && (
+          <Heading>Contact</Heading>
+        )}
         {(city || country) && (
           <p className="flex items-center gap-1">
             <BiSolidMap />
@@ -378,12 +387,72 @@ function Text({ children }: { children: string }) {
 function Heading({ children }: { children: string }) {
   return (
     <>
-      <div className="grid break-inside-avoid grid-cols-6">
-        <h1 className="col-span-3 text-nowrap text-[1.2em] font-semibold uppercase">
+      <div className="grid break-inside-avoid grid-cols-6 items-center">
+        <h1 className="col-span-3 text-wrap text-[1.2em] font-semibold uppercase">
           {children}
         </h1>
-        <div className="col-span-3 mb-2 mt-auto h-0.5 w-10/12 justify-self-end bg-zinc-500" />
+        <div className="col-span-3 flex items-center justify-end">
+          <div className="h-0.5 w-10/12 bg-zinc-700" />
+        </div>
       </div>
     </>
   );
+}
+
+export function hexToRgbaPercent(
+  hex: string = "#fff",
+  alphaPercent: number = 100,
+): string {
+  // Remove "#" if present
+  hex = hex.replace(/^#/, "");
+
+  // Expand shorthand (#f06 → #ff0066)
+  if (hex.length === 3) {
+    hex = hex
+      .split("")
+      .map((char) => char + char)
+      .join("");
+  }
+
+  if (hex.length !== 6) {
+    throw new Error("Invalid hex color.");
+  }
+
+  const r: number = parseInt(hex.substring(0, 2), 16);
+  const g: number = parseInt(hex.substring(2, 4), 16);
+  const b: number = parseInt(hex.substring(4, 6), 16);
+
+  // Clamp alpha between 0–100
+  alphaPercent = Math.max(0, Math.min(100, alphaPercent));
+
+  return `rgba(${r}, ${g}, ${b}, ${alphaPercent}%)`;
+}
+
+export function alteredHexToRgbaPercent(
+  hex: string = "#fff",
+  alphaPercent: number = 100,
+): string {
+  // Remove "#" if present
+  hex = hex.replace(/^#/, "");
+
+  // Expand shorthand (#f06 → #ff0066)
+  if (hex.length === 3) {
+    hex = hex
+      .split("")
+      .map((char) => char + char)
+      .join("");
+  }
+
+  if (hex.length !== 6) {
+    throw new Error("Invalid hex color.");
+  }
+
+  const r: number = parseInt(hex.substring(0, 2), 16) + 80;
+  const g: number = parseInt(hex.substring(2, 4), 16) + 80;
+  const b: number = parseInt(hex.substring(4, 6), 16) + 80;
+
+  // Clamp alpha between 0–100
+  alphaPercent = Math.max(0, Math.min(100, alphaPercent));
+
+  return `rgba(${r}, ${g}, ${b}, ${alphaPercent}%)`;
 }
