@@ -21,7 +21,7 @@ export default function TemplateCard({
   const premiumModal = usePremiumModal();
 
   if (!isUser) {
-    console.log("not user");
+    // console.log("not user");
     return (
       <Link href={`/sign-in`}>
         <div className="cursor-pointer">
@@ -32,7 +32,7 @@ export default function TemplateCard({
   }
 
   if (canCreate) {
-    console.log("can create");
+    // console.log("can create");
     return (
       <Link href={`/editor?&styleId=${style.id}`}>
         <div className="cursor-pointer">
